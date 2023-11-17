@@ -8,3 +8,10 @@
   justify-content: center;
 }
 
+.name {
+  color: var(--text-dark-grey-secondary-text, #8585AD);
+}
+
+.right {
+  justify-self: end;
+}
