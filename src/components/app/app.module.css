@@ -2,7 +2,6 @@
   background-color: var(--interface-bg, #131316);
   height: 100vh;
   width: 100%;
-  max-width: 2000px;
   display: flex;
   flex-direction: column;
   align-items: center;

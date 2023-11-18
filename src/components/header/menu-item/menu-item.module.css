@@ -1,6 +1,5 @@
 .container {
   border-radius: 40px;
-  border: 1px dashed var(--interface-accent, #4C4CFF);
   width: 178px;
   height: 56px;
   display: flex;
