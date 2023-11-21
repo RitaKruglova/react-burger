@@ -1,5 +1,6 @@
 import listItemStyles from './list-item.module.css';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 function ListItem({ place, text, price, thumbnail }) {
   return (
@@ -27,6 +28,13 @@ function ListItem({ place, text, price, thumbnail }) {
       }
     </li>
   )
+}
+
+ListItem.propTypes = {
+  place: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired
 }
 
 export default ListItem;
