@@ -1,8 +1,13 @@
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import BurgerNavigation from './burger-navigation/burger-navigation';
 import IngredientList from './ingredient-list/ingredient-list';
+import Ingredient from './ingredient/ingredient';
+import data from '../../utils/data';
 
 function BurgerIngredients() {
+  const buns = data.filter((ingredient) => ingredient['type'] === 'bun');
+  const sauce = data.filter((ingredient) => ingredient['type'] === 'sauce');
+  const main = data.filter((ingredient) => ingredient['type'] === 'main');
   
   return (
     <section className={`${burgerIngredientsStyles.container} mt-10`}>
@@ -10,13 +15,19 @@ function BurgerIngredients() {
       <BurgerNavigation />
       <div className={`${burgerIngredientsStyles.ingredients} mt-10`}>
         <IngredientList title="Булки">
-          {}
+          {buns.map((ingredient) => (
+            <Ingredient src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+          ))}
         </IngredientList>
         <IngredientList title="Соусы">
-          {}
+          {sauce.map((ingredient) => (
+            <Ingredient src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+          ))}
         </IngredientList>
         <IngredientList title="Начинки">
-          {}
+          {main.map((ingredient) => (
+            <Ingredient src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+          ))}
         </IngredientList>
       </div>
     </section>

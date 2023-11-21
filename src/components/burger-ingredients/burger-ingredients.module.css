@@ -1,0 +1,17 @@
+.ingredients {
+  height: 756px;
+  width: 600px;
+  overflow-y: scroll;
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background-color: var(--text-dark-grey-secondary-text, #8585AD);
+}
+
+.ingredients::-webkit-scrollbar-track {
+  background-color: var(--interface-input, #2F2F37);
+}
