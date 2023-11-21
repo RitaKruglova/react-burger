@@ -16,17 +16,17 @@ function BurgerIngredients() {
       <div className={`${burgerIngredientsStyles.ingredients} mt-10`}>
         <IngredientList title="Булки">
           {buns.map((ingredient) => (
-            <Ingredient src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
           ))}
         </IngredientList>
         <IngredientList title="Соусы">
           {sauce.map((ingredient) => (
-            <Ingredient src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
           ))}
         </IngredientList>
         <IngredientList title="Начинки">
           {main.map((ingredient) => (
-            <Ingredient src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
           ))}
         </IngredientList>
       </div>
