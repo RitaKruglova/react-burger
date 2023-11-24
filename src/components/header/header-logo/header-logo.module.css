@@ -1,5 +1,8 @@
 .container {
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
   align-self: center;
   margin-top: 8px;
+  -ms-grid-column-align: center;
   justify-self: center;
 }

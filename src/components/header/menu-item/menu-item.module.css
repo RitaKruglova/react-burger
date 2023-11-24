@@ -2,8 +2,14 @@
   border-radius: 40px;
   width: 178px;
   height: 56px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   text-decoration: none;
 }
@@ -14,6 +20,7 @@
 }
 
 .right {
+  -ms-grid-column-align: end;
   justify-self: end;
 }
 

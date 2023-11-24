@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import PropTypes from 'prop-types';
 
 function Modal({ isOrderDetails, title, setIsModalOpen, currentIngredient = null }) {
   function closeModal() {
@@ -47,6 +48,26 @@ function Modal({ isOrderDetails, title, setIsModalOpen, currentIngredient = null
       </div>
     </ModalOverlay>
   )
+}
+
+Modal.propTypes = {
+  isOrderDetails: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  setIsModalOpen: PropTypes.func.isRequired,
+  currentIngredient: PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.oneOf(['bun', 'main', 'sauce']),
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    image_mobile: PropTypes.string,
+    image_large: PropTypes.string,
+    __v: PropTypes.number
+  })
 }
 
 export default Modal;

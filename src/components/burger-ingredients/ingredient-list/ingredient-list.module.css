@@ -1,8 +1,12 @@
 .list {
   list-style: none;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 24px 1fr;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(auto-fit, 208px);
+  -webkit-column-gap: 24px;
+  -moz-column-gap: 24px;
   column-gap: 24px;
   row-gap: 32px;
   padding: 0;

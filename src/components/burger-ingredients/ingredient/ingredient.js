@@ -19,7 +19,8 @@ function Ingredient({ src, name, price, onClick }) {
 Ingredient.propTypes = {
   src: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired
+  price: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default Ingredient;

@@ -1,4 +1,5 @@
 import nutritionalValueStyles from './nutritional-value.module.css';
+import PropTypes from 'prop-types';
 
 function NutritionalValue({ title, value }) {
   return (
@@ -7,6 +8,11 @@ function NutritionalValue({ title, value }) {
       <p className={`${nutritionalValueStyles.value} text text_type_digits-default`}>{value}</p>
     </li>
   )
+}
+
+NutritionalValue.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired
 }
 
 export default NutritionalValue;

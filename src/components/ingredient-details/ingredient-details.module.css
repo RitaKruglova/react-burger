@@ -5,8 +5,12 @@
 
 .list {
   list-style: none;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 120px 20px 112px 20px 112px 20px 112px;
   grid-template-columns: 120px 112px 112px 112px;
+  -webkit-column-gap: 20px;
+  -moz-column-gap: 20px;
   column-gap: 20px;
   padding: 0;
 }

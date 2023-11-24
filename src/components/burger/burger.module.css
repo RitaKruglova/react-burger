@@ -1,5 +1,9 @@
 .burger {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 1256px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
