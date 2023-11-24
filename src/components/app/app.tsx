@@ -11,7 +11,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log('useEffect');
     api.getIngredients()
       .then(data => {
         setDataIngredients(data.data);
@@ -25,6 +24,7 @@ function App() {
       <Header />
       <main className={appStyles.content}>
         <Routes>
+          {/* взяла прелоадер из своего дипломного проекта с курса веб-разработки, надеюсь так можно)) это нужно чтобы в нижние компоненты не попадало начальное состояние данных */}
           <Route path="/" element={!isLoading ? <Burger dataIngredients={dataIngredients} /> : <Preloader />} />
         </Routes>
       </main>
