@@ -4,10 +4,15 @@ import ListItem from './list-item/list-item';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
 import data from '../../utils/data';
+import Modal from '../modal/modal';
 
-function BurgerConstructor({ dataIngredients }) {
+function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
   const [ingredients, setIngredients] = useState(dataIngredients.filter(i => i['type'] !== 'bun'));
   const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + data[0]['price'] * 2);
+
+  function createOrder() {
+    setIsOrderDetailsModalOpen(true);
+  }
 
   return (
     <section className={`${burgerConstructorStyles.container} pl-4 pr-4`}>
@@ -43,10 +48,17 @@ function BurgerConstructor({ dataIngredients }) {
           <p className={`${burgerConstructorStyles.sum} text text_type_digits-medium mr-2`}>{sum}</p>
           <img src={currencyIconPath} alt="Иконка валюты" />
         </div>
-        <Button htmlType="button" type="primary" size="medium" >
+        <Button htmlType="button" type="primary" size="medium" onClick={createOrder}>
           Оформить заказ
         </Button>
       </div>
+      {isOrderDetailsModalOpen &&
+        <Modal
+          isOrderDetailsPlace={true}
+          setIsOrderDetailsModalOpen={setIsOrderDetailsModalOpen}
+          title="034536"
+        />
+      }
     </section>
   )
 }

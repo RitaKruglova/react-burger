@@ -1,10 +1,11 @@
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import modalStyles from './modal.module.css';
 import { useEffect } from 'react';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
-function Modal({ isOrderDetailsPlace, title, setIsOpen }) {
+function Modal({ isOrderDetailsPlace, title, setIsOrderDetailsModalOpen }) {
   function closeModal() {
-    setIsOpen(false);
+    setIsOrderDetailsModalOpen(false);
   }
 
   useEffect(() => {
@@ -30,10 +31,14 @@ function Modal({ isOrderDetailsPlace, title, setIsOpen }) {
   })
 
   return (
-    <div className={modalStyles.container}>
-      <h4 className={`${modalStyles.title}${isOrderDetailsPlace ? ' text text_type_digits-large' : ''}`}>{title}</h4>
-      <CloseIcon type="primary" onClick={closeModal}/>
-    </div>
+    <ModalOverlay>
+      <div className={modalStyles.container}>
+        <h4 className={`${modalStyles.title}${isOrderDetailsPlace ? ' text text_type_digits-large mt-30' : 'mt-10'}`}>{title}</h4>
+        <div className={`${modalStyles.button} mt-15 mr-10`}>
+          <CloseIcon type="primary" onClick={closeModal}/>
+        </div>
+      </div>
+    </ModalOverlay>
   )
 }
 

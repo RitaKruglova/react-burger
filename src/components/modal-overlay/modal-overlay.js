@@ -1,9 +1,9 @@
 import modalOverlayStyles from './modal-overlay.module.css';
 
-function ModalOverlay() {
+function ModalOverlay({ children }) {
   return (
     <div className={modalOverlayStyles.overlay} id="overlay">
-
+      {children}
     </div>
   )
 }
