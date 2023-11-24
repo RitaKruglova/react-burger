@@ -4,7 +4,8 @@ import IngredientList from './ingredient-list/ingredient-list';
 import Ingredient from './ingredient/ingredient';
 import data from '../../utils/data';
 
-function BurgerIngredients() {
+function BurgerIngredients({ dataIngredients }) {
+  console.log(dataIngredients);
   const buns = data.filter((ingredient) => ingredient['type'] === 'bun');
   const sauce = data.filter((ingredient) => ingredient['type'] === 'sauce');
   const main = data.filter((ingredient) => ingredient['type'] === 'main');

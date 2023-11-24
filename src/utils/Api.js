@@ -11,9 +11,7 @@ class Api {
     return fetch(`${this._url}${url}`, {
       method,
       headers: this._headers,
-      body,
-      mode: 'cors',
-      credentials: 'include'
+      body
     })
       .then(checkResponse)
   }

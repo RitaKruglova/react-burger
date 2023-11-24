@@ -1,12 +1,12 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
-import data from '../../utils/data';
 import { useState } from 'react';
 import ListItem from './list-item/list-item';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
+import data from '../../utils/data';
 
-function BurgerConstructor() {
-  const [ingredients, setIngredients] = useState(data.filter(i => i['type'] !== 'bun'));
+function BurgerConstructor({ dataIngredients }) {
+  const [ingredients, setIngredients] = useState(dataIngredients.filter(i => i['type'] !== 'bun'));
   const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + data[0]['price'] * 2);
 
   return (
