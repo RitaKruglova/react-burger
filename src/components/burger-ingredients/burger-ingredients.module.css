@@ -8,6 +8,10 @@
   overflow-y: scroll;
 }
 
+.title {
+  line-height: 40px;
+}
+
 .ingredients::-webkit-scrollbar {
   width: 8px;
 }

@@ -12,6 +12,7 @@ function App() {
   const [dataIngredients, setDataIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isOrderDetailsModalOpen, setIsOrderDetailsModalOpen] = useState(false);
+  const [isIngredientDetailsModalOpen, setIsIngredientDetailsModalOpen] = useState(false);
 
   useEffect(() => {
     api.getIngredients()
@@ -32,7 +33,11 @@ function App() {
             path="/"
             element={!isLoading ?
               <Burger>
-                <BurgerIngredients dataIngredients={dataIngredients} />
+                <BurgerIngredients
+                  dataIngredients={dataIngredients}
+                  setIsIngredientDetailsModalOpen={setIsIngredientDetailsModalOpen}
+                  isIngredientDetailsModalOpen={isIngredientDetailsModalOpen}
+                />
                 <BurgerConstructor
                   dataIngredients={dataIngredients}
                   setIsOrderDetailsModalOpen={setIsOrderDetailsModalOpen}

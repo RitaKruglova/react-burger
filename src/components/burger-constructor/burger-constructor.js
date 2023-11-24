@@ -3,12 +3,11 @@ import { useState } from 'react';
 import ListItem from './list-item/list-item';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
-import data from '../../utils/data';
 import Modal from '../modal/modal';
 
 function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
   const [ingredients, setIngredients] = useState(dataIngredients.filter(i => i['type'] !== 'bun'));
-  const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + data[0]['price'] * 2);
+  const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + dataIngredients[0]['price'] * 2);
 
   function createOrder() {
     setIsOrderDetailsModalOpen(true);
@@ -19,9 +18,9 @@ function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrde
       <ul className={`${burgerConstructorStyles.list} mt-25`}>
         <ListItem
           place="top"
-          text={data[0]['name']}
-          price={data[0]['price']}
-          thumbnail={data[0]['image']}
+          text={dataIngredients[0]['name']}
+          price={dataIngredients[0]['price']}
+          thumbnail={dataIngredients[0]['image']}
         />
         <div className={burgerConstructorStyles.scroll} >
           {
@@ -38,9 +37,9 @@ function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrde
         </div>
           <ListItem
             place="bottom"
-            text={data[0]['name']}
-            price={data[0]['price']}
-            thumbnail={data[0]['image']}
+            text={dataIngredients[0]['name']}
+            price={dataIngredients[0]['price']}
+            thumbnail={dataIngredients[0]['image']}
           />
       </ul>
       <div className={`${burgerConstructorStyles.order} mt-10 mr-6`}>
@@ -54,8 +53,8 @@ function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrde
       </div>
       {isOrderDetailsModalOpen &&
         <Modal
-          isOrderDetailsPlace={true}
-          setIsOrderDetailsModalOpen={setIsOrderDetailsModalOpen}
+          isOrderDetails={true}
+          setIsModalOpen={setIsOrderDetailsModalOpen}
           title="034536"
         />
       }

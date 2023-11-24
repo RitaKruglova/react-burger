@@ -1,14 +1,20 @@
+import { useState } from 'react';
+import Modal from '../modal/modal';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import BurgerNavigation from './burger-navigation/burger-navigation';
 import IngredientList from './ingredient-list/ingredient-list';
 import Ingredient from './ingredient/ingredient';
-import data from '../../utils/data';
 
-function BurgerIngredients({ dataIngredients }) {
-  console.log(dataIngredients);
-  const buns = data.filter((ingredient) => ingredient['type'] === 'bun');
-  const sauce = data.filter((ingredient) => ingredient['type'] === 'sauce');
-  const main = data.filter((ingredient) => ingredient['type'] === 'main');
+function BurgerIngredients({ dataIngredients, setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
+  const [currentIngredient, setCurrentIngredient] = useState({});
+  const buns = dataIngredients.filter((ingredient) => ingredient['type'] === 'bun');
+  const sauce = dataIngredients.filter((ingredient) => ingredient['type'] === 'sauce');
+  const main = dataIngredients.filter((ingredient) => ingredient['type'] === 'main');
+
+  function showDetails(ingredient) {
+    setIsIngredientDetailsModalOpen(true);
+    setCurrentIngredient(ingredient);
+  }
   
   return (
     <section className={`${burgerIngredientsStyles.container} mt-10`}>
@@ -17,20 +23,29 @@ function BurgerIngredients({ dataIngredients }) {
       <div className={`${burgerIngredientsStyles.ingredients} mt-10`}>
         <IngredientList title="Булки">
           {buns.map((ingredient) => (
-            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} onClick={() => showDetails(ingredient)} />
           ))}
         </IngredientList>
         <IngredientList title="Соусы">
           {sauce.map((ingredient) => (
-            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} onClick={() => showDetails(ingredient)} />
           ))}
         </IngredientList>
         <IngredientList title="Начинки">
           {main.map((ingredient) => (
-            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} />
+            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} onClick={() => showDetails(ingredient)} />
           ))}
         </IngredientList>
       </div>
+      {isIngredientDetailsModalOpen &&
+        <Modal
+          isOrderDetails={false}
+          title="Детали ингредиента"
+          setIsModalOpen={setIsIngredientDetailsModalOpen}
+          currentIngredient={currentIngredient}
+        />
+      }
+      
     </section>
   )
 }

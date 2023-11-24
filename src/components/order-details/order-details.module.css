@@ -1,3 +1,8 @@
+.title {
+  line-height: 30px; 
+}
+
 .paragraph {
   color: var(--text-dark-grey-secondary-text, #8585AD);
+  line-height: 24px;
 }

@@ -10,6 +10,7 @@
 
 .name {
   color: var(--text-dark-grey-secondary-text, #8585AD);
+  line-height: 24px;
 }
 
 .right {

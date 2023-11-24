@@ -3,10 +3,11 @@ import modalStyles from './modal.module.css';
 import { useEffect } from 'react';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
-function Modal({ isOrderDetailsPlace, title, setIsOrderDetailsModalOpen }) {
+function Modal({ isOrderDetails, title, setIsModalOpen, currentIngredient = null }) {
   function closeModal() {
-    setIsOrderDetailsModalOpen(false);
+    setIsModalOpen(false);
   }
 
   useEffect(() => {
@@ -34,14 +35,14 @@ function Modal({ isOrderDetailsPlace, title, setIsOrderDetailsModalOpen }) {
   return (
     <ModalOverlay>
       <div className={modalStyles.container}>
-        <h4 className={`${modalStyles.title}${isOrderDetailsPlace ? ' text text_type_digits-large mt-30' : 'mt-10'}`}>{title}</h4>
+        <h4 className={`${isOrderDetails ? 'mt-30 text text_type_digits-large' : `mt-10 ${modalStyles.title} text text text_type_main-large`}`}>{title}</h4>
         <div className={`${modalStyles.button} mt-15 mr-10`}>
           <CloseIcon type="primary" onClick={closeModal}/>
         </div>
-        {isOrderDetailsPlace ?
+        {isOrderDetails ?
           <OrderDetails />
           :
-          <p>скоро сделаю</p>
+          <IngredientDetails currentIngredient={currentIngredient} />
         }
       </div>
     </ModalOverlay>
