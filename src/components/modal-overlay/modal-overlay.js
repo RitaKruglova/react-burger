@@ -1,4 +1,5 @@
 import modalOverlayStyles from './modal-overlay.module.css';
+import PropTypes from 'prop-types';
 
 function ModalOverlay({ children }) {
   return (
@@ -6,6 +7,10 @@ function ModalOverlay({ children }) {
       {children}
     </div>
   )
+}
+
+ModalOverlay.propTypes = {
+  children: PropTypes.node
 }
 
 export default ModalOverlay;

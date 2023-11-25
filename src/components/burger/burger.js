@@ -1,4 +1,5 @@
-import burgerStyles from './burger.module.css'
+import burgerStyles from './burger.module.css';
+import PropTypes from 'prop-types';
 
 function Burger({ children }) {
   return (
@@ -6,6 +7,10 @@ function Burger({ children }) {
       {children}
     </section>
   )
+}
+
+Burger.propTypes = {
+  children: PropTypes.node
 }
 
 export default Burger;

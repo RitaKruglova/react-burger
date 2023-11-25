@@ -5,6 +5,8 @@ import BurgerNavigation from './burger-navigation/burger-navigation';
 import IngredientList from './ingredient-list/ingredient-list';
 import Ingredient from './ingredient/ingredient';
 import PropTypes from 'prop-types';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { ingredientType } from '../../utils/types';
 
 function BurgerIngredients({ dataIngredients, setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
   const [currentIngredient, setCurrentIngredient] = useState({});
@@ -44,7 +46,9 @@ function BurgerIngredients({ dataIngredients, setIsIngredientDetailsModalOpen, i
           title="Детали ингредиента"
           setIsModalOpen={setIsIngredientDetailsModalOpen}
           currentIngredient={currentIngredient}
-        />
+        >
+          <IngredientDetails currentIngredient={currentIngredient} />
+        </Modal>
       }
       
     </section>
@@ -53,20 +57,7 @@ function BurgerIngredients({ dataIngredients, setIsIngredientDetailsModalOpen, i
 
 BurgerIngredients.propTypes = {
   dataIngredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      __v: PropTypes.number
-    })
+    PropTypes.shape(ingredientType)
   ),
   setIsIngredientDetailsModalOpen: PropTypes.func.isRequired,
   isIngredientDetailsModalOpen: PropTypes.any

@@ -5,6 +5,8 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
+import OrderDetails from '../order-details/order-details';
+import { ingredientType } from '../../utils/types';
 
 function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
   const [ingredients, setIngredients] = useState(dataIngredients.filter(i => i['type'] !== 'bun'));
@@ -57,7 +59,9 @@ function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrde
           isOrderDetails={true}
           setIsModalOpen={setIsOrderDetailsModalOpen}
           title="034536"
-        />
+        >
+          <OrderDetails />
+        </Modal>
       }
     </section>
   )
@@ -65,20 +69,7 @@ function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrde
 
 BurgerConstructor.propTypes = {
   dataIngredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-      __v: PropTypes.number
-    })
+    PropTypes.shape(ingredientType)
   ),
   setIsOrderDetailsModalOpen: PropTypes.func.isRequired,
   isOrderDetailsModalOpen: PropTypes.any
