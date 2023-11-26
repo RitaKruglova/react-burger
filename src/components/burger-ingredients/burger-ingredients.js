@@ -58,7 +58,7 @@ function BurgerIngredients({ dataIngredients, setIsIngredientDetailsModalOpen, i
 BurgerIngredients.propTypes = {
   dataIngredients: PropTypes.arrayOf(
     PropTypes.shape(ingredientType)
-  ),
+  ).isRequired,
   setIsIngredientDetailsModalOpen: PropTypes.func.isRequired,
   isIngredientDetailsModalOpen: PropTypes.any
 }

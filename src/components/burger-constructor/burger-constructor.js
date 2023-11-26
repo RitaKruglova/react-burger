@@ -70,7 +70,7 @@ function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrde
 BurgerConstructor.propTypes = {
   dataIngredients: PropTypes.arrayOf(
     PropTypes.shape(ingredientType)
-  ),
+  ).isRequired,
   setIsOrderDetailsModalOpen: PropTypes.func.isRequired,
   isOrderDetailsModalOpen: PropTypes.any
 }
