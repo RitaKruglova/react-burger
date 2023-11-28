@@ -6,13 +6,15 @@ import currencyIconPath from '../../images/currency-icon.svg';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
-import { ingredientType } from '../../utils/types';
 import { DataIngredientsContext } from '../../contexts/DataIngredientContext';
 
 function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
   const { dataIngredients } = useContext(DataIngredientsContext);
   const [ingredients, setIngredients] = useState(dataIngredients.filter(i => i['type'] !== 'bun'));
-  const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + dataIngredients[0]['price'] * 2);
+  const [buns, setBuns] = useState(dataIngredients.filter(i => i['type'] === 'bun'));
+  // временно воспользовалась рандомом пока нет логики
+  const [currentBun, setCurrentBun] = useState(buns[Math.floor(Math.random() * buns.length)]);
+  const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + currentBun['price'] * 2);
 
   function createOrder() {
     setIsOrderDetailsModalOpen(true);
@@ -23,9 +25,9 @@ function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen
       <ul className={`${burgerConstructorStyles.list} mt-25`}>
         <ListItem
           place="top"
-          text={dataIngredients[0]['name']}
-          price={dataIngredients[0]['price']}
-          thumbnail={dataIngredients[0]['image']}
+          text={currentBun['name']}
+          price={currentBun['price']}
+          thumbnail={currentBun['image']}
         />
         <div className={burgerConstructorStyles.scroll} >
           {
@@ -42,9 +44,9 @@ function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen
         </div>
           <ListItem
             place="bottom"
-            text={dataIngredients[0]['name']}
-            price={dataIngredients[0]['price']}
-            thumbnail={dataIngredients[0]['image']}
+            text={currentBun['name']}
+            price={currentBun['price']}
+            thumbnail={currentBun['image']}
           />
       </ul>
       <div className={`${burgerConstructorStyles.order} mt-10 mr-6`}>

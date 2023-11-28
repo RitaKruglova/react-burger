@@ -6,7 +6,6 @@ import IngredientList from './ingredient-list/ingredient-list';
 import Ingredient from './ingredient/ingredient';
 import PropTypes from 'prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { ingredientType } from '../../utils/types';
 import { DataIngredientsContext } from '../../contexts/DataIngredientContext';
 
 function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
