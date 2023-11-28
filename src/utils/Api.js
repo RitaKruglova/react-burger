@@ -11,13 +11,19 @@ class Api {
     return fetch(`${this._url}${url}`, {
       method,
       headers: this._headers,
-      body
+      body: body ? JSON.stringify(body) : null
     })
       .then(checkResponse)
   }
 
   getIngredients() {
-    return this._fetch();
+    return this._fetch('/ingredients');
+  }
+
+  createOrder(ingredientsIdArray) {
+    return this._fetch('/orders', 'POST', {
+      "ingredients": ingredientsIdArray
+    })
   }
 }
 

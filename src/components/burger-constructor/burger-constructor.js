@@ -7,6 +7,7 @@ import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
 import { DataIngredientsContext } from '../../contexts/DataIngredientContext';
+import { api } from '../../utils/Api';
 
 function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
   const { dataIngredients } = useContext(DataIngredientsContext);
@@ -15,8 +16,12 @@ function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen
   // временно воспользовалась рандомом пока нет логики
   const [currentBun, setCurrentBun] = useState(buns[Math.floor(Math.random() * buns.length)]);
   const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + currentBun['price'] * 2);
+  const [orderNumber, setOrderNumber] = useState(null);
 
   function createOrder() {
+    api.createOrder(ingredients.map(i => i['_id']).concat(currentBun['_id']))
+      .then(data => setOrderNumber(data.order.number))
+      .catch(err => console.log(err));
     setIsOrderDetailsModalOpen(true);
   }
 
@@ -62,7 +67,7 @@ function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen
         <Modal
           isOrderDetails={true}
           setIsModalOpen={setIsOrderDetailsModalOpen}
-          title="034536"
+          title={orderNumber}
         >
           <OrderDetails />
         </Modal>
