@@ -7,7 +7,7 @@ class Api {
     this._headers = headers;
   }
 
-  _fetch(url = '', method = 'GET', body = null) {
+  _fetch(url = '', method = 'GET', body) {
     return fetch(`${this._url}${url}`, {
       method,
       headers: this._headers,

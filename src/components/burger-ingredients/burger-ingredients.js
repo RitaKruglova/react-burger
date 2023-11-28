@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useMemo } from 'react';
 import Modal from '../modal/modal';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import BurgerNavigation from './burger-navigation/burger-navigation';
@@ -11,9 +11,9 @@ import { DataIngredientsContext } from '../../contexts/DataIngredientContext';
 function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
   const { dataIngredients } = useContext(DataIngredientsContext);
   const [currentIngredient, setCurrentIngredient] = useState({});
-  const buns = dataIngredients.filter((ingredient) => ingredient['type'] === 'bun');
-  const sauce = dataIngredients.filter((ingredient) => ingredient['type'] === 'sauce');
-  const main = dataIngredients.filter((ingredient) => ingredient['type'] === 'main');
+  const buns = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'bun'), [dataIngredients]);
+  const sauce = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
+  const main = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'main'), [dataIngredients]);
 
   function showDetails(ingredient) {
     setIsIngredientDetailsModalOpen(true);
@@ -58,7 +58,7 @@ function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetail
 
 BurgerIngredients.propTypes = {
   setIsIngredientDetailsModalOpen: PropTypes.func.isRequired,
-  isIngredientDetailsModalOpen: PropTypes.any
+  isIngredientDetailsModalOpen: PropTypes.bool
 }
 
 export default BurgerIngredients;
