@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from '../modal/modal';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import BurgerNavigation from './burger-navigation/burger-navigation';
@@ -7,8 +7,10 @@ import Ingredient from './ingredient/ingredient';
 import PropTypes from 'prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { ingredientType } from '../../utils/types';
+import { DataIngredientsContext } from '../../contexts/DataIngredientContext';
 
-function BurgerIngredients({ dataIngredients, setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
+function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
+  const { dataIngredients } = useContext(DataIngredientsContext);
   const [currentIngredient, setCurrentIngredient] = useState({});
   const buns = dataIngredients.filter((ingredient) => ingredient['type'] === 'bun');
   const sauce = dataIngredients.filter((ingredient) => ingredient['type'] === 'sauce');
@@ -56,9 +58,6 @@ function BurgerIngredients({ dataIngredients, setIsIngredientDetailsModalOpen, i
 }
 
 BurgerIngredients.propTypes = {
-  dataIngredients: PropTypes.arrayOf(
-    PropTypes.shape(ingredientType)
-  ).isRequired,
   setIsIngredientDetailsModalOpen: PropTypes.func.isRequired,
   isIngredientDetailsModalOpen: PropTypes.any
 }

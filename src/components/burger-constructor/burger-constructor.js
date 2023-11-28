@@ -1,5 +1,5 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ListItem from './list-item/list-item';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
@@ -7,8 +7,10 @@ import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
 import { ingredientType } from '../../utils/types';
+import { DataIngredientsContext } from '../../contexts/DataIngredientContext';
 
-function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
+function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
+  const { dataIngredients } = useContext(DataIngredientsContext);
   const [ingredients, setIngredients] = useState(dataIngredients.filter(i => i['type'] !== 'bun'));
   const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + dataIngredients[0]['price'] * 2);
 
@@ -68,9 +70,6 @@ function BurgerConstructor({ dataIngredients, setIsOrderDetailsModalOpen, isOrde
 }
 
 BurgerConstructor.propTypes = {
-  dataIngredients: PropTypes.arrayOf(
-    PropTypes.shape(ingredientType)
-  ).isRequired,
   setIsOrderDetailsModalOpen: PropTypes.func.isRequired,
   isOrderDetailsModalOpen: PropTypes.any
 }
