@@ -1,20 +1,19 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import ListItem from './list-item/list-item';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
-import { DataIngredientsContext } from '../../contexts/DataIngredientContext';
 import { api } from '../../utils/Api';
+import { useSelector } from 'react-redux';
 
 function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
-  const { dataIngredients } = useContext(DataIngredientsContext);
+  const dataIngredients = useSelector(store => store.ingredients.data);
   const [ingredients, setIngredients] = useState(dataIngredients.filter(i => i['type'] !== 'bun'));
   const [buns, setBuns] = useState(dataIngredients.filter(i => i['type'] === 'bun'));
-  // временно воспользовалась рандомом пока нет логики
-  const [currentBun, setCurrentBun] = useState(buns[Math.floor(Math.random() * buns.length)]);
+  const [currentBun, setCurrentBun] = useState(buns.length > 0 ? buns[Math.floor(Math.random() * buns.length)] : {});
   const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + currentBun['price'] * 2);
   const [orderNumber, setOrderNumber] = useState(null);
 
@@ -27,7 +26,7 @@ function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen
 
   return (
     <section className={`${burgerConstructorStyles.container} pl-4 pr-4`}>
-      <ul className={`${burgerConstructorStyles.list} mt-25`}>
+      <ul className={burgerConstructorStyles.list}>
         <ListItem
           place="top"
           text={currentBun['name']}

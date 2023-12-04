@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import Modal from '../modal/modal';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import BurgerNavigation from './burger-navigation/burger-navigation';
@@ -6,10 +6,10 @@ import IngredientList from './ingredient-list/ingredient-list';
 import Ingredient from './ingredient/ingredient';
 import PropTypes from 'prop-types';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { DataIngredientsContext } from '../../contexts/DataIngredientContext';
+import { useSelector } from 'react-redux';
 
 function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
-  const { dataIngredients } = useContext(DataIngredientsContext);
+  const dataIngredients = useSelector(store => store.ingredients.data);
   const [currentIngredient, setCurrentIngredient] = useState({});
   const buns = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'bun'), [dataIngredients]);
   const sauce = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
