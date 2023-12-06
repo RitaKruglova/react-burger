@@ -9,7 +9,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useSelector } from 'react-redux';
 
 function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
-  const dataIngredients = useSelector(store => store.ingredients.data);
+  const dataIngredients = useSelector(store => store.ingredients.dataIngredients);
   const [currentIngredient, setCurrentIngredient] = useState({});
   const buns = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'bun'), [dataIngredients]);
   const sauce = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
@@ -27,17 +27,17 @@ function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetail
       <div className={`${burgerIngredientsStyles.ingredients} mt-10`}>
         <IngredientList title="Булки">
           {buns.map((ingredient) => (
-            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} onClick={() => showDetails(ingredient)} />
+            <Ingredient key={ingredient['_id']} ingredient={ingredient} onClick={() => showDetails(ingredient)} />
           ))}
         </IngredientList>
         <IngredientList title="Соусы">
           {sauce.map((ingredient) => (
-            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} onClick={() => showDetails(ingredient)} />
+            <Ingredient key={ingredient['_id']} ingredient={ingredient} onClick={() => showDetails(ingredient)} />
           ))}
         </IngredientList>
         <IngredientList title="Начинки">
           {main.map((ingredient) => (
-            <Ingredient key={ingredient['_id']} src={ingredient['image']} name={ingredient['name']} price={ingredient['price']} onClick={() => showDetails(ingredient)} />
+            <Ingredient key={ingredient['_id']} ingredient={ingredient} onClick={() => showDetails(ingredient)} />
           ))}
         </IngredientList>
       </div>

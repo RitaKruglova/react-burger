@@ -1,25 +1,33 @@
 import ingredientStyles from './ingredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { useDrag } from 'react-dnd/dist/hooks';
+import { ingredientType } from '../../../utils/types';
 
-function Ingredient({ src, name, price, onClick }) {
+function Ingredient({ ingredient, onClick }) {
+  const [{isDrag}, dragRef] = useDrag({
+    type: 'ingredient',
+    item: ingredient,
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+    })
+  });
+
   return (
-    <li className={ingredientStyles.ingredient} onClick={onClick}>
-      <img className={`${ingredientStyles.image} mb-1`} src={src} alt={name} />
+    <li className={ingredientStyles.ingredient} onClick={onClick} ref={dragRef}>
+      <img className={`${ingredientStyles.image} mb-1`} src={ingredient['image']} alt={ingredient['name']} />
       <div className={`${ingredientStyles.cost} mb-1`}>
-        <p className={`${ingredientStyles.price} text text_type_digits-default mr-1`}>{price}</p>
+        <p className={`${ingredientStyles.price} text text_type_digits-default mr-1`}>{ingredient['price']}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <h3 className={`${ingredientStyles.name} text text_type_main-default`}>{name}</h3>
+      <h3 className={`${ingredientStyles.name} text text_type_main-default`}>{ingredient['name']}</h3>
       <Counter count={1} size="default" extraClass="m-1" />
     </li>
   )
 }
 
 Ingredient.propTypes = {
-  src: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  ingredient: ingredientType.isRequired,
   onClick: PropTypes.func.isRequired
 }
 

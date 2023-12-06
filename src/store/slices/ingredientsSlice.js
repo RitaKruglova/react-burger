@@ -16,18 +16,35 @@ export const fetchIngredients = createAsyncThunk(
 const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState: {
-    data: [],
+    dataIngredients: [],
     isLoading: false,
-    error: null
+    error: null,
+    draggedIngredients: [],
+    draggedIngredient: {},
+    bun: {
+      name: 'Перетащите сюда булку',
+      price: 0,
+      image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    }
   },
-  reducers: {},
+  reducers: {
+    addIngredient: (state, action) => {
+      state.draggedIngredients.push(action.payload);
+    },
+    removeIngredient: (state, action) => {
+      state.draggedIngredients = state.draggedIngredients.filter(i => i.id !== action.payload._id);
+    },
+    addBun: (state, action) => {
+      state.bun = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.dataIngredients = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
@@ -38,3 +55,4 @@ const ingredientsSlice = createSlice({
 })
 
 export default ingredientsSlice.reducer;
+export const { addIngredient, removeIngredient, addBun } = ingredientsSlice.actions;

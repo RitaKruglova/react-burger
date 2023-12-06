@@ -1,8 +1,16 @@
 import listItemStyles from './list-item.module.css';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { removeIngredient } from '../../../store/slices/ingredientsSlice';
 
-function ListItem({ place, text, price, thumbnail }) {
+function ListItem({ id, place, text, price, thumbnail }) {
+  const dispatch = useDispatch();
+
+  function handleDelete() {
+    dispatch(removeIngredient({id}))
+  }
+
   return (
     <li className={`mr-2 ${place === 'top' ? 'ml-8 mb-4 ' : ''}${place === 'middle' ? `${listItemStyles.item} mb-4 ` : ''}${place === 'bottom' ? 'ml-8 mt-4' : ''}`}>
       {place === 'middle'
@@ -15,6 +23,7 @@ function ListItem({ place, text, price, thumbnail }) {
             text={text}
             price={price}
             thumbnail={thumbnail}
+            handleClose={handleDelete}
           />
         </>
         :
@@ -31,6 +40,7 @@ function ListItem({ place, text, price, thumbnail }) {
 }
 
 ListItem.propTypes = {
+  id: PropTypes.string,
   place: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
