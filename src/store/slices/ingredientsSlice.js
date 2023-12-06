@@ -25,7 +25,8 @@ const ingredientsSlice = createSlice({
       name: 'Перетащите сюда булку',
       price: 0,
       image: "https://code.s3.yandex.net/react/code/bun-02.png",
-    }
+    },
+    currentIngredient: {}
   },
   reducers: {
     addIngredient: (state, action) => {
@@ -36,6 +37,9 @@ const ingredientsSlice = createSlice({
     },
     addBun: (state, action) => {
       state.bun = action.payload;
+    },
+    setCurrentIngredient: (state, action) => {
+      state.currentIngredient = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -55,4 +59,4 @@ const ingredientsSlice = createSlice({
 })
 
 export default ingredientsSlice.reducer;
-export const { addIngredient, removeIngredient, addBun } = ingredientsSlice.actions;
+export const { addIngredient, removeIngredient, addBun, setCurrentIngredient } = ingredientsSlice.actions;
