@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 function IngredientList({ children, title, forwardRef }) {
   return (
-    <>
-      <h2 className={`${ingredientListStyles.title} text text_type_main-medium mb-6`} ref={forwardRef}>{title}</h2>
+    <div ref={forwardRef}>
+      <h2 className={`${ingredientListStyles.title} text text_type_main-medium mb-6`}>{title}</h2>
       <ul className={`${ingredientListStyles.list} ml-4 mr-4`}>
         {children}
       </ul>
-    </>
+    </div>
   )
 }
 

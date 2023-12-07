@@ -23,15 +23,17 @@ function BurgerIngredients() {
 
   useEffect(() => {
     let ref;
+    let top;
     if (currentTab === bunsType) {
-      ref = bunsRef
-    } else if (currentTab === fillingsType) {
-      ref = fillingsRef
+      ref = bunsRef;
+      top = 0;
+    } else if (currentTab === saucesType) {
+      ref = saucesRef;
+      top = bunsRef.current.getBoundingClientRect().height;
     } else {
-      ref = saucesRef
+      ref = fillingsRef;
+      top = saucesRef.current.getBoundingClientRect().height + bunsRef.current.getBoundingClientRect().height;
     }
-    const top = ref.current.getBoundingClientRect().top;
-    console.log(ref.current.getBoundingClientRect())
     containerRef.current.scrollTo({
       top: top,
       behavior: 'smooth'
