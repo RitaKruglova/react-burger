@@ -13,18 +13,6 @@ export const fetchIngredients = createAsyncThunk(
   }
 );
 
-export const fetchOrder = createAsyncThunk(
-  'ingredients/fetchOrderNumber',
-  async (ingredientIds, { rejectWithValue }) => {
-    try {
-      const response = await api.createOrder(ingredientIds);
-      return response;
-    } catch (error) {
-      return rejectWithValue(`Произошла ошибка при создании заказа: ${error}`)
-    }
-  }
-)
-
 const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState: {
@@ -54,9 +42,6 @@ const ingredientsSlice = createSlice({
     },
     setCurrentIngredient: (state, action) => {
       state.currentIngredient = action.payload;
-    },
-    removeOrderNumber: (state) => {
-      state.orderNumber = null;
     }
   },
   extraReducers: (builder) => {
@@ -72,12 +57,8 @@ const ingredientsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(fetchOrder.fulfilled, (state, action) => {
-        state.orderNumber = action.payload.order.number;
-        state.order = action.payload;
-      })
   }
 })
 
 export default ingredientsSlice.reducer;
-export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, removeOrderNumber } = ingredientsSlice.actions;
+export const { addIngredient, removeIngredient, addBun, setCurrentIngredient } = ingredientsSlice.actions;

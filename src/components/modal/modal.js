@@ -5,7 +5,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
 import { useModalClose } from '../../hooks/useModalClose';
 import { useDispatch } from 'react-redux';
-import { removeOrderNumber, setCurrentIngredient } from '../../store/slices/ingredientsSlice';
+import { removeOrderNumber, setCurrentIngredient } from '../../store/slices/orderSlice';
 
 function Modal({ isOrderDetails, title, children}) {
   const dispatch = useDispatch();
