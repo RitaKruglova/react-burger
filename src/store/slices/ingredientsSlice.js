@@ -8,7 +8,19 @@ export const fetchIngredients = createAsyncThunk(
       const response = await api.getIngredients();
       return response.data;
     } catch (error) {
-      return rejectWithValue('Произошла ошибка загрузки ингридиентов');
+      return rejectWithValue(`Произошла ошибка загрузки ингридиентов: ${error}`);
+    }
+  }
+);
+
+export const fetchOrder = createAsyncThunk(
+  'ingredients/fetchOrderNumber',
+  async (ingredientIds, { rejectWithValue }) => {
+    try {
+      const response = await api.createOrder(ingredientIds);
+      return response;
+    } catch (error) {
+      return rejectWithValue(`Произошла ошибка при создании заказа: ${error}`)
     }
   }
 )
@@ -26,20 +38,25 @@ const ingredientsSlice = createSlice({
       price: 0,
       image: "https://code.s3.yandex.net/react/code/bun-02.png",
     },
-    currentIngredient: {}
+    currentIngredient: null,
+    orderNumber: null,
+    order: {}
   },
   reducers: {
     addIngredient: (state, action) => {
       state.draggedIngredients.push(action.payload);
     },
     removeIngredient: (state, action) => {
-      state.draggedIngredients = state.draggedIngredients.filter(i => i.id !== action.payload._id);
+      state.draggedIngredients = state.draggedIngredients.filter(i => i.uuid !== action.payload);
     },
     addBun: (state, action) => {
       state.bun = action.payload;
     },
     setCurrentIngredient: (state, action) => {
       state.currentIngredient = action.payload;
+    },
+    removeOrderNumber: (state) => {
+      state.orderNumber = null;
     }
   },
   extraReducers: (builder) => {
@@ -55,8 +72,12 @@ const ingredientsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
+      .addCase(fetchOrder.fulfilled, (state, action) => {
+        state.orderNumber = action.payload.order.number;
+        state.order = action.payload;
+      })
   }
 })
 
 export default ingredientsSlice.reducer;
-export const { addIngredient, removeIngredient, addBun, setCurrentIngredient } = ingredientsSlice.actions;
+export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, removeOrderNumber } = ingredientsSlice.actions;

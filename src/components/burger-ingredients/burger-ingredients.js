@@ -9,7 +9,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 
-function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetailsModalOpen }) {
+function BurgerIngredients() {
   const dispatch = useDispatch();
   const { dataIngredients, currentIngredient } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
@@ -20,8 +20,7 @@ function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetail
   const main = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'main'), [dataIngredients]);
 
   function showDetails(ingredient) {
-    setIsIngredientDetailsModalOpen(true);
-    dispatch(setCurrentIngredient(ingredient))
+    dispatch(setCurrentIngredient(ingredient));
   }
   
   return (
@@ -45,24 +44,17 @@ function BurgerIngredients({ setIsIngredientDetailsModalOpen, isIngredientDetail
           ))}
         </IngredientList>
       </div>
-      {isIngredientDetailsModalOpen &&
+      {currentIngredient &&
         <Modal
           isOrderDetails={false}
           title="Детали ингредиента"
-          setIsModalOpen={setIsIngredientDetailsModalOpen}
-          currentIngredient={currentIngredient}
         >
-          <IngredientDetails currentIngredient={currentIngredient} />
+          <IngredientDetails />
         </Modal>
       }
       
     </section>
   )
-}
-
-BurgerIngredients.propTypes = {
-  setIsIngredientDetailsModalOpen: PropTypes.func.isRequired,
-  isIngredientDetailsModalOpen: PropTypes.bool
 }
 
 export default BurgerIngredients;

@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux';
 import { ingredientType } from '../../utils/types';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import NutritionalValue from './nutritional-value/nutritional-value';
 import PropTypes from 'prop-types';
 
-function IngredientDetails({ currentIngredient }) {
+function IngredientDetails() {
+  const currentIngredient = useSelector(store => store.ingredients.currentIngredient);
+  
   return (
     <>
       <img

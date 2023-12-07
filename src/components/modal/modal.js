@@ -1,14 +1,18 @@
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import modalStyles from './modal.module.css';
-import { useEffect } from 'react';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
 import { useModalClose } from '../../hooks/useModalClose';
+import { useDispatch } from 'react-redux';
+import { removeOrderNumber, setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 
-function Modal({ isOrderDetails, title, setIsModalOpen, children}) {
+function Modal({ isOrderDetails, title, children}) {
+  const dispatch = useDispatch();
+
   function closeModal() {
-    setIsModalOpen(false);
+    dispatch(setCurrentIngredient(null));
+    dispatch(removeOrderNumber());
   }
 
   useModalClose(closeModal);
@@ -30,7 +34,6 @@ function Modal({ isOrderDetails, title, setIsModalOpen, children}) {
 Modal.propTypes = {
   isOrderDetails: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  setIsModalOpen: PropTypes.func.isRequired,
   children: PropTypes.node
 }
 

@@ -34,14 +34,8 @@ function App() {
             element={!isLoading ?
               <Burger>
                 <DndProvider backend={HTML5Backend}>
-                  <BurgerIngredients
-                    setIsIngredientDetailsModalOpen={setIsIngredientDetailsModalOpen}
-                    isIngredientDetailsModalOpen={isIngredientDetailsModalOpen}
-                  />
-                  <BurgerConstructor
-                    setIsOrderDetailsModalOpen={setIsOrderDetailsModalOpen}
-                    isOrderDetailsModalOpen={isOrderDetailsModalOpen}
-                  />
+                  <BurgerIngredients />
+                  <BurgerConstructor />
                 </DndProvider>
               </Burger>
             :

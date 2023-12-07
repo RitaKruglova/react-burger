@@ -3,12 +3,13 @@ import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burg
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeIngredient } from '../../../store/slices/ingredientsSlice';
+import { ingredientType, ingredientTypeWithUUID } from '../../../utils/types';
 
-function ListItem({ id, place, text, price, thumbnail }) {
+function ListItem({ place, ingredient }) {
   const dispatch = useDispatch();
 
   function handleDelete() {
-    dispatch(removeIngredient({id}))
+    dispatch(removeIngredient(ingredient.uuid))
   }
 
   return (
@@ -20,9 +21,9 @@ function ListItem({ id, place, text, price, thumbnail }) {
             <DragIcon type="primary" />
           </div>
           <ConstructorElement
-            text={text}
-            price={price}
-            thumbnail={thumbnail}
+            text={ingredient['name']}
+            price={ingredient['price']}
+            thumbnail={ingredient['image']}
             handleClose={handleDelete}
           />
         </>
@@ -30,21 +31,18 @@ function ListItem({ id, place, text, price, thumbnail }) {
         <ConstructorElement
           type={place}
           isLocked="true"
-          text={`${text} ${place === 'top' ? '(верх)' : '(низ)'}`}
-          price={price}
-          thumbnail={thumbnail}
+          text={`${ingredient['name']} ${place === 'top' ? '(верх)' : '(низ)'}`}
+          price={ingredient['price']}
+          thumbnail={ingredient['image']}
         />
       }
     </li>
   )
 }
-
+console.log(ingredientType);
 ListItem.propTypes = {
-  id: PropTypes.string,
   place: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string.isRequired
+  ingredient: ingredientType.isRequired
 }
 
 export default ListItem;

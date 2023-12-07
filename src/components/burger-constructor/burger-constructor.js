@@ -1,5 +1,5 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ListItem from './list-item/list-item';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
@@ -9,42 +9,37 @@ import OrderDetails from '../order-details/order-details';
 import { api } from '../../utils/Api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
-import { addBun, addIngredient } from '../../store/slices/ingredientsSlice';
+import { addBun, addIngredient, fetchOrder } from '../../store/slices/ingredientsSlice';
 
-function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen }) {
+function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { dataIngredients, draggedIngredients, bun } = useSelector(store => ({
+  const { dataIngredients, draggedIngredients, bun, orderNumber } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
     draggedIngredients: store.ingredients.draggedIngredients,
-    bun: store.ingredients.bun
+    bun: store.ingredients.bun,
+    orderNumber: store.ingredients.orderNumber
   }));
 
-  const [ingredients, setIngredients] = useState(dataIngredients.filter(i => i['type'] !== 'bun'));
-  const [buns, setBuns] = useState(dataIngredients.filter(i => i['type'] === 'bun'));
-  const [currentBun, setCurrentBun] = useState(buns.length > 0 ? buns[Math.floor(Math.random() * buns.length)] : {});
-  const [sum, setSum] = useState((ingredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + currentBun['price'] * 2);
-  const [orderNumber, setOrderNumber] = useState(null);
-
-  function handleDrop(item) {
-
-  }
+  const [sum, setSum] = useState(0);
 
   const [, dropRef] = useDrop({
     accept: 'ingredient',
     drop(ingredient) {
+      ingredient = { ...ingredient, uuid: crypto.randomUUID()};
       if (ingredient['type'] === 'bun') {
         dispatch(addBun(ingredient));
       } else {
         dispatch(addIngredient(ingredient))
       }
     }
-  })
+  });
+
+  useEffect(() => {
+    setSum((draggedIngredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + bun['price'] * 2)
+  }, [draggedIngredients, bun])
 
   function createOrder() {
-    api.createOrder(draggedIngredients.map(i => i['_id']).concat(currentBun['_id']))
-      .then(data => setOrderNumber(data.order.number))
-      .catch(err => console.log(err));
-    setIsOrderDetailsModalOpen(true);
+    dispatch(fetchOrder(draggedIngredients.map(i => i['_id']).concat(bun['_id'])));
   }
 
   return (
@@ -52,29 +47,22 @@ function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen
       <ul className={burgerConstructorStyles.list} ref={dropRef}>
         <ListItem
           place="top"
-          text={bun['name']}
-          price={bun['price']}
-          thumbnail={bun['image']}
+          ingredient={bun}
         />
         <div className={burgerConstructorStyles.scroll} >
           {
             draggedIngredients.map(ingredient => (
               <ListItem
                 key={ingredient['_id']}
-                id={ingredient['_id']}
                 place="middle"
-                text={ingredient['name']}
-                price={ingredient['price']}
-                thumbnail={ingredient['image']}
+                ingredient={ingredient}
               />
             ))
           }
         </div>
           <ListItem
             place="bottom"
-            text={bun['name']}
-            price={bun['price']}
-            thumbnail={bun['image']}
+            ingredient={bun}
           />
       </ul>
       <div className={`${burgerConstructorStyles.order} mt-10 mr-6`}>
@@ -86,10 +74,9 @@ function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen
           Оформить заказ
         </Button>
       </div>
-      {isOrderDetailsModalOpen &&
+      {orderNumber &&
         <Modal
           isOrderDetails={true}
-          setIsModalOpen={setIsOrderDetailsModalOpen}
           title={orderNumber}
         >
           <OrderDetails />
@@ -97,11 +84,6 @@ function BurgerConstructor({ setIsOrderDetailsModalOpen, isOrderDetailsModalOpen
       }
     </section>
   )
-}
-
-BurgerConstructor.propTypes = {
-  setIsOrderDetailsModalOpen: PropTypes.func.isRequired,
-  isOrderDetailsModalOpen: PropTypes.any
 }
 
 export default BurgerConstructor;
