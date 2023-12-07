@@ -5,12 +5,9 @@ import { useDrag } from 'react-dnd/dist/hooks';
 import { ingredientType } from '../../../utils/types';
 
 function Ingredient({ ingredient, onClick }) {
-  const [{isDrag}, dragRef] = useDrag({
+  const [, dragRef] = useDrag({
     type: 'ingredient',
-    item: ingredient,
-    collect: monitor => ({
-      isDrag: monitor.isDragging()
-    })
+    item: ingredient
   });
 
   return (
@@ -21,7 +18,9 @@ function Ingredient({ ingredient, onClick }) {
         <CurrencyIcon type="primary" />
       </div>
       <h3 className={`${ingredientStyles.name} text text_type_main-default`}>{ingredient['name']}</h3>
-      <Counter count={1} size="default" extraClass="m-1" />
+      {ingredient.count > 0 &&
+        <Counter count={ingredient.count} size="default" extraClass="m-1" />
+      }
     </li>
   )
 }

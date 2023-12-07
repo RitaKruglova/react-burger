@@ -30,7 +30,7 @@ function BurgerIngredients() {
     } else {
       ref = saucesRef
     }
-    const top = ref.current.getBoundingClientRect().top
+    const top = ref.current.getBoundingClientRect().top;
     console.log(ref.current.getBoundingClientRect())
     containerRef.current.scrollTo({
       top: top,

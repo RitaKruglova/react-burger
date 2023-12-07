@@ -4,16 +4,15 @@ import ListItem from './list-item/list-item';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
 import Modal from '../modal/modal';
-import PropTypes from 'prop-types';
 import OrderDetails from '../order-details/order-details';
-import { api } from '../../utils/Api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
-import { addBun, addIngredient, fetchOrder } from '../../store/slices/ingredientsSlice';
+import { addBun, addIngredient } from '../../store/slices/ingredientsSlice';
+import { fetchOrder } from '../../store/slices/orderSlice';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { dataIngredients, draggedIngredients, bun, orderNumber } = useSelector(store => ({
+  const { draggedIngredients, bun, orderNumber } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
     draggedIngredients: store.ingredients.draggedIngredients,
     bun: store.ingredients.bun,
@@ -53,7 +52,7 @@ function BurgerConstructor() {
           {
             draggedIngredients.map(ingredient => (
               <ListItem
-                key={ingredient['_id']}
+                key={ingredient.uuid}
                 place="middle"
                 ingredient={ingredient}
               />

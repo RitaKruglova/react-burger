@@ -13,6 +13,37 @@ export const fetchIngredients = createAsyncThunk(
   }
 );
 
+function increaseCountBun(state, action) {
+  const ingredient = getIngredient(state, action);
+  state.dataIngredients.map(i => {
+    if (i.type === 'bun') {
+      i.count = 0;
+    }
+    return i;
+  })
+  ingredient.count = 2;
+}
+
+function increaseCountIngredient(state, action) {
+  const ingredient = getIngredient(state, action);
+  if (ingredient.count) {
+    ingredient.count++;
+  } else {
+    ingredient.count = 1;
+  }
+}
+
+function decreaseCountIngredient(state, action) {
+  const ingredient = getIngredient(state, action);
+  if (ingredient.count) {
+    ingredient.count--;
+  }
+}
+
+function getIngredient(state, action) {
+  return state.dataIngredients.filter(i => i._id === action.payload._id)[0];
+}
+
 const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState: {
@@ -33,11 +64,15 @@ const ingredientsSlice = createSlice({
   reducers: {
     addIngredient: (state, action) => {
       state.draggedIngredients.push(action.payload);
+      increaseCountIngredient(state, action);
     },
     removeIngredient: (state, action) => {
-      state.draggedIngredients = state.draggedIngredients.filter(i => i.uuid !== action.payload);
+      state.draggedIngredients = state.draggedIngredients.filter(i => i.uuid !== action.payload.uuid);
+      decreaseCountIngredient(state, action);
     },
     addBun: (state, action) => {
+      if (action.payload._id === state.bun._id) return;
+      increaseCountBun(state, action);
       state.bun = action.payload;
     },
     setCurrentIngredient: (state, action) => {

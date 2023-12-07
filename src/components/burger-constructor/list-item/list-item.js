@@ -3,13 +3,13 @@ import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burg
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeIngredient } from '../../../store/slices/ingredientsSlice';
-import { ingredientType, ingredientTypeWithUUID } from '../../../utils/types';
+import { ingredientType } from '../../../utils/types';
 
 function ListItem({ place, ingredient }) {
   const dispatch = useDispatch();
 
   function handleDelete() {
-    dispatch(removeIngredient(ingredient.uuid))
+    dispatch(removeIngredient(ingredient))
   }
 
   return (
