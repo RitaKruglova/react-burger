@@ -16,7 +16,7 @@ function BurgerConstructor() {
     dataIngredients: store.ingredients.dataIngredients,
     draggedIngredients: store.ingredients.draggedIngredients,
     bun: store.ingredients.bun,
-    orderNumber: store.ingredients.orderNumber
+    orderNumber: store.order.orderNumber
   }));
 
   const [sum, setSum] = useState(0);

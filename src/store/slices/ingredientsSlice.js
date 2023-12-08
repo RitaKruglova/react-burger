@@ -51,15 +51,12 @@ const ingredientsSlice = createSlice({
     isLoading: false,
     error: null,
     draggedIngredients: [],
-    draggedIngredient: {},
     bun: {
       name: 'Перетащите сюда булку',
       price: 0,
       image: "https://code.s3.yandex.net/react/code/bun-02.png",
     },
-    currentIngredient: null,
-    orderNumber: null,
-    order: {}
+    currentIngredient: null
   },
   reducers: {
     addIngredient: (state, action) => {
@@ -77,6 +74,12 @@ const ingredientsSlice = createSlice({
     },
     setCurrentIngredient: (state, action) => {
       state.currentIngredient = action.payload;
+    },
+    dragIngredient: (state, action) => {
+      state.draggedIngredients = state.draggedIngredients.splice(state.draggedIngredients.map(i => i.uuid).indexOf(action.payload.uuid), 1);
+    },
+    dropIngredient: (state, action) => {
+      state.draggedIngredients = state.draggedIngredients.splice(action.payload.index, 0, [action.payload.ingredient]);
     }
   },
   extraReducers: (builder) => {
@@ -96,4 +99,4 @@ const ingredientsSlice = createSlice({
 })
 
 export default ingredientsSlice.reducer;
-export const { addIngredient, removeIngredient, addBun, setCurrentIngredient } = ingredientsSlice.actions;
+export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, dropIngredient, dragIngredient } = ingredientsSlice.actions;

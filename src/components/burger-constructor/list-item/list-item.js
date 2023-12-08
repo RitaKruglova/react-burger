@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeIngredient } from '../../../store/slices/ingredientsSlice';
 import { ingredientType } from '../../../utils/types';
+import { useDrag } from 'react-dnd';
 
 function ListItem({ place, ingredient }) {
   const dispatch = useDispatch();
@@ -11,6 +12,12 @@ function ListItem({ place, ingredient }) {
   function handleDelete() {
     dispatch(removeIngredient(ingredient))
   }
+
+    const [, dragRef] = useDrag({
+      type: 'ingredient',
+      item: ingredient
+    });
+  
 
   return (
     <li className={`mr-2 ${place === 'top' ? 'ml-8 mb-4 ' : ''}${place === 'middle' ? `${listItemStyles.item} mb-4 ` : ''}${place === 'bottom' ? 'ml-8 mt-4' : ''}`}>
