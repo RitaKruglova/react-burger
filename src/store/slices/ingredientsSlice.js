@@ -75,10 +75,8 @@ const ingredientsSlice = createSlice({
     setCurrentIngredient: (state, action) => {
       state.currentIngredient = action.payload;
     },
-    dragIngredient: (state, action) => {
-      state.draggedIngredients = state.draggedIngredients.splice(state.draggedIngredients.map(i => i.uuid).indexOf(action.payload.uuid), 1);
-    },
     dropIngredient: (state, action) => {
+      state.draggedIngredients = state.draggedIngredients.splice(state.draggedIngredients.map(i => i.uuid).indexOf(action.payload.uuid), 1);
       state.draggedIngredients = state.draggedIngredients.splice(action.payload.index, 0, [action.payload.ingredient]);
     }
   },
@@ -99,4 +97,4 @@ const ingredientsSlice = createSlice({
 })
 
 export default ingredientsSlice.reducer;
-export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, dropIngredient, dragIngredient } = ingredientsSlice.actions;
+export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, dropIngredient } = ingredientsSlice.actions;
