@@ -8,38 +8,63 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 import { bunsType, fillingsType, saucesType } from '../../constants/constants';
+import { setCurrentTab } from '../../store/slices/tabsSlice';
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
+
   const { dataIngredients, currentIngredient, currentTab } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
     currentIngredient: store.ingredients.currentIngredient,
     currentTab: store.tabs.currentTab
   }));
+
   const containerRef = useRef();
   const bunsRef = useRef();
   const fillingsRef = useRef();
   const saucesRef = useRef();
+
+  const bunsTop = 0;
+  const saucesTop = useMemo(() => bunsRef.current?.getBoundingClientRect()?.height, [bunsRef.current]);
+  const fillingsTop = useMemo(() => saucesTop + saucesRef.current?.getBoundingClientRect()?.height, [saucesRef.current, saucesTop]);
 
   useEffect(() => {
     let ref;
     let top;
     if (currentTab === bunsType) {
       ref = bunsRef;
-      top = 0;
+      top = bunsTop;
     } else if (currentTab === saucesType) {
       ref = saucesRef;
-      top = bunsRef.current.getBoundingClientRect().height;
+      top = saucesTop;
     } else {
       ref = fillingsRef;
-      top = saucesRef.current.getBoundingClientRect().height + bunsRef.current.getBoundingClientRect().height;
+      top = fillingsTop;
     }
     containerRef.current.scrollTo({
       top: top,
       behavior: 'smooth'
     });
+  }, [currentTab]);
 
-  }, [currentTab])
+  useEffect(() => {
+    const container = containerRef?.current;
+    function handleScroll() {
+      if (container.scrollTop < saucesTop) {
+        dispatch(setCurrentTab(bunsType));
+      } else if (container.scrollTop >= saucesTop && containerRef.current.scrollTop < fillingsTop) {
+        dispatch(setCurrentTab(saucesType));
+      } else {
+        dispatch(setCurrentTab(fillingsType));
+      }
+    }
+
+    container.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    }
+  }, [dispatch]);
 
   const buns = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'bun'), [dataIngredients]);
   const sauce = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
