@@ -76,8 +76,8 @@ const ingredientsSlice = createSlice({
       state.currentIngredient = action.payload;
     },
     dropIngredient: (state, action) => {
-      state.draggedIngredients = state.draggedIngredients.splice(state.draggedIngredients.map(i => i.uuid).indexOf(action.payload.uuid), 1);
-      state.draggedIngredients = state.draggedIngredients.splice(action.payload.index, 0, [action.payload.ingredient]);
+      state.draggedIngredients.splice(state.draggedIngredients.map(i => i.uuid).indexOf(action.payload.ingredient.uuid), 1);
+      state.draggedIngredients.splice(action.payload.index, 0, action.payload.ingredient);
     }
   },
   extraReducers: (builder) => {

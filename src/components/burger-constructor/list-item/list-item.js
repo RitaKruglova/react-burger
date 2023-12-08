@@ -3,13 +3,15 @@ import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burg
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeIngredient } from '../../../store/slices/ingredientsSlice';
-import { setListItemHeight } from '../../../store/slices/positionsSlice';
 import { ingredientType } from '../../../utils/types';
-import { useDrag } from 'react-dnd';
-import { useEffect } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
+import { useRef } from 'react';
+import { dropIngredient } from '../../../store/slices/ingredientsSlice';
 
-function ListItem({ place, ingredient }) {
+function ListItem({ place, ingredient, index }) {
   const dispatch = useDispatch();
+
+  const ref = useRef(null);
 
   function handleDelete() {
     dispatch(removeIngredient(ingredient))
@@ -23,39 +25,42 @@ function ListItem({ place, ingredient }) {
     })
   });
 
-  useEffect(() => {
-    dispatch(setListItemHeight(dragRef?.current?.height));
-  }, );
+  const [, dropRef] = useDrop({
+    accept: 'list-item',
+    hover(ingredient) {
+      dispatch(dropIngredient({ingredient, index}));
+    }
+  });
+
+  dropRef(dragRef(ref));
+
+  const opacity = isDrag ? 0 : 1;
   
   return (
-    <>
-      {!isDrag &&
-        <li className={`mr-2 ${place === 'top' ? 'ml-8 mb-4 ' : ''}${place === 'middle' ? `${listItemStyles.item} mb-4 ` : ''}${place === 'bottom' ? 'ml-8 mt-4' : ''}`} ref={dragRef}>
-          {place === 'middle'
-            ?
-            <>
-              <div className="mr-2">
-                <DragIcon type="primary" />
-              </div>
-              <ConstructorElement
-                text={ingredient['name']}
-                price={ingredient['price']}
-                thumbnail={ingredient['image']}
-                handleClose={handleDelete}
-              />
-            </>
-            :
-            <ConstructorElement
-              type={place}
-              isLocked="true"
-              text={`${ingredient['name']} ${place === 'top' ? '(верх)' : '(низ)'}`}
-              price={ingredient['price']}
-              thumbnail={ingredient['image']}
-            />
-          }
-        </li>
+    <li className={`mr-2 ${place === 'top' ? 'ml-8 mb-4 ' : ''}${place === 'middle' ? `${listItemStyles.item} mb-4 ` : ''}${place === 'bottom' ? 'ml-8 mt-4' : ''}`} ref={ref} style={{opacity}}>
+      {place === 'middle'
+        ?
+        <>
+          <div className="mr-2">
+            <DragIcon type="primary" />
+          </div>
+          <ConstructorElement
+            text={ingredient['name']}
+            price={ingredient['price']}
+            thumbnail={ingredient['image']}
+            handleClose={handleDelete}
+          />
+        </>
+        :
+        <ConstructorElement
+          type={place}
+          isLocked="true"
+          text={`${ingredient['name']} ${place === 'top' ? '(верх)' : '(низ)'}`}
+          price={ingredient['price']}
+          thumbnail={ingredient['image']}
+        />
       }
-    </>
+    </li>
   )
 }
 

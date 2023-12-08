@@ -7,23 +7,19 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
-import { addBun, addIngredient, dropIngredient } from '../../store/slices/ingredientsSlice';
+import { addBun, addIngredient } from '../../store/slices/ingredientsSlice';
 import { fetchOrder } from '../../store/slices/orderSlice';
-import { useDragDropManager } from 'react-dnd';
-import { setOffset } from '../../store/slices/positionsSlice';
 
 function BurgerConstructor() {
-  const monitor = useDragDropManager().getMonitor();
-
   const dispatch = useDispatch();
-
+  
   const { draggedIngredients, bun, orderNumber } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
     draggedIngredients: store.ingredients.draggedIngredients,
     bun: store.ingredients.bun,
-    orderNumber: store.order.orderNumber,
+    orderNumber: store.order.orderNumber
   }));
-
+  
   const [sum, setSum] = useState(0);
 
   const [, dropRef] = useDrop({
@@ -37,23 +33,6 @@ function BurgerConstructor() {
       }
     }
   });
-
-  const [, dropRefListItem] = useDrop({
-    accept: 'list-item',
-    drop(ingredient) {
-      dispatch(dropIngredient(ingredient))
-    }
-  });
-
-  useEffect(() => {
-    dispatch()
-  })
-
-  useEffect(() => {
-    monitor.subscribeToOffsetChange(() => {
-      dispatch(setOffset(monitor.getClientOffset()));
-    })
-  }, [monitor]);
 
   useEffect(() => {
     setSum((draggedIngredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + bun['price'] * 2)
@@ -70,13 +49,14 @@ function BurgerConstructor() {
           place="top"
           ingredient={bun}
         />
-        <div className={burgerConstructorStyles.scroll} ref={dropRefListItem}>
+        <div className={burgerConstructorStyles.scroll}>
           {
-            draggedIngredients.map(ingredient => (
+            draggedIngredients.map((ingredient, index) => (
               <ListItem
                 key={ingredient.uuid}
                 place="middle"
                 ingredient={ingredient}
+                index={index}
               />
             ))
           }

@@ -5,8 +5,7 @@ const positionsSlice = createSlice({
   initialState: {
     offset: {},
     listItemHeight: 1,
-    top: 0,
-    left: 0
+    top: 0
   },
   reducers: {
     setOffset: (state, action) => {
@@ -16,8 +15,7 @@ const positionsSlice = createSlice({
       state.listItemHeight = action.payload;
     },
     setPosition: (state, action) => {
-      state.left = action.payload.left;
-      state.top = action.payload.top;
+      state.top = action.payload?.top;
     }
   }
 });
