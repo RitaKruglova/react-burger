@@ -8,6 +8,10 @@
   height: 80px;
 }
 
+.item:hover {
+  cursor: pointer;
+}
+
 .item:last-of-type {
   margin: 0;
 }

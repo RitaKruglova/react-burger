@@ -66,7 +66,8 @@ function ListItem({ place, ingredient, index }) {
 
 ListItem.propTypes = {
   place: PropTypes.string.isRequired,
-  ingredient: ingredientType.isRequired
+  ingredient: ingredientType.isRequired,
+  index: PropTypes.number
 }
 
 export default ListItem;

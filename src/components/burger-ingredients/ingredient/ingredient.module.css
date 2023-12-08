@@ -12,6 +12,10 @@
   position: relative;
 }
 
+.ingredient:hover {
+  cursor: pointer;
+}
+
 .image {
   width: 240px;
   height: 120px;
