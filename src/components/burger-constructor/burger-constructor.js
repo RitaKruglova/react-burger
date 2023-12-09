@@ -75,7 +75,7 @@ function BurgerConstructor() {
           <p className={`${burgerConstructorStyles.sum} text text_type_digits-medium mr-2`}>{sum}</p>
           <img src={currencyIconPath} alt="Иконка валюты" />
         </div>
-        <Button htmlType="button" type="primary" size="medium" onClick={createOrder}>
+        <Button htmlType="button" type="primary" size="medium" onClick={createOrder} disabled={draggedIngredients.length === 0 || bun['price'] === 0}>
           Оформить заказ
         </Button>
       </div>
