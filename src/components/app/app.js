@@ -11,8 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
+// Уважаемый господин Ревьюер, подскажите пожалуйста как мне исправить warning из консоли и где эта ошибка вообще находится, я не поняла(((. Заранее спасибо
+
 function App() {
-  const { isLoading, error } = useSelector(state => state.ingredients);
+  const { isLoading, error } = useSelector(store => ({
+    isLoading: store.loading.isLoading,
+    error: store.ingredients.error
+  }));
   const dispatch = useDispatch();
 
   useEffect(() => {

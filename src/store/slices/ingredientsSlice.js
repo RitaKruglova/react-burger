@@ -51,7 +51,6 @@ const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState: {
     dataIngredients: [],
-    isLoading: false,
     error: null,
     draggedIngredients: [],
     bun: initialBun,
@@ -85,15 +84,10 @@ const ingredientsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchIngredients.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.dataIngredients = action.payload;
-        state.isLoading = false;
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
-        state.isLoading = false;
         state.error = action.payload;
       })
   }

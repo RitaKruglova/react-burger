@@ -9,15 +9,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { addBun, addIngredient, cleanDraggedIngredients } from '../../store/slices/ingredientsSlice';
 import { fetchOrder, removeOrderNumber } from '../../store/slices/orderSlice';
+import Preloader from '../preloader/preloader';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
   
-  const { draggedIngredients, bun, orderNumber } = useSelector(store => ({
+  const { draggedIngredients, bun, orderNumber, error } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
     draggedIngredients: store.ingredients.draggedIngredients,
     bun: store.ingredients.bun,
-    orderNumber: store.order.orderNumber
+    orderNumber: store.order.orderNumber,
+    error: store.order.error
   }));
   
   const [sum, setSum] = useState(0);
@@ -44,6 +46,9 @@ function BurgerConstructor() {
 
   function createOrder() {
     dispatch(fetchOrder(draggedIngredients.map(i => i['_id']).concat(bun['_id'])));
+    if (error) {
+      console.log(error);
+    }
   }
 
   return (
