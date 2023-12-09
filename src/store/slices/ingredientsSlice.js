@@ -4,13 +4,9 @@ import invisibleBun from '../../images/invisible-bun.png';
 
 export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredients',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await api.getIngredients();
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(`Произошла ошибка загрузки ингридиентов: ${error}`);
-    }
+  async () => {
+    const response = await api.getIngredients();
+    return response.data;
   }
 );
 
@@ -53,7 +49,7 @@ const ingredientsSlice = createSlice({
     error: null,
     draggedIngredients: [],
     bun: {
-      name: 'Перетащите сюда булку',
+      name: 'Перетащите сюда булку и другие ингредиенты',
       price: 0,
       image: invisibleBun
     },
