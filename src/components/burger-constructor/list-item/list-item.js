@@ -57,7 +57,7 @@ function ListItem({ place, ingredient, index }) {
           isLocked="true"
           text={`${ingredient['name']} ${place === 'top' ? '(верх)' : '(низ)'}`}
           price={ingredient['price']}
-          thumbnail={ingredient['image']}
+          {...(ingredient['image'] ? { thumbnail: ingredient['image'] } : {})}
         />
       }
     </li>

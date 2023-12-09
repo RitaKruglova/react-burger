@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../../utils/Api';
+import invisibleBun from '../../images/invisible-bun.png';
 
 export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredients',
@@ -54,7 +55,7 @@ const ingredientsSlice = createSlice({
     bun: {
       name: 'Перетащите сюда булку',
       price: 0,
-      image: "https://code.s3.yandex.net/react/code/bun-02.png",
+      image: invisibleBun
     },
     currentIngredient: null
   },
