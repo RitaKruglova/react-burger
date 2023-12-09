@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 import { bunsType, fillingsType, saucesType } from '../../constants/constants';
 import { setCurrentTab } from '../../store/slices/tabsSlice';
+import { ingredientType } from '../../utils/types';
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
@@ -29,25 +30,6 @@ function BurgerIngredients() {
   const fillingsTop = useMemo(() => saucesTop + saucesRef.current?.getBoundingClientRect()?.height, [saucesRef.current, saucesTop]);
 
   useEffect(() => {
-    let ref;
-    let top;
-    if (currentTab === bunsType) {
-      ref = bunsRef;
-      top = bunsTop;
-    } else if (currentTab === saucesType) {
-      ref = saucesRef;
-      top = saucesTop;
-    } else {
-      ref = fillingsRef;
-      top = fillingsTop;
-    }
-    containerRef.current.scrollTo({
-      top: top,
-      behavior: 'smooth'
-    });
-  }, [currentTab]);
-
-  useEffect(() => {
     const container = containerRef?.current;
     function handleScroll() {
       if (container.scrollTop < saucesTop) {
@@ -64,7 +46,25 @@ function BurgerIngredients() {
     return () => {
       container.removeEventListener('scroll', handleScroll);
     }
-  }, [dispatch]);
+  }, [dispatch, currentTab, fillingsTop, saucesTop]);
+
+  function setTab(tab) {
+    console.log(tab)
+    dispatch(setCurrentTab(tab));
+    let ingredientsTop;
+    if (tab === bunsType) {
+      ingredientsTop = bunsTop;
+    } else if (tab === saucesType) {
+      ingredientsTop = saucesTop;
+    } else {
+      ingredientsTop = fillingsTop;
+    }
+    const container = containerRef?.current;
+    container.scrollTo({
+      top: ingredientsTop,
+      behavior: 'smooth'
+    });
+  }
 
   const buns = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'bun'), [dataIngredients]);
   const sauce = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
@@ -77,7 +77,7 @@ function BurgerIngredients() {
   return (
     <section className={`${burgerIngredientsStyles.container} mt-10`}>
       <h1 className={`${burgerIngredientsStyles.title} text text_type_main-large mb-5`}>Соберите бургер</h1>
-      <BurgerNavigation />
+      <BurgerNavigation  handleClick={setTab}/>
       <div className={`${burgerIngredientsStyles.ingredients} mt-10`} ref={containerRef}>
         <IngredientList title={bunsType} forwardRef={bunsRef}>
           {buns.map((ingredient) => (
