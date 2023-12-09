@@ -4,18 +4,8 @@ import modalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropTypes from 'prop-types';
 import { useModalClose } from '../../hooks/useModalClose';
-import { useDispatch } from 'react-redux';
-import { removeOrderNumber } from '../../store/slices/orderSlice';
-import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 
-function Modal({ isOrderDetails, title, children}) {
-  const dispatch = useDispatch();
-
-  function closeModal() {
-    dispatch(setCurrentIngredient(null));
-    dispatch(removeOrderNumber());
-  }
-
+function Modal({ isOrderDetails, title, children, closeModal}) {
   useModalClose(closeModal);
 
   return ReactDOM.createPortal(
@@ -38,7 +28,8 @@ Modal.propTypes = {
     PropTypes.string,
     PropTypes.number
   ]).isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
+  closeModal: PropTypes.func.isRequired
 }
 
 export default Modal;

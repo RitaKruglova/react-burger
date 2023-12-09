@@ -99,6 +99,7 @@ function BurgerIngredients() {
         <Modal
           isOrderDetails={false}
           title="Детали ингредиента"
+          closeModal={() => dispatch(setCurrentIngredient(null))}
         >
           <IngredientDetails />
         </Modal>
@@ -109,3 +110,4 @@ function BurgerIngredients() {
 }
 
 export default BurgerIngredients;
+

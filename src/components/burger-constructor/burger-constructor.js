@@ -8,7 +8,7 @@ import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { addBun, addIngredient } from '../../store/slices/ingredientsSlice';
-import { fetchOrder } from '../../store/slices/orderSlice';
+import { fetchOrder, removeOrderNumber } from '../../store/slices/orderSlice';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -79,6 +79,7 @@ function BurgerConstructor() {
         <Modal
           isOrderDetails={true}
           title={orderNumber}
+          closeModal={() => dispatch(removeOrderNumber())}
         >
           <OrderDetails />
         </Modal>
