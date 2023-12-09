@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import appStyles from './app.module.css';
 import Header from '../header/header';
 import { Route, Routes } from 'react-router-dom';
@@ -12,8 +12,6 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
-  const [isOrderDetailsModalOpen, setIsOrderDetailsModalOpen] = useState(false);
-  const [isIngredientDetailsModalOpen, setIsIngredientDetailsModalOpen] = useState(false);
   const { isLoading, error } = useSelector(state => state.ingredients);
   const dispatch = useDispatch();
 

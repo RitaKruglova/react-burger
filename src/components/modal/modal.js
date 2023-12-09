@@ -34,7 +34,10 @@ function Modal({ isOrderDetails, title, children}) {
 
 Modal.propTypes = {
   isOrderDetails: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
   children: PropTypes.node
 }
 
