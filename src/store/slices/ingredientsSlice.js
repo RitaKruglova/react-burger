@@ -2,6 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../../utils/Api';
 import invisibleBun from '../../images/invisible-bun.png';
 
+const initialBun = {
+  name: 'Перетащите сюда булку и другие ингредиенты',
+  price: 0,
+  image: invisibleBun
+}
+
 export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredients',
   async () => {
@@ -48,11 +54,7 @@ const ingredientsSlice = createSlice({
     isLoading: false,
     error: null,
     draggedIngredients: [],
-    bun: {
-      name: 'Перетащите сюда булку и другие ингредиенты',
-      price: 0,
-      image: invisibleBun
-    },
+    bun: initialBun,
     currentIngredient: null
   },
   reducers: {
@@ -75,6 +77,10 @@ const ingredientsSlice = createSlice({
     dropIngredient: (state, action) => {
       state.draggedIngredients.splice(state.draggedIngredients.map(i => i.uuid).indexOf(action.payload.ingredient.uuid), 1);
       state.draggedIngredients.splice(action.payload.index, 0, action.payload.ingredient);
+    },
+    cleanDraggedIngredients: (state) => {
+      state.draggedIngredients = [];
+      state.bun = initialBun;
     }
   },
   extraReducers: (builder) => {
@@ -94,4 +100,4 @@ const ingredientsSlice = createSlice({
 })
 
 export default ingredientsSlice.reducer;
-export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, dropIngredient } = ingredientsSlice.actions;
+export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, dropIngredient, cleanDraggedIngredients } = ingredientsSlice.actions;

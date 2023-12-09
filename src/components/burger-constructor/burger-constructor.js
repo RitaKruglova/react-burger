@@ -7,7 +7,7 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
-import { addBun, addIngredient } from '../../store/slices/ingredientsSlice';
+import { addBun, addIngredient, cleanDraggedIngredients } from '../../store/slices/ingredientsSlice';
 import { fetchOrder, removeOrderNumber } from '../../store/slices/orderSlice';
 
 function BurgerConstructor() {
@@ -33,6 +33,10 @@ function BurgerConstructor() {
       }
     }
   });
+
+  useEffect(() => {
+    dispatch(cleanDraggedIngredients());
+  }, [dispatch, orderNumber]);
 
   useEffect(() => {
     setSum((draggedIngredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + bun['price'] * 2)
