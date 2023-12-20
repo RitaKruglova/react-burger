@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.text {
+  line-height: 24px;
+  color: var(--text-dark-grey-secondary-text, #8585AD);
+}
+
+.link {
+  line-height: 24px;
+  color: var(--interface-accent, #4C4CFF);
+  text-decoration: none;
+}

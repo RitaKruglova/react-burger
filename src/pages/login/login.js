@@ -1,6 +1,7 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Form from "../../components/form/form";
 import { useState } from 'react';
+import Hint from "../../components/hint/hint";
 
 function Login() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -39,6 +40,8 @@ function Login() {
       <Button htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
         Войти
       </Button>
+      <Hint paragraphText="Вы — новый пользователь?" linkPath="/register" linkText="Зарегистрироваться" needIndent={true} />
+      <Hint paragraphText="Забыли пароль?" linkPath="/forgot-password" linkText="Восстановить пароль" needIndent={false} />
     </Form>
   )
 }
