@@ -17,6 +17,15 @@ export const fetchSetPassword = createAsyncThunk(
   }
 )
 
+export const fetchRegister = createAsyncThunk(
+  'form/fetchRegister',
+  async ({ emailValue, passwordValue, nameValue }) => {
+    console.log(emailValue, passwordValue, nameValue)
+    const response = await api.register(emailValue, passwordValue, nameValue);
+    return response;
+  }
+)
+
 const formSlice = createSlice({
   name: 'form',
   initialState: {

@@ -38,6 +38,14 @@ class Api {
       "token": codeValue
     })
   }
+
+  register(emailValue, passwordValue, nameValue) {
+    return this._fetch('/auth/register', 'POST', {
+      "email": emailValue, 
+      "password": passwordValue, 
+      "name": nameValue
+    })
+  }
 }
 
 const api = new Api({
