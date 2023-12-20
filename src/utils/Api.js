@@ -31,6 +31,13 @@ class Api {
       "email": emailValue
     })
   }
+
+  setPassword(newPasswordValue, codeValue) {
+    return this._fetch('password-reset/reset', 'POST', {
+      "password": newPasswordValue,
+      "token": codeValue
+    })
+  }
 }
 
 const api = new Api({

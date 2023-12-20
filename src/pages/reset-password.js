@@ -2,7 +2,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
-import { changePasswordVisibility, resetValues, setValue } from "../store/slices/fromSlice";
+import { changePasswordVisibility, fetchSetPassword, resetSuccess, resetValues, setValue } from "../store/slices/fromSlice";
 import { useEffect } from 'react';
 
 function ResetPassword() {
@@ -24,14 +24,24 @@ function ResetPassword() {
     }))
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    dispatch(fetchSetPassword({
+      newPasswordValue: values['reset-password-password'],
+      codeValue: values['reset-password-code']
+    }))
+  }
+
   useEffect(() => {
     return () => {
       dispatch(resetValues());
+      dispatch(resetSuccess());
     }
   }, [dispatch]);
 
   return (
-    <Form title="Восстановление пароля">
+    <Form title="Восстановление пароля" handleSubmit={handleSubmit}>
       <Input
         type={isPasswordVisible ? 'text' : 'password'}
         placeholder={'Введите новый пароль'}
@@ -56,7 +66,7 @@ function ResetPassword() {
         size={'default'}
         extraClass="mt-6"
       />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
         Сохранить
       </Button>
       <Hint paragraphText="Вспомнили пароль?" linkPath="/login" linkText="Войти" needIndent={false} />

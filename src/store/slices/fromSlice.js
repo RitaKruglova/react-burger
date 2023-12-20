@@ -7,6 +7,14 @@ export const fetchResetPassword = createAsyncThunk(
     const response = await api.resetPassword(emailValue);
     return response;
   }
+);
+
+export const fetchSetPassword = createAsyncThunk(
+  'form/fetchSetPassword',
+  async (newPasswordValue, codeValue) => {
+    const response = await api.setPassword(newPasswordValue, codeValue);
+    return response;
+  }
 )
 
 const formSlice = createSlice({
@@ -25,6 +33,9 @@ const formSlice = createSlice({
     },
     resetValues: (state) => {
       state.values = {}
+    },
+    resetSuccess: (state) => {
+      state.success = false
     }
   },
   extraReducers: (builder) => {
@@ -35,8 +46,14 @@ const formSlice = createSlice({
       .addCase(fetchResetPassword.rejected, (state) => {
         state.success = false;
       })
+      .addCase(fetchSetPassword.fulfilled, (state, action) => {
+        state.success = action.payload.success;
+      })
+      .addCase(fetchSetPassword.rejected, (state) => {
+        state.success = false;
+      })
   }
 });
 
 export default formSlice.reducer;
-export const { changePasswordVisibility, setValue, resetValues } = formSlice.actions;
+export const { changePasswordVisibility, setValue, resetValues, resetSuccess } = formSlice.actions;

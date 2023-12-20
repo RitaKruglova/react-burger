@@ -42,7 +42,7 @@ function Login() {
         size={'default'}
         extraClass="mt-6"
       />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
         Войти
       </Button>
       <Hint paragraphText="Вы — новый пользователь?" linkPath="/register" linkText="Зарегистрироваться" needIndent={true} />

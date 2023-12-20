@@ -54,7 +54,7 @@ function Register() {
         size={'default'}
         extraClass="mt-6"
       />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
         Зарегистрироваться
       </Button>
       <Hint paragraphText="Уже зарегистрированы?" linkPath="/login" linkText="Войти" needIndent={false} />

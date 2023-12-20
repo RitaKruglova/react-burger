@@ -2,7 +2,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
-import { setValue, resetValues, fetchResetPassword } from "../store/slices/fromSlice";
+import { setValue, resetValues, fetchResetPassword, resetSuccess } from "../store/slices/fromSlice";
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +30,7 @@ function ForgotPassword() {
   useEffect(() => {
     return () => {
       dispatch(resetValues());
+      dispatch(resetSuccess());
     }
   }, [dispatch]);
 
@@ -40,7 +41,7 @@ function ForgotPassword() {
   }, [success]);
 
   return (
-    <Form title="Восстановление пароля">
+    <Form title="Восстановление пароля" handleSubmit={handleSubmit}>
       <Input
         type={'email'}
         placeholder={'Укажите e-mail'}
@@ -52,7 +53,7 @@ function ForgotPassword() {
         size={'default'}
         extraClass="mt-6"
       />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mt-6 mb-20" onClick={handleSubmit}>
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
         Восстановить
       </Button>
       <Hint paragraphText="Вспомнили пароль?" linkPath="/login" linkText="Войти" needIndent={false} />
