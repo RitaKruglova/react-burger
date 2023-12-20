@@ -41,7 +41,7 @@ function ResetPassword() {
   }, [dispatch]);
 
   return (
-    <Form title="Восстановление пароля" handleSubmit={handleSubmit}>
+    <Form title="Восстановление пароля" handleSubmit={handleSubmit} isProfilePlace={false}>
       <Input
         type={isPasswordVisible ? 'text' : 'password'}
         placeholder={'Введите новый пароль'}

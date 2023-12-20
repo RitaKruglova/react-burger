@@ -26,8 +26,7 @@ function Register() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(values);
-    console.log(values['register-email'], values['register-password'], values['register-name']);
+    
     dispatch(fetchRegister({
       emailValue: values['register-email'],
       passwordValue: values['register-password'],
@@ -42,7 +41,7 @@ function Register() {
   }, [dispatch]);
 
   return (
-    <Form title="Регистрация" handleSubmit={handleSubmit}>
+    <Form title="Регистрация" handleSubmit={handleSubmit} isProfilePlace={false}>
       <Input
         type={'text'}
         placeholder={'Имя'}

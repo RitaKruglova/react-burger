@@ -41,7 +41,7 @@ function ForgotPassword() {
   }, [success]);
 
   return (
-    <Form title="Восстановление пароля" handleSubmit={handleSubmit}>
+    <Form title="Восстановление пароля" handleSubmit={handleSubmit} isProfilePlace={false}>
       <Input
         type={'email'}
         placeholder={'Укажите e-mail'}
