@@ -4,7 +4,7 @@ import Header from '../header/header';
 import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { HomePage, Login, Register, ForgotPassword } from '../../pages';
+import { HomePage, Login, Register, ForgotPassword, ResetPassword } from '../../pages';
 
 function App() {
   const error = useSelector(store => store.ingredients.error);
@@ -37,6 +37,10 @@ function App() {
           <Route
             path="/forgot-password"
             element={<ForgotPassword />}
+          />
+          <Route
+            path="/reset-password"
+            element={<ResetPassword />}
           />
         </Routes>
       </main>
