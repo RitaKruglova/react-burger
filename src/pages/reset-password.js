@@ -2,27 +2,42 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
-import { changePasswordVisibility } from "../store/slices/fromSlice";
+import { changePasswordVisibility, resetValues, setValue } from "../store/slices/fromSlice";
+import { useEffect } from 'react';
 
 function ResetPassword() {
   const dispatch = useDispatch();
 
-  const { isPasswordVisible } = useSelector(store => ({
-    isPasswordVisible: store.form.isPasswordVisible
+  const { isPasswordVisible, values } = useSelector(store => ({
+    isPasswordVisible: store.form.isPasswordVisible,
+    values: store.form.values
   }));
 
   function changePasswordVisible() {
     dispatch(changePasswordVisibility());
   }
 
+  function handleChange(event) {
+    dispatch(setValue({
+      name: event.target.name,
+      value: event.target.value
+    }))
+  }
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetValues());
+    }
+  }, [dispatch]);
+
   return (
     <Form title="Восстановление пароля">
       <Input
         type={isPasswordVisible ? 'text' : 'password'}
         placeholder={'Введите новый пароль'}
-        // onChange={}
+        onChange={handleChange}
         icon={isPasswordVisible ? 'HideIcon' : 'ShowIcon'}
-        // value={}
+        value={values['reset-password-password'] || ''}
         name={'reset-password-password'}
         error={false}
         onIconClick={changePasswordVisible}
@@ -33,8 +48,8 @@ function ResetPassword() {
       <Input
         type={'text'}
         placeholder={'Введите код из письма'}
-        // onChange={}
-        // value={}
+        onChange={handleChange}
+        value={values['reset-password-code'] || ''}
         name={'reset-password-code'}
         error={false}
         // errorText={''}

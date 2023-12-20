@@ -25,6 +25,12 @@ class Api {
       "ingredients": ingredientsIdArray
     })
   }
+
+  resetPassword(emailValue) {
+    return this._fetch('/password-reset', 'POST', {
+      "email": emailValue
+    })
+  }
 }
 
 const api = new Api({
