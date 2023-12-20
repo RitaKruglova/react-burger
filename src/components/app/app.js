@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import HomePage from '../../pages/home-page';
-import Form from '../form/form';
+import Login from '../../pages/login/login';
 
 function App() {
   const error = useSelector(store => store.ingredients.error);
@@ -26,6 +26,10 @@ function App() {
           <Route
             path="/"
             element={<HomePage />}
+          />
+          <Route
+            path="/login"
+            element={<Login />}
           />
         </Routes>
       </main>

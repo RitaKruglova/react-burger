@@ -1,4 +1,5 @@
 import formStyles from './form.module.css';
+import PropTypes from 'prop-types';
 
 function Form({ children, title }) {
   return (
@@ -9,6 +10,11 @@ function Form({ children, title }) {
       </form>
     </div>
   )
+}
+
+Form.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string
 }
 
 export default Form;
