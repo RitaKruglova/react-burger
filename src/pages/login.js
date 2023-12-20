@@ -1,13 +1,18 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Form from "../components/form/form";
-import { useState } from 'react';
 import Hint from "../components/hint/hint";
+import { useDispatch, useSelector } from "react-redux";
+import { changePasswordVisibility } from "../store/slices/fromSlice";
 
 function Login() {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  const { isPasswordVisible } = useSelector(store => ({
+    isPasswordVisible: store.form.isPasswordVisible
+  }));
 
   function changePasswordVisible() {
-    setIsPasswordVisible(!isPasswordVisible);
+    dispatch(changePasswordVisibility());
   }
 
   return (
@@ -30,7 +35,7 @@ function Login() {
         // onChange={}
         icon={isPasswordVisible ? 'HideIcon' : 'ShowIcon'}
         // value={}
-        name={'login-email'}
+        name={'login-password'}
         error={false}
         onIconClick={changePasswordVisible}
         // errorText={''}
