@@ -6,18 +6,19 @@ function ProfileNavigation() {
     <div className={profileNavigationStyles.container}>
       <NavLink
         to="/profile"
-        className={({isActive}) => `${profileNavigationStyles.link}${isActive ? profileNavigationStyles.active : ''}`}
+        end
+        className={({isActive}) => `${profileNavigationStyles.link} text text_type_main-medium ${isActive ? profileNavigationStyles.active : ''}`}
       >
         Профиль
       </NavLink>
       <NavLink
         to="orders"
-        className={({isActive}) => `${profileNavigationStyles.link}${isActive ? profileNavigationStyles.active : ''}`}
+        className={({isActive}) => `${profileNavigationStyles.link} text text_type_main-medium ${isActive ? profileNavigationStyles.active : ''}`}
       >
         История заказов
       </NavLink>
-      <button className={profileNavigationStyles.button} type="button" >Выход</button>
-      <p className={profileNavigationStyles.text}>В этом разделе вы можете изменить свои персональные данные</p>
+      <button className={`${profileNavigationStyles.button} text text_type_main-medium`} type="button" >Выход</button>
+      <p className={`${profileNavigationStyles.text} text text_type_main-default mt-20`}>В этом разделе вы можете изменить свои персональные данные</p>
     </div>
   )
 }

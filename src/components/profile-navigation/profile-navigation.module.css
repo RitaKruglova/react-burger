@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  position: absolute;
+  top: 120px;
+  left: 0;
+}
+
+.link {
+  line-height: 64px;
+  color: var(--text-dark-grey-secondary-text, #8585AD);
+  text-decoration: none;
+}
+
+.active {
+  color: var(--text-primary-light-standart-text, #F2F2F3);
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: var(--text-dark-grey-secondary-text, #8585AD);
+  line-height: 64px;
+  text-align: left;
+}
+
+.text {
+  line-height: 24px;
+  color: var(--text-dark-grey-secondary-text, #8585AD);
+}

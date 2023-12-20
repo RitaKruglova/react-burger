@@ -1,11 +1,14 @@
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import Form from "../components/form/form";
 import profileStyles from './profile.module.css';
+import ProfileNavigation from "../components/profile-navigation/profile-navigation";
+import { Outlet } from "react-router-dom";
 
 function Profile() {
-  <section className={profileStyles.container}>
-    
-  </section>
+  return (
+    <section className={profileStyles.container}>
+      <ProfileNavigation />
+      <Outlet />
+    </section>
+  )
 }
 
 export default Profile;

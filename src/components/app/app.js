@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile } from '../../pages';
+import ProfileForm from '../profile-form/profile-form';
 
 function App() {
   const error = useSelector(store => store.ingredients.error);
@@ -45,7 +46,16 @@ function App() {
           <Route
             path="/profile"
             element={<Profile />}
-          />
+          >
+            <Route
+              path=""
+              element={<ProfileForm />}
+            />
+            <Route
+              path="orders"
+              element={<></>}
+            />
+          </Route>
         </Routes>
       </main>
     </div>

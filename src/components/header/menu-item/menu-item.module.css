@@ -25,5 +25,5 @@
 }
 
 .white {
-  color: white;
+  color: var(--text-primary-light-standart-text, #F2F2F3);
 }
