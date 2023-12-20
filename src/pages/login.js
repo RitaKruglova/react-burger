@@ -1,7 +1,7 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import Form from "../../components/form/form";
+import Form from "../components/form/form";
 import { useState } from 'react';
-import Hint from "../../components/hint/hint";
+import Hint from "../components/hint/hint";
 
 function Login() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -25,7 +25,7 @@ function Login() {
         extraClass="mt-6"
       />
       <Input
-        type={'password'}
+        type={isPasswordVisible ? 'text' : 'password'}
         placeholder={'Пароль'}
         // onChange={}
         icon={isPasswordVisible ? 'HideIcon' : 'ShowIcon'}

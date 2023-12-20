@@ -4,8 +4,7 @@ import Header from '../header/header';
 import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import HomePage from '../../pages/home-page';
-import Login from '../../pages/login/login';
+import { HomePage, Login, Register } from '../../pages';
 
 function App() {
   const error = useSelector(store => store.ingredients.error);
@@ -30,6 +29,10 @@ function App() {
           <Route
             path="/login"
             element={<Login />}
+          />
+          <Route
+            path="/register"
+            element={<Register />}
           />
         </Routes>
       </main>
