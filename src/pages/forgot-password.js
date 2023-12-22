@@ -2,9 +2,10 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
-import { setValue, resetValues, fetchResetPassword, resetSuccess } from "../store/slices/fromSlice";
+import { setValue, resetValues, fetchResetPassword, resetSuccess } from "../store/slices/formSlice";
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { forgotPasswordEmailInput } from "../constants/constants";
 
 function ForgotPassword() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function ForgotPassword() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(fetchResetPassword(values['forgot-password-email']));
+    dispatch(fetchResetPassword(values[forgotPasswordEmailInput]));
   }
 
   useEffect(() => {
@@ -46,8 +47,8 @@ function ForgotPassword() {
         type={'email'}
         placeholder={'Укажите e-mail'}
         onChange={handleChange}
-        value={values['forgot-password-email'] || ''}
-        name={'forgot-password-email'}
+        value={values[forgotPasswordEmailInput] || ''}
+        name={forgotPasswordEmailInput}
         error={false}
         // errorText={''}
         size={'default'}

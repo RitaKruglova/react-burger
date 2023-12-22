@@ -30,6 +30,10 @@
   text-align: left;
 }
 
+.button:hover {
+  cursor: pointer;
+}
+
 .text {
   line-height: 24px;
   color: var(--text-dark-grey-secondary-text, #8585AD);

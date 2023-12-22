@@ -46,6 +46,25 @@ class Api {
       "name": nameValue
     })
   }
+
+  login(emailValue, passwordValue) {
+    return this._fetch('/auth/login', 'POST', {
+      "email": emailValue, 
+      "password": passwordValue
+    })
+  }
+
+  refreshToken(token) {
+    return this._fetch('/auth/token', 'POST', {
+      "token": token
+    })
+  }
+
+  logout(token) {
+    return this._fetch('/auth/logout', 'POST', {
+      "token": token
+    })
+  }
 }
 
 const api = new Api({

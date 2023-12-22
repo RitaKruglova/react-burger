@@ -2,15 +2,19 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
-import { changePasswordVisibility, fetchRegister, resetValues, setValue } from "../store/slices/fromSlice";
+import { changePasswordVisibility, fetchRegister, resetSuccess, resetValues, setValue } from "../store/slices/formSlice";
 import { useEffect } from 'react';
+import { registerNameInput, registerEmailInput, registerPasswordInput } from "../constants/constants";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { isPasswordVisible, values } = useSelector(store => ({
+  const { isPasswordVisible, values, success } = useSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
-    values: store.form.values
+    values: store.form.values,
+    success: store.form.success
   }));
 
   function changePasswordVisible() {
@@ -26,17 +30,24 @@ function Register() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    
+
     dispatch(fetchRegister({
-      emailValue: values['register-email'],
-      passwordValue: values['register-password'],
-      nameValue: values['register-name']
+      emailValue: values[registerEmailInput],
+      passwordValue: values[registerPasswordInput],
+      nameValue: values[registerNameInput]
     }));
   }
 
   useEffect(() => {
+    if (success) {
+      dispatch(resetSuccess());
+      navigate('/login');
+    }
+  }, [success])
+
+  useEffect(() => {
     return () => {
-      dispatch(resetValues);
+      dispatch(resetValues());
     }
   }, [dispatch]);
 
@@ -46,8 +57,8 @@ function Register() {
         type={'text'}
         placeholder={'Имя'}
         onChange={handleChange}
-        value={values['register-name']}
-        name={'register-name'}
+        value={values[registerNameInput]}
+        name={registerNameInput}
         error={false}
         // errorText={''}
         size={'default'}
@@ -57,8 +68,8 @@ function Register() {
         type={'email'}
         placeholder={'E-mail'}
         onChange={handleChange}
-        value={values['register-email']}
-        name={'register-email'}
+        value={values[registerEmailInput]}
+        name={registerEmailInput}
         error={false}
         // errorText={''}
         size={'default'}
@@ -69,8 +80,8 @@ function Register() {
         placeholder={'Пароль'}
         onChange={handleChange}
         icon={isPasswordVisible ? 'HideIcon' : 'ShowIcon'}
-        value={values['register-password']}
-        name={'register-password'}
+        value={values[registerPasswordInput]}
+        name={registerPasswordInput}
         error={false}
         onIconClick={changePasswordVisible}
         // errorText={''}

@@ -1,5 +1,6 @@
 import Form from "../form/form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { profileEmailInput, profileNameInput, profilePasswordInput } from "../../constants/constants";
 
 function ProfileForm() {
   return (
@@ -9,8 +10,8 @@ function ProfileForm() {
         placeholder={'Имя'}
         // onChange={handleChange}
         icon={'EditIcon'}
-        // value={values['register-name']}
-        name={'register-name'}
+        // value={values[profileNameInput]}
+        name={profileNameInput}
         error={false}
         // onIconClick={}
         // errorText={''}
@@ -22,8 +23,8 @@ function ProfileForm() {
         placeholder={'E-mail'}
         // onChange={handleChange}
         icon={'EditIcon'}
-        // value={values['register-email']}
-        name={'register-email'}
+        // value={values[profileEmailInput]}
+        name={profileEmailInput}
         error={false}
         // onIconClick={}
         // errorText={''}
@@ -35,8 +36,8 @@ function ProfileForm() {
         placeholder={'Пароль'}
         // onChange={handleChange}
         icon={'EditIcon'}
-        // value={values['register-password']}
-        name={'register-password'}
+        // value={values[profilePasswordInput]}
+        name={profilePasswordInput}
         error={false}
         // onIconClick={}
         // errorText={''}

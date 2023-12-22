@@ -2,8 +2,9 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
-import { changePasswordVisibility, fetchSetPassword, resetSuccess, resetValues, setValue } from "../store/slices/fromSlice";
+import { changePasswordVisibility, fetchSetPassword, resetSuccess, resetValues, setValue } from "../store/slices/formSlice";
 import { useEffect } from 'react';
+import { resetPasswordPasswordInput, resetPasswordCodeInput } from "../constants/constants";
 
 function ResetPassword() {
   const dispatch = useDispatch();
@@ -28,8 +29,8 @@ function ResetPassword() {
     event.preventDefault();
 
     dispatch(fetchSetPassword({
-      newPasswordValue: values['reset-password-password'],
-      codeValue: values['reset-password-code']
+      newPasswordValue: values[resetPasswordPasswordInput],
+      codeValue: values[resetPasswordCodeInput]
     }))
   }
 
@@ -47,8 +48,8 @@ function ResetPassword() {
         placeholder={'Введите новый пароль'}
         onChange={handleChange}
         icon={isPasswordVisible ? 'HideIcon' : 'ShowIcon'}
-        value={values['reset-password-password'] || ''}
-        name={'reset-password-password'}
+        value={values[resetPasswordPasswordInput] || ''}
+        name={resetPasswordPasswordInput}
         error={false}
         onIconClick={changePasswordVisible}
         // errorText={''}
@@ -59,8 +60,8 @@ function ResetPassword() {
         type={'text'}
         placeholder={'Введите код из письма'}
         onChange={handleChange}
-        value={values['reset-password-code'] || ''}
-        name={'reset-password-code'}
+        value={values[resetPasswordCodeInput] || ''}
+        name={resetPasswordCodeInput}
         error={false}
         // errorText={''}
         size={'default'}
