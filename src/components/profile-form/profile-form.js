@@ -3,17 +3,25 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { profileEmailInput, profileNameInput, profilePasswordInput } from "../../constants/constants";
 import profileFormStyles from './profile-form.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setValue } from "../../store/slices/formSlice";
 
 function ProfileForm() {
   const dispatch = useDispatch();
+  const [isEditing, setIsEditing] = useState({
+    profileNameInput: false,
+    profileEmailInput: false,
+    profilePasswordInput: false
+  });
 
   const { currentUser, values } = useSelector(store => ({
     currentUser: store.form.currentUser,
     values: store.form.values
   }));
-  
+
+  function handleIconClick(inputName) {
+    setIsEditing(prev => ({ ...prev, [inputName]: !prev[inputName] }));
+  }
 
   useEffect(() => {
     dispatch(setValue({
@@ -39,40 +47,43 @@ function ProfileForm() {
         type={'text'}
         placeholder={'Имя'}
         onChange={handleChange}
-        icon={'EditIcon'}
+        icon={isEditing[profileNameInput] ? 'CloseIcon' : 'EditIcon'}
         value={values[profileNameInput] || ''}
         name={profileNameInput}
         error={false}
-        // onIconClick={}
+        onIconClick={() => handleIconClick(profileNameInput)}
         // errorText={''}
         size={'default'}
         extraClass="mt-30"
+        disabled={!isEditing[profileNameInput]}
       />
       <Input
         type={'email'}
         placeholder={'E-mail'}
         onChange={handleChange}
-        icon={'EditIcon'}
+        icon={isEditing[profileEmailInput] ? 'CloseIcon' : 'EditIcon'}
         value={values[profileEmailInput] || ''}
         name={profileEmailInput}
         error={false}
-        // onIconClick={}
+        onIconClick={() => handleIconClick(profileEmailInput)}
         // errorText={''}
         size={'default'}
         extraClass="mt-6"
+        disabled={!isEditing[profileEmailInput]}
       />
       <Input
         type={'password'}
         placeholder={'Пароль'}
         onChange={handleChange}
-        icon={'EditIcon'}
-        value={values[profilePasswordInput] || ''}
+        icon={isEditing[profilePasswordInput] ? 'CloseIcon' : 'EditIcon'}
+        value={values[profilePasswordInput] || '.....'}
         name={profilePasswordInput}
         error={false}
-        // onIconClick={}
+        onIconClick={() => handleIconClick(profilePasswordInput)}
         // errorText={''}
         size={'default'}
         extraClass="mt-6"
+        disabled={!isEditing[profilePasswordInput]}
       />
       <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-6">
         Сохранить
