@@ -7,17 +7,20 @@ class Api {
     this._headers = headers;
   }
 
-  _fetch(url = '', method = 'GET', body) {
+  _fetch(url = '', method, body, headers = {}) {
     return fetch(`${this._url}${url}`, {
       method,
-      headers: this._headers,
+      headers: {
+        ...this._headers,
+        ...headers
+      },
       body: body ? JSON.stringify(body) : null
     })
       .then(checkResponse)
   }
 
   getIngredients() {
-    return this._fetch('/ingredients');
+    return this._fetch('/ingredients', 'GET');
   }
 
   createOrder(ingredientsIdArray) {
@@ -33,7 +36,7 @@ class Api {
   }
 
   setPassword(newPasswordValue, codeValue) {
-    return this._fetch('password-reset/reset', 'POST', {
+    return this._fetch('/password-reset/reset', 'POST', {
       "password": newPasswordValue,
       "token": codeValue
     })
@@ -63,6 +66,12 @@ class Api {
   logout(token) {
     return this._fetch('/auth/logout', 'POST', {
       "token": token
+    })
+  }
+
+  getUser(token) {
+    return this._fetch('/auth/user', 'GET', null, {
+      authorization: `Bearer ${token}`
     })
   }
 }

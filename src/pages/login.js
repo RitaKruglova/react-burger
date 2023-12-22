@@ -2,7 +2,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
-import { changePasswordVisibility, fetchLogin, resetSuccess, resetValues, setValue } from "../store/slices/formSlice";
+import { changePasswordVisibility, fetchLogin, resetValues, setValue } from "../store/slices/formSlice";
 import { loginEmailInput, loginPasswordInput } from "../constants/constants";
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -11,10 +11,10 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isPasswordVisible, values, success } = useSelector(store => ({
+  const { isPasswordVisible, values, currentUser } = useSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
     values: store.form.values,
-    success: store.form.success
+    currentUser: store.form.currentUser
   }));
 
   function changePasswordVisible() {
@@ -28,25 +28,30 @@ function Login() {
     }))
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    dispatch(fetchLogin({
-      emailValue: values[loginEmailInput],
-      passwordValue: values[loginPasswordInput]
-    }))
+    try {
+      await dispatch(fetchLogin({
+        emailValue: values[loginEmailInput],
+        passwordValue: values[loginPasswordInput]
+      })).unwrap();
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   useEffect(() => {
-    if (success) {
+    if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
       navigate('/');
     }
-  }, [success]);
+  }, []);
 
   useEffect(() => {
     return () => {
       dispatch(resetValues());
-      dispatch(resetSuccess());
     }
   }, [dispatch]);
 
@@ -56,7 +61,7 @@ function Login() {
         type={'email'}
         placeholder={'E-mail'}
         onChange={handleChange}
-        value={values[loginEmailInput]}
+        value={values[loginEmailInput] || ''}
         name={loginEmailInput}
         error={false}
         // onIconClick={}
@@ -69,7 +74,7 @@ function Login() {
         placeholder={'Пароль'}
         onChange={handleChange}
         icon={isPasswordVisible ? 'HideIcon' : 'ShowIcon'}
-        value={values[loginPasswordInput]}
+        value={values[loginPasswordInput] || ''}
         name={loginPasswordInput}
         error={false}
         onIconClick={changePasswordVisible}

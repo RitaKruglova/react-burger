@@ -1,28 +1,22 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import profileNavigationStyles from './profile-navigation.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchLogout, resetSuccess } from '../../store/slices/formSlice';
-import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchLogout, resetCurrentUser} from '../../store/slices/formSlice';
 
 function ProfileNavigation() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { success } = useSelector(store => ({
-    success: store.form.success
-  }))
-
-  function logout() {
-    dispatch(fetchLogout(localStorage.getItem('refreshToken')));
-  }
-
-  useEffect(() => {
-    if (success) {
+  async function logout() {
+    try {
+      await dispatch(fetchLogout(localStorage.getItem('refreshToken'))).unwrap();
       localStorage.removeItem('refreshToken');
+      dispatch(resetCurrentUser());
       navigate('/login');
-      dispatch(resetSuccess());
+    } catch (error) {
+      console.log(error);
     }
-  }, [success]);
+  }
 
   return (
     <div className={profileNavigationStyles.container}>

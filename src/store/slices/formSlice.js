@@ -54,12 +54,19 @@ export const fetchLogout = createAsyncThunk(
   }
 )
 
+export const fetchGetUser = createAsyncThunk(
+  'form/fetchGetUser',
+  async (token) => {
+    const response = await api.getUser(token);
+    return response;
+  }
+)
+
 const formSlice = createSlice({
   name: 'form',
   initialState: {
     isPasswordVisible: false,
     values: {},
-    success: false,
     currentUser: {
       email: '',
       name: ''
@@ -76,53 +83,27 @@ const formSlice = createSlice({
     resetValues: (state) => {
       state.values = {}
     },
-    resetSuccess: (state) => {
-      state.success = false
+    resetCurrentUser: (state) => {
+      state.currentUser = {
+        email: '',
+        name: ''
+      }
     }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchResetPassword.fulfilled, (state, action) => {
-        state.success = action.payload.success;
-      })
-      .addCase(fetchResetPassword.rejected, (state) => {
-        state.success = false;
-      })
-      .addCase(fetchSetPassword.fulfilled, (state, action) => {
-        state.success = action.payload.success;
-      })
-      .addCase(fetchSetPassword.rejected, (state) => {
-        state.success = false;
-      })
       .addCase(fetchLogin.fulfilled, (state, action) => {
         saveTokens(state, action);
-        state.success = action.payload.success;
         state.currentUser = action.payload.user;
-      })
-      .addCase(fetchLogin.rejected, (state) => {
-        state.success = false;
       })
       .addCase(fetchRefreshToken.fulfilled, (state, action) => {
         saveTokens(state, action);
-        state.success = action.payload.success;
       })
-      .addCase(fetchRefreshToken.rejected, (state) => {
-        state.success = false;
-      })
-      .addCase(fetchLogout.fulfilled, (state, action) => {
-        state.success = action.payload.success;
-      })
-      .addCase(fetchLogout.rejected, (state) => {
-        state.success = false;
-      })
-      .addCase(fetchRegister.fulfilled, (state, action) => {
-        state.success = action.payload.success;
-      })
-      .addCase(fetchRegister.rejected, (state) => {
-        state.success = false;
+      .addCase(fetchGetUser.fulfilled, (state, action) => {
+        state.currentUser = action.payload.user;
       })
   }
 });
 
 export default formSlice.reducer;
-export const { changePasswordVisibility, setValue, resetValues, resetSuccess } = formSlice.actions;
+export const { changePasswordVisibility, setValue, resetValues,resetCurrentUser } = formSlice.actions;

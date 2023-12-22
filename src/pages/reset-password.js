@@ -2,16 +2,19 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
-import { changePasswordVisibility, fetchSetPassword, resetSuccess, resetValues, setValue } from "../store/slices/formSlice";
+import { changePasswordVisibility, fetchSetPassword, resetValues, setValue } from "../store/slices/formSlice";
 import { useEffect } from 'react';
-import { resetPasswordPasswordInput, resetPasswordCodeInput } from "../constants/constants";
+import { resetPasswordPasswordInput, resetPasswordCodeInput, forgotPasswordEmailInput } from "../constants/constants";
+import { useNavigate } from "react-router-dom";
 
 function ResetPassword() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { isPasswordVisible, values } = useSelector(store => ({
+  const { isPasswordVisible, values, currentUser } = useSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
-    values: store.form.values
+    values: store.form.values,
+    currentUser: store.form.currentUser
   }));
 
   function changePasswordVisible() {
@@ -25,21 +28,38 @@ function ResetPassword() {
     }))
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    dispatch(fetchSetPassword({
-      newPasswordValue: values[resetPasswordPasswordInput],
-      codeValue: values[resetPasswordCodeInput]
-    }))
+    try {
+      await dispatch(fetchSetPassword({
+        newPasswordValue: values[resetPasswordPasswordInput],
+        codeValue: values[resetPasswordCodeInput]
+      })).unwrap();
+      navigate('/login');
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+  useEffect(() => {
+    if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
+      navigate('/');
+    }
+  }, []);
 
   useEffect(() => {
     return () => {
       dispatch(resetValues());
-      dispatch(resetSuccess());
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log(values[forgotPasswordEmailInput])
+    if (!values[forgotPasswordEmailInput]) {
+      navigate('/forgot-password');
+    }
+  }, [])
 
   return (
     <Form title="Восстановление пароля" handleSubmit={handleSubmit} isProfilePlace={false}>

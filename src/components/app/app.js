@@ -1,14 +1,21 @@
 import { useEffect } from 'react';
 import appStyles from './app.module.css';
 import Header from '../header/header';
+import { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile } from '../../pages';
 import ProfileForm from '../profile-form/profile-form';
+import { fetchGetUser, fetchRefreshToken } from '../../store/slices/formSlice';
+import ProtectedRoute from '../protected-route/protected-route';
 
 function App() {
-  const error = useSelector(store => store.ingredients.error);
+  const { error, accessToken, currentUser } = useSelector(store => ({
+    error: store.ingredients.error,
+    accessToken: store.form.accessToken,
+    currentUser: store.form.currentUser
+  }));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,6 +24,18 @@ function App() {
       console.log(error);
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (localStorage.getItem('refreshToken')) {
+      dispatch(fetchRefreshToken(localStorage.getItem('refreshToken')));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(fetchGetUser(accessToken));
+    }
+  }, [accessToken]);
 
   return (
     <div className={appStyles.page}>
@@ -45,15 +64,27 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<Profile />}
+            element={
+              <ProtectedRoute
+                element={Profile}
+              />
+            }
           >
             <Route
               path=""
-              element={<ProfileForm />}
+              element={
+                <ProtectedRoute
+                  element={ProfileForm}
+                />
+              }
             />
             <Route
               path="orders"
-              element={<></>}
+              element={
+                <ProtectedRoute
+                  element={Component}
+                />
+              }
             />
           </Route>
         </Routes>
