@@ -62,6 +62,14 @@ export const fetchGetUser = createAsyncThunk(
   }
 )
 
+export const fetchChangeUserInfo = createAsyncThunk(
+  'form/fetchChangeUserInfo',
+  async ({info, accessToken}) => {
+    const response = await api.changeUserInfo(info, accessToken);
+    return response;
+  }
+)
+
 const formSlice = createSlice({
   name: 'form',
   initialState: {
@@ -100,6 +108,9 @@ const formSlice = createSlice({
         saveTokens(state, action);
       })
       .addCase(fetchGetUser.fulfilled, (state, action) => {
+        state.currentUser = action.payload.user;
+      })
+      .addCase(fetchChangeUserInfo.fulfilled, (state, action) => {
         state.currentUser = action.payload.user;
       })
   }

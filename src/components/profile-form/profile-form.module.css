@@ -3,3 +3,7 @@
   border: none;
   color: var(--interface-accent, #4C4CFF);
 }
+
+.button:hover {
+  cursor: pointer;
+}

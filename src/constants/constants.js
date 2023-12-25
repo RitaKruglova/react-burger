@@ -13,3 +13,4 @@ export const profilePasswordInput = 'profile-password';
 export const forgotPasswordEmailInput = 'forgot-password-email';
 export const resetPasswordPasswordInput = 'reset-password-password';
 export const resetPasswordCodeInput = 'reset-password-code';
+export const initialPassword = '******'
