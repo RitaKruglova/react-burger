@@ -3,7 +3,7 @@ import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
 import { changePasswordVisibility, fetchRegister, resetValues, setValue } from "../store/slices/formSlice";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { registerNameInput, registerEmailInput, registerPasswordInput } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +16,8 @@ function Register() {
     values: store.form.values,
     currentUser: store.form.currentUser
   }));
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   function changePasswordVisible() {
     dispatch(changePasswordVisibility());
@@ -56,6 +58,14 @@ function Register() {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!values[registerEmailInput] || !values[registerNameInput] || !values[registerPasswordInput]) {
+      setIsButtonDisabled(true);
+    } else {
+      setIsButtonDisabled(false);
+    }
+  }, [values])
+
   return (
     <Form title="Регистрация" handleSubmit={handleSubmit} isProfilePlace={false}>
       <Input
@@ -93,7 +103,7 @@ function Register() {
         size={'default'}
         extraClass="mt-6"
       />
-      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20" disabled={isButtonDisabled}>
         Зарегистрироваться
       </Button>
       <Hint paragraphText="Уже зарегистрированы?" linkPath="/login" linkText="Войти" needIndent={false} />

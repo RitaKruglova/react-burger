@@ -3,7 +3,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { profileEmailInput, profileNameInput, profilePasswordInput, initialPassword } from "../../constants/constants";
 import profileFormStyles from './profile-form.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { fetchChangeUserInfo, setValue } from "../../store/slices/formSlice";
 
 function ProfileForm() {
@@ -84,12 +84,9 @@ function ProfileForm() {
     }
   }, [isEditing, dispatch, currentUser])
 
-  function handleChange(event) {
-    dispatch(setValue({
-      name: event.target.name,
-      value: event.target.value
-    }));
-  }
+  const handleChange = useCallback((event) => {
+    dispatch(setValue({ name: event.target.name, value: event.target.value }));
+  }, [dispatch]);
 
   function handleSubmit(event) {
     event.preventDefault();

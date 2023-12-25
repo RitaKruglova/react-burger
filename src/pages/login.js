@@ -4,12 +4,14 @@ import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
 import { changePasswordVisibility, fetchLogin, resetValues, setValue } from "../store/slices/formSlice";
 import { loginEmailInput, loginPasswordInput } from "../constants/constants";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const { isPasswordVisible, values, currentUser } = useSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
@@ -55,6 +57,14 @@ function Login() {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!values[loginEmailInput] || !values[loginPasswordInput]) {
+      setIsButtonDisabled(true);
+    } else {
+      setIsButtonDisabled(false);
+    }
+  }, [values])
+
   return (
     <Form title="Вход"isProfilePlace={false} handleSubmit={handleSubmit}>
       <Input
@@ -82,7 +92,7 @@ function Login() {
         size={'default'}
         extraClass="mt-6"
       />
-      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20" disabled={isButtonDisabled}>
         Войти
       </Button>
       <Hint paragraphText="Вы — новый пользователь?" linkPath="/register" linkText="Зарегистрироваться" needIndent={true} />

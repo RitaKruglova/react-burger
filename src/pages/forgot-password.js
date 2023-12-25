@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setValue, fetchResetPassword } from "../store/slices/formSlice";
 import { useNavigate } from "react-router-dom";
 import { forgotPasswordEmailInput } from "../constants/constants";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function ForgotPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const { values, currentUser } = useSelector(store => ({
     values: store.form.values,
@@ -40,6 +42,14 @@ function ForgotPassword() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!values[forgotPasswordEmailInput]) {
+      setIsButtonDisabled(true);
+    } else {
+      setIsButtonDisabled(false);
+    }
+  }, [values])
+
   return (
     <Form title="Восстановление пароля" handleSubmit={handleSubmit} isProfilePlace={false}>
       <Input
@@ -53,7 +63,7 @@ function ForgotPassword() {
         size={'default'}
         extraClass="mt-6"
       />
-      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20" disabled={isButtonDisabled}>
         Восстановить
       </Button>
       <Hint paragraphText="Вспомнили пароль?" linkPath="/login" linkText="Войти" needIndent={false} />
