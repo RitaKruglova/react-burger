@@ -10,6 +10,7 @@ import ProfileForm from '../profile-form/profile-form';
 import { fetchGetUser, fetchRefreshToken } from '../../store/slices/formSlice';
 import ProtectedRoute from '../protected-route/protected-route';
 import IngredientPage from '../../pages/ingredient-page';
+import useNavigationHistory from '../../hooks/useNavigationHistory';
 
 function App() {
   const { error, accessToken, currentUser } = useSelector(store => ({
@@ -18,6 +19,8 @@ function App() {
     currentUser: store.form.currentUser
   }));
   const dispatch = useDispatch();
+
+  const { previousPath } = useNavigationHistory();
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -46,7 +49,9 @@ function App() {
           <Route
             path="/"
             element={<HomePage />}
-          />
+          >
+            <Route path="ingredients/:id" element={<IngredientPage previousPath={previousPath} />} />
+          </Route>
           <Route
             path="/login"
             element={<Login />}
@@ -88,7 +93,6 @@ function App() {
               }
             />
           </Route>
-          <Route path="/ingredients/:id" element={<IngredientPage />} />
         </Routes>
       </main>
     </div>

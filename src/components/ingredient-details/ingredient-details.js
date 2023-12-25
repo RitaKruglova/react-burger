@@ -24,7 +24,7 @@ function IngredientDetails() {
   }
   
   return (
-    <>
+    <div className={ingredientDetailsStyles.container}>
       <img
         className={ingredientDetailsStyles.image}
         src={currentIngredient['image']}
@@ -37,7 +37,7 @@ function IngredientDetails() {
         <NutritionalValue title="Жиры, г" value={currentIngredient['fat']} />
         <NutritionalValue title="Углеводы, г" value={currentIngredient['carbohydrates']} />
       </ul>
-    </>
+    </div>
   )
 }
 

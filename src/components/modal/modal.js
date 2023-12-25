@@ -11,7 +11,7 @@ function Modal({ isOrderDetails, title, children, closeModal}) {
   return ReactDOM.createPortal(
     <ModalOverlay>
       <div className={modalStyles.container}>
-        <h4 className={`${isOrderDetails ? 'mt-30 text text_type_digits-large' : `mt-10 ${modalStyles.title} text text text_type_main-large`}`}>{title}</h4>
+        <h4 className={`${isOrderDetails ? 'mt-30 text text_type_digits-large' : `mt-10 ${modalStyles.title} text text_type_main-large`}`}>{title}</h4>
         <div className={`${modalStyles.button} mt-15 mr-10`}>
           <CloseIcon type="primary" onClick={closeModal}/>
         </div>

@@ -5,6 +5,7 @@ import BurgerIngredients from '../components/burger-ingredients/burger-ingredien
 import BurgerConstructor from '../components/burger-constructor/burger-constructor';
 import Preloader from '../components/preloader/preloader';
 import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 function HomePage() {
   const isLoading = useSelector(store => store.loading.isLoading);
@@ -12,12 +13,15 @@ function HomePage() {
   return (
     <>
       {!isLoading ?
-        <Burger>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </Burger>
+        <>
+          <Burger>
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </DndProvider>
+          </Burger>
+          <Outlet />
+        </>
       :
       <Preloader />}
     </>
