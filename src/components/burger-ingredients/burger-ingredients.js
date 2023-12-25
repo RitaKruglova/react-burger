@@ -9,10 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 import { bunsType, fillingsType, saucesType } from '../../constants/constants';
 import { setCurrentTab } from '../../store/slices/tabsSlice';
-import { ingredientType } from '../../utils/types';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { dataIngredients, currentIngredient, currentTab } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
@@ -71,7 +72,7 @@ function BurgerIngredients() {
   const main = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'main'), [dataIngredients]);
 
   function showDetails(ingredient) {
-    dispatch(setCurrentIngredient(ingredient));
+    navigate(`/ingredients/${ingredient._id}`);
   }
   
   return (
@@ -95,7 +96,7 @@ function BurgerIngredients() {
           ))}
         </IngredientList>
       </div>
-      {currentIngredient &&
+      {/* {currentIngredient &&
         <Modal
           isOrderDetails={false}
           title="Детали ингредиента"
@@ -103,7 +104,7 @@ function BurgerIngredients() {
         >
           <IngredientDetails />
         </Modal>
-      }
+      } */}
       
     </section>
   )

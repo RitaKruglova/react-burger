@@ -1,9 +1,27 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import NutritionalValue from './nutritional-value/nutritional-value';
+import { useEffect } from 'react';
+import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
+import { useParams } from 'react-router-dom';
 
 function IngredientDetails() {
-  const currentIngredient = useSelector(store => store.ingredients.currentIngredient);
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
+
+  const { currentIngredient, dataIngredients } = useSelector(store => ({
+    currentIngredient: store.ingredients.currentIngredient,
+    dataIngredients: store.ingredients.dataIngredients
+  }));
+
+  useEffect(() => {
+    dispatch(setCurrentIngredient(dataIngredients.filter(i => i._id === id)[0]))
+  },[dispatch, dataIngredients, id])
+
+  if (!currentIngredient) {
+    return null;
+  }
   
   return (
     <>
