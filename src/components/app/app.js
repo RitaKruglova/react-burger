@@ -11,6 +11,7 @@ import { fetchGetUser, fetchRefreshToken } from '../../store/slices/formSlice';
 import ProtectedRoute from '../protected-route/protected-route';
 import IngredientPage from '../../pages/ingredient-page';
 import useNavigationHistory from '../../hooks/useNavigationHistory';
+import Preloader from '../preloader/preloader';
 
 function App() {
   const { error, accessToken, currentUser } = useSelector(store => ({
@@ -88,7 +89,7 @@ function App() {
               path="orders"
               element={
                 <ProtectedRoute
-                  element={Component}
+                  element={Preloader} // временно положила сюда прелоадер
                 />
               }
             />
