@@ -96,16 +96,6 @@ function BurgerIngredients() {
           ))}
         </IngredientList>
       </div>
-      {/* {currentIngredient &&
-        <Modal
-          isOrderDetails={false}
-          title="Детали ингредиента"
-          closeModal={() => dispatch(setCurrentIngredient(null))}
-        >
-          <IngredientDetails />
-        </Modal>
-      } */}
-      
     </section>
   )
 }

@@ -9,17 +9,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { addBun, addIngredient, cleanDraggedIngredients } from '../../store/slices/ingredientsSlice';
 import { fetchOrder, removeOrderNumber } from '../../store/slices/orderSlice';
-import Preloader from '../preloader/preloader';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   
-  const { draggedIngredients, bun, orderNumber, error } = useSelector(store => ({
+  const { draggedIngredients, bun, orderNumber, error, currentUser } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
     draggedIngredients: store.ingredients.draggedIngredients,
     bun: store.ingredients.bun,
     orderNumber: store.order.orderNumber,
-    error: store.order.error
+    error: store.order.error,
+    currentUser: store.form.currentUser
   }));
   
   const [sum, setSum] = useState(0);
@@ -37,7 +39,9 @@ function BurgerConstructor() {
   });
 
   useEffect(() => {
-    dispatch(cleanDraggedIngredients());
+    if (orderNumber) {
+      dispatch(cleanDraggedIngredients());
+    }
   }, [dispatch, orderNumber]);
 
   useEffect(() => {
@@ -45,9 +49,13 @@ function BurgerConstructor() {
   }, [draggedIngredients, bun])
 
   function createOrder() {
-    dispatch(fetchOrder(draggedIngredients.map(i => i['_id']).concat(bun['_id'])));
-    if (error) {
-      console.log(error);
+    if (!currentUser.name || !currentUser.email) {
+      navigate('/login');
+    } else {
+      dispatch(fetchOrder(draggedIngredients.map(i => i['_id']).concat(bun['_id'])));
+      if (error) {
+        console.log(error);
+      }
     }
   }
 
