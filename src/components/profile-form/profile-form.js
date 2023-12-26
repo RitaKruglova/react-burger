@@ -16,6 +16,7 @@ function ProfileForm() {
   const [isEditing, setIsEditing] = useState(initialStateIsEdititng);
   const [password, setPassword] = useState(initialPassword);
   const [disabledButton, setDisabledButton] = useState(true);
+  const [needButtons, setNeedButtons] = useState(false);
 
   const { currentUser, values, accessToken } = useSelector(store => ({
     currentUser: store.form.currentUser,
@@ -48,8 +49,12 @@ function ProfileForm() {
     const isNameChanged = values[profileNameInput] !== currentUser.name;
     const isEmailChanged = values[profileEmailInput] !== currentUser.email;
     const isPasswordChanged = isEditing[profilePasswordInput] && values[profilePasswordInput] !== initialPassword;
-  
-    setDisabledButton(!(isNameChanged || isEmailChanged || isPasswordChanged));
+
+    if (isNameChanged || isEmailChanged || isPasswordChanged) {
+      setNeedButtons(true);
+    } else {
+      setNeedButtons(false);
+    }
   }, [values, currentUser, isEditing]);
 
   useEffect(() => {
@@ -144,22 +149,25 @@ function ProfileForm() {
         extraClass="mt-6"
         disabled={!isEditing[profilePasswordInput]}
       />
-      <Button
-        htmlType="submit"
-        type="primary"
-        size="medium"
-        extraClass="mt-6 mb-6"
-        disabled={disabledButton}
-      >
-        Сохранить
-      </Button>
-      <button
-        type="button"
-        className={`${profileFormStyles.button} text text_type_main-default`}
-        onClick={handleCancelClick}
-      >
-        Отмена
-      </button>
+      {needButtons &&
+        <>
+          <Button
+            htmlType="submit"
+            type="primary"
+            size="medium"
+            extraClass="mt-6 mb-6"
+          >
+            Сохранить
+          </Button>
+          <button
+            type="button"
+            className={`${profileFormStyles.button} text text_type_main-default`}
+            onClick={handleCancelClick}
+          >
+            Отмена
+          </button>
+        </>
+      }
     </Form>
   )
 }
