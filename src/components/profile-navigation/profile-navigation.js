@@ -11,6 +11,7 @@ function ProfileNavigation() {
     try {
       await dispatch(fetchLogout(localStorage.getItem('refreshToken'))).unwrap();
       localStorage.removeItem('refreshToken');
+      localStorage.removeItem('accessToken');
       dispatch(resetCurrentUser());
       navigate('/login');
     } catch (error) {

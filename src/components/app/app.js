@@ -1,23 +1,20 @@
 import { useEffect } from 'react';
 import appStyles from './app.module.css';
 import Header from '../header/header';
-import { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile } from '../../pages';
 import ProfileForm from '../profile-form/profile-form';
-import { fetchGetUser, fetchRefreshToken } from '../../store/slices/formSlice';
+import { fetchGetUser } from '../../store/slices/formSlice';
 import ProtectedRoute from '../protected-route/protected-route';
 import IngredientPage from '../../pages/ingredient-page';
 import useNavigationHistory from '../../hooks/useNavigationHistory';
 import Preloader from '../preloader/preloader';
 
 function App() {
-  const { error, accessToken, currentUser } = useSelector(store => ({
-    error: store.ingredients.error,
-    accessToken: store.form.accessToken,
-    currentUser: store.form.currentUser
+  const { error } = useSelector(store => ({
+    error: store.ingredients.error
   }));
   const dispatch = useDispatch();
 
@@ -31,16 +28,11 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (localStorage.getItem('refreshToken')) {
-      dispatch(fetchRefreshToken(localStorage.getItem('refreshToken')));
-    }
-  }, []);
-
-  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       dispatch(fetchGetUser(accessToken));
     }
-  }, [accessToken]);
+  }, [dispatch]);
 
   return (
     <div className={appStyles.page}>

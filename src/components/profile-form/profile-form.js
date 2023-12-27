@@ -15,13 +15,11 @@ function ProfileForm() {
   }
   const [isEditing, setIsEditing] = useState(initialStateIsEdititng);
   const [password, setPassword] = useState(initialPassword);
-  const [disabledButton, setDisabledButton] = useState(true);
   const [needButtons, setNeedButtons] = useState(false);
 
-  const { currentUser, values, accessToken } = useSelector(store => ({
+  const { currentUser, values} = useSelector(store => ({
     currentUser: store.form.currentUser,
     values: store.form.values,
-    accessToken: store.form.accessToken
   }));
 
   function handleIconClick(inputName) {
@@ -101,7 +99,8 @@ function ProfileForm() {
       email: values[profileEmailInput],
       password: isEditing[profilePasswordInput] ? values[profilePasswordInput] : undefined
     }
-    dispatch(fetchChangeUserInfo({ info, accessToken }))
+    const accessToken = localStorage.getItem('accessToken');
+    dispatch(fetchChangeUserInfo({ info, accessToken}))
     setIsEditing(initialStateIsEdititng)
   }
 

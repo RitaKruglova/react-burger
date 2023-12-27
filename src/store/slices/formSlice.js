@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../utils/Api";
 
 function saveTokens(state, action) {
-  state.accessToken = action.payload.accessToken.split(' ')[1];
   localStorage.setItem('refreshToken', action.payload.refreshToken);
+  localStorage.setItem('accessToken', action.payload.accessToken.split(' ')[1]);
 }
 
 export const fetchResetPassword = createAsyncThunk(
@@ -78,8 +78,7 @@ const formSlice = createSlice({
     currentUser: {
       email: '',
       name: ''
-    },
-    accessToken: ''
+    }
   },
   reducers: {
     changePasswordVisibility: (state) => {

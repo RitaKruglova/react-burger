@@ -7,10 +7,6 @@ class Api {
     this._headers = headers;
   }
 
-  // setToken(token) {
-  //   this._token = token;
-  // }
-
   _fetch(url = '', method, body, headers = {}) {
     return fetch(`${this._url}${url}`, {
       method,
@@ -21,6 +17,18 @@ class Api {
       body: body ? JSON.stringify(body) : null
     })
       .then(checkResponse)
+      .catch(err => {
+        if (err.message.includes('401')) {
+          return this.refreshToken(localStorage.getItem('refreshToken'))
+            .then(res => {
+              return this._fetch(url, method, body, {
+                ...headers,
+                'authorization': res.accessToken
+              });
+            })
+        }
+        return Promise.reject(err);
+      })
   }
 
   getIngredients() {
