@@ -11,6 +11,7 @@ import ProtectedRoute from '../protected-route/protected-route';
 import IngredientPage from '../../pages/ingredient-page';
 import useNavigationHistory from '../../hooks/useNavigationHistory';
 import Preloader from '../preloader/preloader';
+import { forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
 
 function App() {
   const { error } = useSelector(store => ({
@@ -40,29 +41,29 @@ function App() {
       <main className={appStyles.content}>
         <Routes>
           <Route
-            path="/"
+            path={mainRoute}
             element={<HomePage />}
           >
-            <Route path="ingredients/:id" element={<IngredientPage previousPath={previousPath} />} />
+            <Route path={ingredientsIdRoute} element={<IngredientPage previousPath={previousPath} />} />
           </Route>
           <Route
-            path="/login"
+            path={loginRoute}
             element={<Login />}
           />
           <Route
-            path="/register"
+            path={registerRoute}
             element={<Register />}
           />
           <Route
-            path="/forgot-password"
+            path={forgotPasswordRoute}
             element={<ForgotPassword />}
           />
           <Route
-            path="/reset-password"
+            path={resetPasswordRoute}
             element={<ResetPassword />}
           />
           <Route
-            path="/profile"
+            path={profileRoute}
             element={
               <ProtectedRoute
                 element={Profile}
@@ -78,7 +79,7 @@ function App() {
               }
             />
             <Route
-              path="orders"
+              path={ordersRoute}
               element={
                 <ProtectedRoute
                   element={Preloader} // временно положила сюда прелоадер

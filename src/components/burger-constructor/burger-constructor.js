@@ -10,6 +10,7 @@ import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { addBun, addIngredient, cleanDraggedIngredients } from '../../store/slices/ingredientsSlice';
 import { fetchOrder, removeOrderNumber } from '../../store/slices/orderSlice';
 import { useNavigate } from 'react-router-dom';
+import { loginRoute } from '../../constants/constants';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function BurgerConstructor() {
 
   function createOrder() {
     if (!currentUser.name || !currentUser.email) {
-      navigate('/login');
+      navigate(loginRoute);
     } else {
       dispatch(fetchOrder(draggedIngredients.map(i => i['_id']).concat(bun['_id'])));
       if (error) {

@@ -4,7 +4,7 @@ import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
 import { changePasswordVisibility, fetchSetPassword, resetValues, setValue } from "../store/slices/formSlice";
 import { useEffect, useState } from 'react';
-import { resetPasswordPasswordInput, resetPasswordCodeInput, forgotPasswordEmailInput } from "../constants/constants";
+import { resetPasswordPasswordInput, resetPasswordCodeInput, forgotPasswordEmailInput, mainRoute, loginRoute, forgotPasswordRoute } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 
 function ResetPassword() {
@@ -38,7 +38,7 @@ function ResetPassword() {
         newPasswordValue: values[resetPasswordPasswordInput],
         codeValue: values[resetPasswordCodeInput]
       })).unwrap();
-      navigate('/login');
+      navigate(loginRoute);
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +46,7 @@ function ResetPassword() {
 
   useEffect(() => {
     if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
-      navigate('/');
+      navigate(mainRoute);
     }
   }, []);
 
@@ -59,7 +59,7 @@ function ResetPassword() {
   useEffect(() => {
     console.log(values[forgotPasswordEmailInput])
     if (!values[forgotPasswordEmailInput]) {
-      navigate('/forgot-password');
+      navigate(forgotPasswordRoute);
     }
   }, [])
 
@@ -100,7 +100,7 @@ function ResetPassword() {
       <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20" disabled={isButtonDisabled}>
         Сохранить
       </Button>
-      <Hint paragraphText="Вспомнили пароль?" linkPath="/login" linkText="Войти" needIndent={false} />
+      <Hint paragraphText="Вспомнили пароль?" linkPath={loginRoute} linkText="Войти" needIndent={false} />
     </Form>
   )
 }

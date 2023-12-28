@@ -5,6 +5,7 @@ import IngredientDetails from "../components/ingredient-details/ingredient-detai
 import { useNavigate } from "react-router-dom";
 import ingredientPageStyles from './ingredient-page.module.css';
 import PropTypes from 'prop-types'
+import { mainRoute } from "../constants/constants";
 
 function IngredientPage({ previousPath }) {
   const dispatch = useDispatch();
@@ -14,13 +15,13 @@ function IngredientPage({ previousPath }) {
 
   function handleClose() {
     dispatch(setCurrentIngredient(null));
-    navigate('/');
+    navigate(mainRoute);
   }
 
   console.log(previousPath)
 
   return (
-    previousPath === '/' ?
+    previousPath === mainRoute ?
       <Modal
         isOrderDetails={false}
         title="Детали ингредиента"

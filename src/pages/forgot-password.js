@@ -4,7 +4,7 @@ import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
 import { setValue, fetchResetPassword } from "../store/slices/formSlice";
 import { useNavigate } from "react-router-dom";
-import { forgotPasswordEmailInput } from "../constants/constants";
+import { forgotPasswordEmailInput, loginRoute, mainRoute, resetPasswordRoute } from "../constants/constants";
 import { useEffect, useState } from 'react';
 
 function ForgotPassword() {
@@ -30,7 +30,7 @@ function ForgotPassword() {
 
     try {
       await dispatch(fetchResetPassword(values[forgotPasswordEmailInput])).unwrap();
-      navigate('/reset-password');
+      navigate(resetPasswordRoute);
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +38,7 @@ function ForgotPassword() {
 
   useEffect(() => {
     if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
-      navigate('/');
+      navigate(mainRoute);
     }
   }, []);
 
@@ -66,7 +66,7 @@ function ForgotPassword() {
       <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20" disabled={isButtonDisabled}>
         Восстановить
       </Button>
-      <Hint paragraphText="Вспомнили пароль?" linkPath="/login" linkText="Войти" needIndent={false} />
+      <Hint paragraphText="Вспомнили пароль?" linkPath={loginRoute} linkText="Войти" needIndent={false} />
     </Form>
   )
 }

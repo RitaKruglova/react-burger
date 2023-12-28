@@ -3,7 +3,7 @@ import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
 import { changePasswordVisibility, fetchLogin, resetValues, setValue } from "../store/slices/formSlice";
-import { loginEmailInput, loginPasswordInput } from "../constants/constants";
+import { forgotPasswordRoute, loginEmailInput, loginPasswordInput, mainRoute, registerRoute } from "../constants/constants";
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +38,7 @@ function Login() {
         emailValue: values[loginEmailInput],
         passwordValue: values[loginPasswordInput]
       })).unwrap();
-      navigate('/');
+      navigate(mainRoute);
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +47,7 @@ function Login() {
 
   useEffect(() => {
     if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
-      navigate('/');
+      navigate(mainRoute);
     }
   }, []);
 
@@ -95,8 +95,8 @@ function Login() {
       <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20" disabled={isButtonDisabled}>
         Войти
       </Button>
-      <Hint paragraphText="Вы — новый пользователь?" linkPath="/register" linkText="Зарегистрироваться" needIndent={true} />
-      <Hint paragraphText="Забыли пароль?" linkPath="/forgot-password" linkText="Восстановить пароль" needIndent={false} />
+      <Hint paragraphText="Вы — новый пользователь?" linkPath={registerRoute} linkText="Зарегистрироваться" needIndent={true} />
+      <Hint paragraphText="Забыли пароль?" linkPath={forgotPasswordRoute} linkText="Восстановить пароль" needIndent={false} />
     </Form>
   )
 }

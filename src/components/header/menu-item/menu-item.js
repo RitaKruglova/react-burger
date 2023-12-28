@@ -3,12 +3,13 @@ import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer
 import { useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { mainRoute } from '../../../constants/constants';
 
 function MenuItem({ isBurgerConstructor, text, isInContainer, path }) {
   const location = useLocation();
 
   const isLinkActive = useMemo(() => {
-    if (path === '/') {
+    if (path === mainRoute) {
       return location.pathname === path;
     }
     return location.pathname.startsWith(path);

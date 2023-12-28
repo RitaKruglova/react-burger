@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import profileNavigationStyles from './profile-navigation.module.css';
 import { useDispatch } from 'react-redux';
 import { fetchLogout, resetCurrentUser} from '../../store/slices/formSlice';
+import { loginRoute, ordersRoute, profileRoute } from '../../constants/constants';
 
 function ProfileNavigation() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function ProfileNavigation() {
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('accessToken');
       dispatch(resetCurrentUser());
-      navigate('/login');
+      navigate(loginRoute);
     } catch (error) {
       console.log(error);
     }
@@ -22,14 +23,14 @@ function ProfileNavigation() {
   return (
     <div className={profileNavigationStyles.container}>
       <NavLink
-        to="/profile"
+        to={profileRoute}
         end
         className={({isActive}) => `${profileNavigationStyles.link} text text_type_main-medium ${isActive ? profileNavigationStyles.active : ''}`}
       >
         Профиль
       </NavLink>
       <NavLink
-        to="orders"
+        to={ordersRoute}
         className={({isActive}) => `${profileNavigationStyles.link} text text_type_main-medium ${isActive ? profileNavigationStyles.active : ''}`}
       >
         История заказов

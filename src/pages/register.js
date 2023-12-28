@@ -4,7 +4,7 @@ import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
 import { changePasswordVisibility, fetchRegister, resetValues, setValue } from "../store/slices/formSlice";
 import { useEffect, useState } from 'react';
-import { registerNameInput, registerEmailInput, registerPasswordInput } from "../constants/constants";
+import { registerNameInput, registerEmailInput, registerPasswordInput, mainRoute, loginRoute } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
@@ -39,7 +39,7 @@ function Register() {
         passwordValue: values[registerPasswordInput],
         nameValue: values[registerNameInput]
       })).unwrap();
-      navigate('/');
+      navigate(mainRoute);
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +48,7 @@ function Register() {
 
   useEffect(() => {
     if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
-      navigate('/');
+      navigate(mainRoute);
     }
   }, []);
 
@@ -106,7 +106,7 @@ function Register() {
       <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6 mb-20" disabled={isButtonDisabled}>
         Зарегистрироваться
       </Button>
-      <Hint paragraphText="Уже зарегистрированы?" linkPath="/login" linkText="Войти" needIndent={false} />
+      <Hint paragraphText="Уже зарегистрированы?" linkPath={loginRoute} linkText="Войти" needIndent={false} />
     </Form>
   )
 }
