@@ -39,7 +39,7 @@ function Register() {
         passwordValue: values[registerPasswordInput],
         nameValue: values[registerNameInput]
       })).unwrap();
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }

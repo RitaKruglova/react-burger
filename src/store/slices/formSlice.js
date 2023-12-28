@@ -103,6 +103,10 @@ const formSlice = createSlice({
         saveTokens(state, action);
         state.currentUser = action.payload.user;
       })
+      .addCase(fetchRegister.fulfilled, (state, action) => {
+        saveTokens(state, action);
+        state.currentUser = action.payload.user;
+      })
       .addCase(fetchRefreshToken.fulfilled, (state, action) => {
         saveTokens(state, action);
       })

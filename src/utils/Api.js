@@ -18,7 +18,7 @@ class Api {
     })
       .then(checkResponse)
       .catch(err => {
-        if (err.message.includes('401')) {
+        if (err.message.includes('403')) {
           return this.refreshToken(localStorage.getItem('refreshToken'))
             .then(res => {
               return this._fetch(url, method, body, {
