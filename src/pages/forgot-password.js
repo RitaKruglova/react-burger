@@ -6,6 +6,7 @@ import { setValue, fetchResetPassword } from "../store/slices/formSlice";
 import { useNavigate } from "react-router-dom";
 import { forgotPasswordEmailInput, loginRoute, mainRoute, resetPasswordRoute } from "../constants/constants";
 import { useEffect, useState } from 'react';
+import { useProtectForms } from "../hooks/useProtectForms";
 
 function ForgotPassword() {
   const dispatch = useDispatch();
@@ -13,9 +14,10 @@ function ForgotPassword() {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const { values, currentUser } = useSelector(store => ({
-    values: store.form.values,
-    currentUser: store.form.currentUser
+  useProtectForms();
+
+  const { values } = useSelector(store => ({
+    values: store.form.values
   }));
 
   function handleChange(event) {
@@ -35,12 +37,6 @@ function ForgotPassword() {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
-      navigate(mainRoute);
-    }
-  }, []);
 
   useEffect(() => {
     if (!values[forgotPasswordEmailInput]) {

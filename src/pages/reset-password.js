@@ -4,8 +4,9 @@ import Hint from "../components/hint/hint";
 import { useDispatch, useSelector } from "react-redux";
 import { changePasswordVisibility, fetchSetPassword, resetValues, setValue } from "../store/slices/formSlice";
 import { useEffect, useState } from 'react';
-import { resetPasswordPasswordInput, resetPasswordCodeInput, forgotPasswordEmailInput, mainRoute, loginRoute, forgotPasswordRoute } from "../constants/constants";
+import { resetPasswordPasswordInput, resetPasswordCodeInput, forgotPasswordEmailInput, loginRoute, forgotPasswordRoute } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
+import { useProtectForms } from "../hooks/useProtectForms";
 
 function ResetPassword() {
   const dispatch = useDispatch();
@@ -13,10 +14,11 @@ function ResetPassword() {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const { isPasswordVisible, values, currentUser } = useSelector(store => ({
+  useProtectForms();
+
+  const { isPasswordVisible, values } = useSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
-    values: store.form.values,
-    currentUser: store.form.currentUser
+    values: store.form.values
   }));
 
   function changePasswordVisible() {
@@ -43,12 +45,6 @@ function ResetPassword() {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
-      navigate(mainRoute);
-    }
-  }, []);
 
   useEffect(() => {
     return () => {

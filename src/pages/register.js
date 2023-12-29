@@ -6,15 +6,17 @@ import { changePasswordVisibility, fetchRegister, resetValues, setValue } from "
 import { useEffect, useState } from 'react';
 import { registerNameInput, registerEmailInput, registerPasswordInput, mainRoute, loginRoute } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
+import { useProtectForms } from "../hooks/useProtectForms";
 
 function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isPasswordVisible, values, currentUser } = useSelector(store => ({
+  useProtectForms();
+
+  const { isPasswordVisible, values } = useSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
-    values: store.form.values,
-    currentUser: store.form.currentUser
+    values: store.form.values
   }));
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -45,12 +47,6 @@ function Register() {
     }
 
   }
-
-  useEffect(() => {
-    if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
-      navigate(mainRoute);
-    }
-  }, []);
 
   useEffect(() => {
     return () => {

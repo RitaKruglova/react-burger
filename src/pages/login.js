@@ -6,6 +6,7 @@ import { changePasswordVisibility, fetchLogin, resetValues, setValue } from "../
 import { forgotPasswordRoute, loginEmailInput, loginPasswordInput, mainRoute, registerRoute } from "../constants/constants";
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
+import { useProtectForms } from "../hooks/useProtectForms";
 
 function Login() {
   const dispatch = useDispatch();
@@ -14,11 +15,12 @@ function Login() {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const { isPasswordVisible, values, currentUser } = useSelector(store => ({
+  const { isPasswordVisible, values } = useSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
-    values: store.form.values,
-    currentUser: store.form.currentUser
+    values: store.form.values
   }));
+
+  useProtectForms();
 
   function changePasswordVisible() {
     dispatch(changePasswordVisibility());
@@ -45,12 +47,6 @@ function Login() {
     }
 
   }
-
-  useEffect(() => {
-    if ((currentUser.email && currentUser.name) || localStorage.getItem('refreshToken')) {
-      navigate(mainRoute);
-    }
-  }, []);
 
   useEffect(() => {
     return () => {
