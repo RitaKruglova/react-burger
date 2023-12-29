@@ -1,23 +1,20 @@
 import { useMemo, useRef, useEffect } from 'react';
-import Modal from '../modal/modal';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import BurgerNavigation from './burger-navigation/burger-navigation';
 import IngredientList from './ingredient-list/ingredient-list';
 import Ingredient from './ingredient/ingredient';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 import { bunsType, fillingsType, saucesType } from '../../constants/constants';
 import { setCurrentTab } from '../../store/slices/tabsSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const { dataIngredients, currentIngredient, currentTab } = useSelector(store => ({
+  const { dataIngredients, currentTab } = useSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
-    currentIngredient: store.ingredients.currentIngredient,
     currentTab: store.tabs.currentTab
   }));
 
@@ -72,7 +69,7 @@ function BurgerIngredients() {
   const main = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'main'), [dataIngredients]);
 
   function showDetails(ingredient) {
-    navigate(`/ingredients/${ingredient._id}`);
+    navigate(`/ingredients/${ingredient._id}`, { state: { backgroundLocation: location } });
   }
   
   return (

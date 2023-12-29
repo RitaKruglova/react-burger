@@ -9,7 +9,6 @@ import ProfileForm from '../profile-form/profile-form';
 import { fetchGetUser } from '../../store/slices/formSlice';
 import ProtectedRoute from '../protected-route/protected-route';
 import IngredientPage from '../../pages/ingredient-page';
-import useNavigationHistory from '../../hooks/useNavigationHistory';
 import Preloader from '../preloader/preloader';
 import { forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
 
@@ -18,8 +17,6 @@ function App() {
     error: store.ingredients.error
   }));
   const dispatch = useDispatch();
-
-  const { previousPath } = useNavigationHistory();
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -44,7 +41,7 @@ function App() {
             path={mainRoute}
             element={<HomePage />}
           >
-            <Route path={ingredientsIdRoute} element={<IngredientPage previousPath={previousPath} />} />
+            <Route path={ingredientsIdRoute} element={<IngredientPage />} />
           </Route>
           <Route
             path={loginRoute}
