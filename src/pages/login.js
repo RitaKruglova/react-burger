@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { changePasswordVisibility, fetchLogin, resetValues, setValue } from "../store/slices/formSlice";
 import { forgotPasswordRoute, loginEmailInput, loginPasswordInput, mainRoute, registerRoute } from "../constants/constants";
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -38,7 +39,7 @@ function Login() {
         emailValue: values[loginEmailInput],
         passwordValue: values[loginPasswordInput]
       })).unwrap();
-      navigate(mainRoute);
+      navigate(location?.state?.from || mainRoute);
     } catch (error) {
       console.log(error);
     }
