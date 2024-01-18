@@ -1,13 +1,17 @@
 import { API_URL } from '../constants/constants';
 import { checkResponse } from './check-response';
+import { IApi, IUserInfo, TMethod } from './types';
 
 class Api {
-  constructor({ url, headers }) {
+  private _url: string;
+  private _headers: HeadersInit;
+
+  constructor({ url, headers }: IApi) {
     this._url = url;
     this._headers = headers;
   }
 
-  _fetch(url = '', method, body, headers = {}) {
+  private _fetch(url: string = '', method: TMethod, body?: any, headers: HeadersInit = {}): Promise<any> {
     return fetch(`${this._url}${url}`, {
       method,
       headers: {
@@ -31,30 +35,30 @@ class Api {
       })
   }
 
-  getIngredients() {
+  getIngredients(): Promise<any> {
     return this._fetch('/ingredients', 'GET');
   }
 
-  createOrder(ingredientsIdArray) {
+  createOrder(ingredientsIdArray: string[]): Promise<any> {
     return this._fetch('/orders', 'POST', {
       'ingredients': ingredientsIdArray
     })
   }
 
-  resetPassword(emailValue) {
+  resetPassword(emailValue: string): Promise<any> {
     return this._fetch('/password-reset', 'POST', {
       'email': emailValue
     })
   }
 
-  setPassword(newPasswordValue, codeValue) {
+  setPassword(newPasswordValue: string, codeValue: string): Promise<any> {
     return this._fetch('/password-reset/reset', 'POST', {
       'password': newPasswordValue,
       'token': codeValue
     })
   }
 
-  register(emailValue, passwordValue, nameValue) {
+  register(emailValue: string, passwordValue: string, nameValue: string): Promise<any> {
     return this._fetch('/auth/register', 'POST', {
       'email': emailValue, 
       'password': passwordValue, 
@@ -62,32 +66,32 @@ class Api {
     })
   }
 
-  login(emailValue, passwordValue) {
+  login(emailValue: string, passwordValue: string): Promise<any> {
     return this._fetch('/auth/login', 'POST', {
       'email': emailValue, 
       'password': passwordValue
     })
   }
 
-  refreshToken(token) {
+  refreshToken(token: string | null): Promise<any> {
     return this._fetch('/auth/token', 'POST', {
       'token': token
     })
   }
 
-  logout(token) {
+  logout(token: string): Promise<any> {
     return this._fetch('/auth/logout', 'POST', {
       'token': token
     })
   }
 
-  getUser(token) {
+  getUser(token: string): Promise<any> {
     return this._fetch('/auth/user', 'GET', null, {
       authorization: `Bearer ${token}`
     })
   }
 
-  changeUserInfo(info, token) {
+  changeUserInfo(info: IUserInfo, token: string): Promise<any> {
     return this._fetch('/auth/user', 'PATCH', {
       ...(info.name ? {'name': info.name} : {}),
       ...(info.email ? {'email': info.email} : {}),

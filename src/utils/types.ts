@@ -14,3 +14,16 @@ export const ingredientType = PropTypes.shape({
   image_large: PropTypes.string,
   __v: PropTypes.number
 });
+
+export interface IApi {
+  url: string;
+  headers: HeadersInit;
+}
+
+export interface IUserInfo {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
+export type TMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
