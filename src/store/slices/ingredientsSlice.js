@@ -80,6 +80,9 @@ const ingredientsSlice = createSlice({
     cleanDraggedIngredients: (state) => {
       state.draggedIngredients = [];
       state.bun = initialBun;
+    },
+    cleanCounters: (state) => {
+      state.dataIngredients.forEach(i => i.count = 0);
     }
   },
   extraReducers: (builder) => {
@@ -94,4 +97,4 @@ const ingredientsSlice = createSlice({
 })
 
 export default ingredientsSlice.reducer;
-export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, dropIngredient, cleanDraggedIngredients } = ingredientsSlice.actions;
+export const { addIngredient, removeIngredient, addBun, setCurrentIngredient, dropIngredient, cleanDraggedIngredients, cleanCounters } = ingredientsSlice.actions;

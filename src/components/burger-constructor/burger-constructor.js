@@ -7,7 +7,7 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
-import { addBun, addIngredient, cleanDraggedIngredients } from '../../store/slices/ingredientsSlice';
+import { addBun, addIngredient, cleanDraggedIngredients, cleanCounters } from '../../store/slices/ingredientsSlice';
 import { fetchOrder, removeOrderNumber } from '../../store/slices/orderSlice';
 import { useNavigate } from 'react-router-dom';
 import { loginRoute } from '../../constants/constants';
@@ -42,6 +42,7 @@ function BurgerConstructor() {
   useEffect(() => {
     if (orderNumber) {
       dispatch(cleanDraggedIngredients());
+      dispatch(cleanCounters());
     }
   }, [dispatch, orderNumber]);
 

@@ -113,6 +113,10 @@ const formSlice = createSlice({
       .addCase(fetchGetUser.fulfilled, (state, action) => {
         state.currentUser = action.payload.user;
       })
+      .addCase(fetchGetUser.rejected, () => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+      })
       .addCase(fetchChangeUserInfo.fulfilled, (state, action) => {
         state.currentUser = action.payload.user;
       })
