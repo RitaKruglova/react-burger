@@ -2,12 +2,12 @@ import Form from "../form/form";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { profileEmailInput, profileNameInput, profilePasswordInput, initialPassword } from "../../constants/constants";
 import profileFormStyles from './profile-form.module.css';
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useCallback } from 'react';
 import { fetchChangeUserInfo, setValue } from "../../store/slices/formSlice";
+import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
 
 function ProfileForm() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const initialStateIsEdititng = {
     profileNameInput: false,
     profileEmailInput: false,
@@ -17,7 +17,7 @@ function ProfileForm() {
   const [password, setPassword] = useState(initialPassword);
   const [needButtons, setNeedButtons] = useState(false);
 
-  const { currentUser, values} = useSelector(store => ({
+  const { currentUser, values} = useAppSelector(store => ({
     currentUser: store.form.currentUser,
     values: store.form.values,
   }));

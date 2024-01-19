@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import store from '../store';
 
 export const ingredientType = PropTypes.shape({
   _id: PropTypes.string,
@@ -44,3 +45,50 @@ export interface IUserInfo {
 }
 
 export type TMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+
+export type TUser = {
+  email: string;
+  name: string;
+}
+
+export type TFormSliseState = {
+  isPasswordVisible: boolean;
+  values: Record<string, string>;
+  currentUser: TUser;
+}
+
+export type TRootState = ReturnType<typeof store.getState>;
+
+export type TAppDispatch = typeof store.dispatch;
+
+export type TSetPasswordArgs = {
+  newPasswordValue: string;
+  codeValue: string;
+}
+
+export type TLoginArgs = {
+  emailValue: string;
+  passwordValue: string;
+}
+
+export type TTokens = {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export type TSuccess = { success: boolean }
+
+export type TRegisterArgs = TLoginArgs & { nameValue: string; }
+
+export type TLoginAndRegisterResponse = { user: TUser; } & TTokens & TSuccess;
+
+export type TNameAndValue = {
+  name: string;
+  value: string;
+}
+
+export type TRefreshTokenResponse = TSuccess & TTokens;
+
+export type TGetUserResponse = TSuccess & {
+  user: TUser;
+}

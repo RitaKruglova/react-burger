@@ -1,7 +1,7 @@
 import listItemStyles from './list-item.module.css';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../../utils/reduxHooks'; 
 import { removeIngredient } from '../../../store/slices/ingredientsSlice';
 import { ingredientType } from '../../../utils/types';
 import { useDrag, useDrop } from 'react-dnd';
@@ -9,7 +9,7 @@ import { useRef } from 'react';
 import { dropIngredient } from '../../../store/slices/ingredientsSlice';
 
 function ListItem({ place, ingredient, index }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const ref = useRef(null);
 

@@ -1,16 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import NutritionalValue from './nutritional-value/nutritional-value';
 import { useEffect } from 'react';
 import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 import { useParams } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 
 function IngredientDetails() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { id } = useParams();
 
-  const { currentIngredient, dataIngredients } = useSelector(store => ({
+  const { currentIngredient, dataIngredients } = useAppSelector(store => ({
     currentIngredient: store.ingredients.currentIngredient,
     dataIngredients: store.ingredients.dataIngredients
   }));

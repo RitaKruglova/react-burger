@@ -1,14 +1,13 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../utils/reduxHooks";
 import Modal from "../components/modal/modal";
 import { setCurrentIngredient } from "../store/slices/ingredientsSlice";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import { useLocation, useNavigate } from "react-router-dom";
 import ingredientPageStyles from './ingredient-page.module.css';
-import PropTypes from 'prop-types'
 import { mainRoute } from "../constants/constants";
 
 function IngredientPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   

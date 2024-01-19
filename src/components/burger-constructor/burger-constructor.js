@@ -5,18 +5,18 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { addBun, addIngredient, cleanDraggedIngredients, cleanCounters } from '../../store/slices/ingredientsSlice';
 import { fetchOrder, removeOrderNumber } from '../../store/slices/orderSlice';
 import { useNavigate } from 'react-router-dom';
 import { loginRoute } from '../../constants/constants';
+import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 
 function BurgerConstructor() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
   
-  const { draggedIngredients, bun, orderNumber, error, currentUser } = useSelector(store => ({
+  const { draggedIngredients, bun, orderNumber, error, currentUser } = useAppSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
     draggedIngredients: store.ingredients.draggedIngredients,
     bun: store.ingredients.bun,

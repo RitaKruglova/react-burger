@@ -3,7 +3,6 @@ import appStyles from './app.module.css';
 import Header from '../header/header';
 import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile } from '../../pages';
 import ProfileForm from '../profile-form/profile-form';
 import { fetchGetUser } from '../../store/slices/formSlice';
@@ -11,12 +10,13 @@ import ProtectedRoute from '../protected-route/protected-route';
 import IngredientPage from '../../pages/ingredient-page';
 import Preloader from '../preloader/preloader';
 import { forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
+import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 
 function App() {
-  const { error } = useSelector(store => ({
+  const { error } = useAppSelector(store => ({
     error: store.ingredients.error
   }));
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchIngredients());

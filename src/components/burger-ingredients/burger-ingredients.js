@@ -3,17 +3,17 @@ import burgerIngredientsStyles from './burger-ingredients.module.css';
 import BurgerNavigation from './burger-navigation/burger-navigation';
 import IngredientList from './ingredient-list/ingredient-list';
 import Ingredient from './ingredient/ingredient';
-import { useDispatch, useSelector } from 'react-redux';
 import { bunsType, fillingsType, saucesType } from '../../constants/constants';
 import { setCurrentTab } from '../../store/slices/tabsSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 
 function BurgerIngredients() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { dataIngredients, currentTab } = useSelector(store => ({
+  const { dataIngredients, currentTab } = useAppSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
     currentTab: store.tabs.currentTab
   }));

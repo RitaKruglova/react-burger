@@ -1,10 +1,10 @@
 import burgerNavigationStyles from './burger-navigation.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../../utils/reduxHooks';
 import { bunsType, saucesType, fillingsType } from '../../../constants/constants';
 
 function BurgerNavigation({ handleClick }) {
-  const currentTab = useSelector(store => store.tabs.currentTab);
+  const currentTab = useAppSelector(store => store.tabs.currentTab);
 
   return (
     <nav className={burgerNavigationStyles.menu}>

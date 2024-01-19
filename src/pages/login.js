@@ -1,21 +1,21 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
-import { useDispatch, useSelector } from "react-redux";
 import { changePasswordVisibility, fetchLogin, resetValues, setValue } from "../store/slices/formSlice";
 import { forgotPasswordRoute, loginEmailInput, loginPasswordInput, mainRoute, registerRoute } from "../constants/constants";
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useProtectForms } from "../hooks/useProtectForms";
+import { useAppSelector, useAppDispatch } from "../utils/reduxHooks";
 
 function Login() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const { isPasswordVisible, values } = useSelector(store => ({
+  const { isPasswordVisible, values } = useAppSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
     values: store.form.values
   }));

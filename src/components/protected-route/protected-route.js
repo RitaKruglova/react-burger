@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../utils/reduxHooks";
 import { Navigate, useLocation } from "react-router-dom";
 import { loginRoute } from "../../constants/constants";
 
 function ProtectedRoute({element: Component, ...props}) {
-  const currentUser = useSelector(store => store.form.currentUser);
+  const currentUser = useAppSelector(store => store.form.currentUser);
 
   const location = useLocation();
 

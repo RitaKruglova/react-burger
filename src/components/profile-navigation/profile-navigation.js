@@ -1,11 +1,11 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import profileNavigationStyles from './profile-navigation.module.css';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../utils/reduxHooks'; 
 import { fetchLogout, resetCurrentUser} from '../../store/slices/formSlice';
 import { loginRoute, ordersRoute, profileRoute } from '../../constants/constants';
 
 function ProfileNavigation() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   async function logout() {
