@@ -6,8 +6,9 @@ import BurgerConstructor from '../components/burger-constructor/burger-construct
 import Preloader from '../components/preloader/preloader';
 import { useAppSelector } from '../utils/reduxHooks'; 
 import { Outlet } from 'react-router-dom';
+import { FC } from 'react';
 
-function HomePage() {
+const HomePage: FC = () => {
   const isLoading = useAppSelector(store => store.loading.isLoading);
 
   return (
