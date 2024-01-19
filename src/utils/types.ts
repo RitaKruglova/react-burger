@@ -118,3 +118,17 @@ export type TDropIngredientAction = {
 export type TLoadingSliceState = {
   isLoading: boolean;
 }
+
+export type TOrderSliceState = {
+  orderNumber: null | number;
+  order: null | TOrderResponse;
+  error: null | string | unknown;
+}
+
+export type TOrderResponse = {
+  name: string;
+  order: {
+      number: number;
+  };
+  success: boolean;
+} 

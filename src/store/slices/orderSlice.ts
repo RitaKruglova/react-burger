@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../../utils/Api';
+import { TOrderResponse, TOrderSliceState } from '../../utils/types';
 
 export const fetchOrder = createAsyncThunk(
   'ingredients/fetchOrderNumber',
-  async (ingredientIds) => {
+  async (ingredientIds: string[]) => {
     const response = await api.createOrder(ingredientIds);
     return response;
   }
@@ -15,7 +16,7 @@ const orderSlice = createSlice({
     orderNumber: null,
     order: null,
     error: null
-  },
+  } as TOrderSliceState,
   reducers: {
     removeOrderNumber: (state) => {
       state.orderNumber = null;
@@ -23,11 +24,11 @@ const orderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrder.fulfilled, (state, action) => {
+      .addCase(fetchOrder.fulfilled, (state, action: PayloadAction<TOrderResponse>) => {
         state.orderNumber = action.payload.order.number;
         state.order = action.payload;
       })
-      .addCase(fetchOrder.rejected, (state, action) => {
+      .addCase(fetchOrder.rejected, (state, action: PayloadAction<string | unknown>) => {
         state.error = action.payload;
       })
   }
