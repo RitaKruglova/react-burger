@@ -71,7 +71,7 @@ const ingredientsSlice = createSlice({
       increaseCountBun(state, action);
       state.bun = action.payload;
     },
-    setCurrentIngredient: (state, action: PayloadAction<TIngredient>) => {
+    setCurrentIngredient: (state, action: PayloadAction<TIngredient | null>) => {
       state.currentIngredient = action.payload;
     },
     dropIngredient: (state, action: PayloadAction<TDropIngredientAction>) => {

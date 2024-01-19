@@ -5,8 +5,9 @@ import IngredientDetails from "../components/ingredient-details/ingredient-detai
 import { useLocation, useNavigate } from "react-router-dom";
 import ingredientPageStyles from './ingredient-page.module.css';
 import { mainRoute } from "../constants/constants";
+import { FC } from "react";
 
-function IngredientPage() {
+const IngredientPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
