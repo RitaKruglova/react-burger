@@ -131,4 +131,8 @@ export type TOrderResponse = {
       number: number;
   };
   success: boolean;
-} 
+}
+
+export type TTabsSliceState = {
+  currentTab: string;
+}

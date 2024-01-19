@@ -1,13 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { bunsType } from "../../constants/constants";
+import { TTabsSliceState } from "../../utils/types";
 
 const tabsSlice = createSlice({
   name: 'tabs',
   initialState: {
     currentTab: bunsType
-  },
+  } as TTabsSliceState,
   reducers: {
-    setCurrentTab: (state, action) => {
+    setCurrentTab: (state, action: PayloadAction<string>) => {
       state.currentTab = action.payload;
     }
   }
