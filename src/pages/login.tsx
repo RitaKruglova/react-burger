@@ -3,17 +3,17 @@ import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { changePasswordVisibility, fetchLogin, resetValues, setValue } from "../store/slices/formSlice";
 import { forgotPasswordRoute, loginEmailInput, loginPasswordInput, mainRoute, registerRoute } from "../constants/constants";
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useProtectForms } from "../hooks/useProtectForms";
 import { useAppSelector, useAppDispatch } from "../utils/reduxHooks";
 
-function Login() {
+const Login: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   const { isPasswordVisible, values } = useAppSelector(store => ({
     isPasswordVisible: store.form.isPasswordVisible,
@@ -22,18 +22,18 @@ function Login() {
 
   useProtectForms();
 
-  function changePasswordVisible() {
+  function changePasswordVisible(): void {
     dispatch(changePasswordVisibility());
   }
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     dispatch(setValue({
       name: event.target.name,
       value: event.target.value
     }))
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
