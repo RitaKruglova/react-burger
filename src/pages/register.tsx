@@ -2,13 +2,13 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../components/form/form";
 import Hint from "../components/hint/hint";
 import { changePasswordVisibility, fetchRegister, resetValues, setValue } from "../store/slices/formSlice";
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { registerNameInput, registerEmailInput, registerPasswordInput, mainRoute, loginRoute } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 import { useProtectForms } from "../hooks/useProtectForms";
 import { useAppSelector, useAppDispatch } from "../utils/reduxHooks";
 
-const Register() {
+const Register: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -19,20 +19,20 @@ const Register() {
     values: store.form.values
   }));
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
-  function changePasswordVisible() {
+  function changePasswordVisible(): void {
     dispatch(changePasswordVisibility());
   }
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     dispatch(setValue({
       name: event.target.name,
       value: event.target.value
     }))
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
