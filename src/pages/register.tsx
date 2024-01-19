@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useProtectForms } from "../hooks/useProtectForms";
 import { useAppSelector, useAppDispatch } from "../utils/reduxHooks";
 
-function Register() {
+const Register() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
