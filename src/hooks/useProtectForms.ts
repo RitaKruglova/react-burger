@@ -3,7 +3,7 @@ import { useAppSelector } from '../utils/reduxHooks';
 import { useNavigate } from 'react-router-dom';
 import { mainRoute } from '../constants/constants';
 
-export function useProtectForms() {
+export function useProtectForms(): void {
   const { currentUser } = useAppSelector(store => ({
     currentUser: store.form.currentUser
   }));

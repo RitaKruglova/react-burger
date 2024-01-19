@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 
-export function useModalClose(closeModal) {
+export function useModalClose(closeModal: () => void): void {
   useEffect(() => {
-    function handleOverlayClose(event) {
-      if (event.target.id === 'overlay') {
+    function handleOverlayClose(event: MouseEvent) {
+      if (event.target instanceof HTMLElement && event.target.id === 'overlay') {
         closeModal();
       }
     }
 
-    function handleEscapeClose(event) {
+    function handleEscapeClose(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         closeModal();
       }
