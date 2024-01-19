@@ -33,6 +33,8 @@ export type TIngredient = {
   count?: number;
 }
 
+export type TBun = Omit<TIngredient, 'type'> & { type: 'bun' }
+
 export interface IApi {
   url: string;
   headers: HeadersInit;
@@ -91,4 +93,24 @@ export type TRefreshTokenResponse = TSuccess & TTokens;
 
 export type TGetUserResponse = TSuccess & {
   user: TUser;
+}
+
+export type TInitialBun = {
+  name: string;
+  price: number;
+  image: string;
+  _id?: string;
+}
+
+export type TIngredientSliceState = {
+  dataIngredients: TIngredient[];
+  error: null | string | unknown;
+  draggedIngredients: TIngredient[];
+  bun: TInitialBun | TBun;
+  currentIngredient: null | TIngredient;
+}
+
+export type TDropIngredientAction = {
+  ingredient: TIngredient;
+  index: number
 }
