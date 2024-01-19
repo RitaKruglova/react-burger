@@ -114,3 +114,7 @@ export type TDropIngredientAction = {
   ingredient: TIngredient;
   index: number
 }
+
+export type TLoadingSliceState = {
+  isLoading: boolean;
+}

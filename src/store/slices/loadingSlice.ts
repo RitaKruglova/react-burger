@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchIngredients } from "./ingredientsSlice";
 import { fetchOrder } from "./orderSlice";
+import { TLoadingSliceState } from "../../utils/types";
 
 const loadingSlice = createSlice({
   name: 'loading',
   initialState: {
     isLoading: false
-  },
+  } as TLoadingSliceState,
   reducers: {},
   extraReducers: (builder) => {
     builder
