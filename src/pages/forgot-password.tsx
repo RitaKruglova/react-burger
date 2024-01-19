@@ -4,15 +4,15 @@ import Hint from "../components/hint/hint";
 import { setValue, fetchResetPassword } from "../store/slices/formSlice";
 import { useNavigate } from "react-router-dom";
 import { forgotPasswordEmailInput, loginRoute, resetPasswordRoute } from "../constants/constants";
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useProtectForms } from "../hooks/useProtectForms";
 import { useAppSelector, useAppDispatch } from "../utils/reduxHooks";
 
-function ForgotPassword() {
+const ForgotPassword: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   useProtectForms();
 
@@ -20,14 +20,14 @@ function ForgotPassword() {
     values: store.form.values
   }));
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     dispatch(setValue({
       name: event.target.name,
       value: event.target.value
     }))
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
