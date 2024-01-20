@@ -1,7 +1,8 @@
 import orderDetailsStyles from './order-details.module.css';
 import doneImagePath from '../../images/done.svg';
+import { FC } from 'react';
 
-function OrderDetails() {
+const OrderDetails: FC = () => {
   return (
     <>
       <h5 className={`${orderDetailsStyles.title} text text_type_main-medium mt-8`}>идентификатор заказа</h5>
