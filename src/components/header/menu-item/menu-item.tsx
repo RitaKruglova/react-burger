@@ -4,14 +4,14 @@ import { FC, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { mainRoute } from '../../../constants/constants';
 
-interface IMenuItem {
+interface IMenuItemProps {
   isBurgerConstructor: boolean;
   text: string;
   isInContainer: boolean;
   path: string;
 }
 
-const MenuItem: FC<IMenuItem> = ({ isBurgerConstructor, text, isInContainer, path }) => {
+const MenuItem: FC<IMenuItemProps> = ({ isBurgerConstructor, text, isInContainer, path }) => {
   const location = useLocation();
 
   const isLinkActive: boolean = useMemo(() => {

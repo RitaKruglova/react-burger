@@ -1,14 +1,14 @@
 import React, { FC, ReactNode } from 'react';
 import formStyles from './form.module.css';
 
-interface IForm {
+interface IFormProps {
   children: ReactNode;
   title?: string;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   isProfilePlace: boolean;
 }
 
-const Form: FC<IForm> = ({ children, title, handleSubmit, isProfilePlace }) => {
+const Form: FC<IFormProps> = ({ children, title, handleSubmit, isProfilePlace }) => {
   return (
     <div className={formStyles.container}>
       {!isProfilePlace && <h2 className={`${formStyles.title} text text_type_main-medium`}>{title}</h2>}

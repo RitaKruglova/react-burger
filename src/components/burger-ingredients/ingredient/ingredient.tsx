@@ -4,12 +4,12 @@ import { useDrag } from 'react-dnd/dist/hooks';
 import { TIngredient } from '../../../utils/types';
 import { FC } from 'react';
 
-interface IIngredient {
+interface IIngredientProps {
   ingredient: TIngredient;
   onClick: () => void;
 }
 
-const Ingredient: FC<IIngredient> = ({ ingredient, onClick }) => {
+const Ingredient: FC<IIngredientProps> = ({ ingredient, onClick }) => {
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: ingredient

@@ -7,13 +7,13 @@ import { useDrag, useDrop } from 'react-dnd';
 import { FC, useRef } from 'react';
 import { dropIngredient } from '../../../store/slices/ingredientsSlice';
 
-interface IListItem {
+interface IListItemProps {
   place: 'top' | 'bottom' | 'middle';
   ingredient: TIngredient;
   index?: number;
 }
 
-const ListItem: FC<IListItem> = ({ place, ingredient, index }) => {
+const ListItem: FC<IListItemProps> = ({ place, ingredient, index }) => {
   const dispatch = useAppDispatch();
 
   const ref = useRef<HTMLLIElement>(null);

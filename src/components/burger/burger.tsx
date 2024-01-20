@@ -1,16 +1,16 @@
+import { FC, ReactNode } from 'react';
 import burgerStyles from './burger.module.css';
-import PropTypes from 'prop-types';
 
-function Burger({ children }) {
+interface IBurgerProps {
+  children: ReactNode
+}
+
+const Burger: FC<IBurgerProps> = ({ children }) => {
   return (
     <section className={burgerStyles.burger}>
       {children}
     </section>
   )
-}
-
-Burger.propTypes = {
-  children: PropTypes.node
 }
 
 export default Burger;

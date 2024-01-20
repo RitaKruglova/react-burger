@@ -4,11 +4,11 @@ import { useAppSelector } from '../../../utils/reduxHooks';
 import { bunsType, saucesType, fillingsType } from '../../../constants/constants';
 import { FC } from 'react';
 
-interface IBurgerNavigation {
+interface IBurgerNavigationProps {
   handleClick: (tab: string) => void;
 }
 
-const BurgerNavigation: FC<IBurgerNavigation> = ({ handleClick }) => {
+const BurgerNavigation: FC<IBurgerNavigationProps> = ({ handleClick }) => {
   const currentTab = useAppSelector(store => store.tabs.currentTab);
 
   return (

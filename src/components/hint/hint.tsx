@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import hintStyles from './hint.module.css';
 import { FC } from 'react';
 
-interface IHint {
+interface IHintProps {
   paragraphText: string;
   linkPath: string;
   linkText: string;
   needIndent: boolean;
 }
 
-const Hint: FC<IHint> = ({ paragraphText, linkPath, linkText, needIndent }) => {
+const Hint: FC<IHintProps> = ({ paragraphText, linkPath, linkText, needIndent }) => {
   return (
     <div className={`${hintStyles.container}${needIndent ? " mb-4" : ""}`}>
       <p className={`${hintStyles.text} text text_type_main-default mr-2`}>{paragraphText}</p>
