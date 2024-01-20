@@ -1,19 +1,24 @@
 import listItemStyles from './list-item.module.css';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { useAppDispatch } from '../../../utils/reduxHooks'; 
 import { removeIngredient } from '../../../store/slices/ingredientsSlice';
-import { ingredientType } from '../../../utils/types';
+import { TIngredient } from '../../../utils/types';
 import { useDrag, useDrop } from 'react-dnd';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { dropIngredient } from '../../../store/slices/ingredientsSlice';
 
-function ListItem({ place, ingredient, index }) {
+interface IListItem {
+  place: 'top' | 'bottom' | 'middle';
+  ingredient: TIngredient;
+  index?: number;
+}
+
+const ListItem: FC<IListItem> = ({ place, ingredient, index }) => {
   const dispatch = useAppDispatch();
 
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
 
-  function handleDelete() {
+  function handleDelete(): void {
     dispatch(removeIngredient(ingredient))
   }
 
@@ -27,8 +32,8 @@ function ListItem({ place, ingredient, index }) {
 
   const [, dropRef] = useDrop({
     accept: 'list-item',
-    hover(ingredient) {
-      dispatch(dropIngredient({ingredient, index}));
+    hover(ingredient: TIngredient) {
+      index && dispatch(dropIngredient({ingredient, index}));
     }
   });
 
@@ -54,20 +59,14 @@ function ListItem({ place, ingredient, index }) {
         :
         <ConstructorElement
           type={place}
-          isLocked="true"
+          isLocked={true}
           text={`${ingredient['name']} ${place === 'top' ? '(верх)' : '(низ)'}`}
           price={ingredient['price']}
-          {...(ingredient['image'] ? { thumbnail: ingredient['image'] } : {})}
+          thumbnail={ingredient['image'] || ''}
         />
       }
     </li>
   )
-}
-
-ListItem.propTypes = {
-  place: PropTypes.string.isRequired,
-  ingredient: ingredientType.isRequired,
-  index: PropTypes.number
 }
 
 export default ListItem;

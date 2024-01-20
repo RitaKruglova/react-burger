@@ -95,18 +95,11 @@ export type TGetUserResponse = TSuccess & {
   user: TUser;
 }
 
-export type TInitialBun = {
-  name: string;
-  price: number;
-  image: string;
-  _id?: string;
-}
-
 export type TIngredientSliceState = {
   dataIngredients: TIngredient[];
   error: null | string | unknown;
   draggedIngredients: TIngredient[];
-  bun: TInitialBun | TBun;
+  bun: TBun;
   currentIngredient: null | TIngredient;
 }
 

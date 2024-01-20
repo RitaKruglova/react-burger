@@ -1,13 +1,22 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../../utils/Api';
 import invisibleBun from '../../images/invisible-bun.png';
-import { TBun, TDropIngredientAction, TIngredient, TIngredientSliceState, TInitialBun } from '../../utils/types';
+import { TBun, TDropIngredientAction, TIngredient, TIngredientSliceState } from '../../utils/types';
 
 const initialBun = {
+  _id: '',
   name: 'Перетащите сюда булку и другие ингредиенты',
+  type: 'bun',
+  proteins: 0,
+  fat: 0,
+  carbohydrates: 0,
+  calories: 0,
   price: 0,
-  image: invisibleBun
-} as TInitialBun;
+  image: invisibleBun,
+  image_mobile: '',
+  image_large: '',
+  __v: 0
+} as TBun;
 
 export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredients',
