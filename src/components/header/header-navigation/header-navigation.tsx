@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import { mainRoute, profileRoute } from '../../../constants/constants';
 import HeaderLogo from '../header-logo/header-logo';
 import MenuItem from '../menu-item/menu-item';
 import headerNavigationStyles from './header-navigation.module.css';
 
-function HeaderNavigation() {
+const HeaderNavigation: FC = () => {
 
   return (
     <nav className={headerNavigationStyles.menu}>
