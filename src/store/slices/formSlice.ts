@@ -41,7 +41,7 @@ export const fetchLogin = createAsyncThunk(
 
 export const fetchRefreshToken = createAsyncThunk(
   'form/fetchRefreshToken',
-  async (token: string): Promise<any> => {
+  async (token: string | null): Promise<any> => {
     const response = await api.refreshToken(token);
     return response;
   }
@@ -49,7 +49,7 @@ export const fetchRefreshToken = createAsyncThunk(
 
 export const fetchLogout = createAsyncThunk(
   'form/fetchLogout',
-  async (token: string): Promise<any> => {
+  async (token: string | null): Promise<any> => {
     const response = await api.logout(token);
     return response;
   }
@@ -57,7 +57,7 @@ export const fetchLogout = createAsyncThunk(
 
 export const fetchGetUser = createAsyncThunk(
   'form/fetchGetUser',
-  async (token: string): Promise<any> => {
+  async (token: string | null): Promise<any> => {
     const response = await api.getUser(token);
     return response;
   }
@@ -65,7 +65,7 @@ export const fetchGetUser = createAsyncThunk(
 
 export const fetchChangeUserInfo = createAsyncThunk(
   'form/fetchChangeUserInfo',
-  async ({info, accessToken}: {info: IUserInfo; accessToken: string}): Promise<any> => {
+  async ({info, accessToken}: {info: IUserInfo; accessToken: string | null}): Promise<any> => {
     const response = await api.changeUserInfo(info, accessToken);
     return response;
   }

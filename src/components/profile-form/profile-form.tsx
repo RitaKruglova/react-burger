@@ -2,31 +2,32 @@ import Form from "../form/form";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { profileEmailInput, profileNameInput, profilePasswordInput, initialPassword } from "../../constants/constants";
 import profileFormStyles from './profile-form.module.css';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, FC } from 'react';
 import { fetchChangeUserInfo, setValue } from "../../store/slices/formSlice";
 import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
+import { TInitialStateIsEditing } from "../../utils/types";
 
-function ProfileForm() {
+const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
   const initialStateIsEdititng = {
     profileNameInput: false,
     profileEmailInput: false,
     profilePasswordInput: false
-  }
-  const [isEditing, setIsEditing] = useState(initialStateIsEdititng);
-  const [password, setPassword] = useState(initialPassword);
-  const [needButtons, setNeedButtons] = useState(false);
+  } as TInitialStateIsEditing
+  const [isEditing, setIsEditing] = useState<TInitialStateIsEditing>(initialStateIsEdititng);
+  const [password, setPassword] = useState<string>(initialPassword);
+  const [needButtons, setNeedButtons] = useState<boolean>(false);
 
   const { currentUser, values} = useAppSelector(store => ({
     currentUser: store.form.currentUser,
     values: store.form.values,
   }));
 
-  function handleIconClick(inputName) {
+  function handleIconClick(inputName: string): void {
     setIsEditing(prev => ({ ...prev, [inputName]: !prev[inputName] }));
   }
 
-  function handleCancelClick() {
+  function handleCancelClick(): void {
     dispatch(setValue({
       name: profileNameInput,
       value: currentUser.name
@@ -87,11 +88,11 @@ function ProfileForm() {
     }
   }, [isEditing, dispatch, currentUser])
 
-  const handleChange = useCallback((event) => {
+  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch(setValue({ name: event.target.name, value: event.target.value }));
   }, [dispatch]);
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
 
     const info = {

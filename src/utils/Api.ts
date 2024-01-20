@@ -79,19 +79,19 @@ class Api {
     })
   }
 
-  logout(token: string): Promise<any> {
+  logout(token: string | null): Promise<any> {
     return this._fetch('/auth/logout', 'POST', {
       'token': token
     })
   }
 
-  getUser(token: string): Promise<any> {
+  getUser(token: string | null): Promise<any> {
     return this._fetch('/auth/user', 'GET', null, {
       authorization: `Bearer ${token}`
     })
   }
 
-  changeUserInfo(info: IUserInfo, token: string): Promise<any> {
+  changeUserInfo(info: IUserInfo, token: string | null): Promise<any> {
     return this._fetch('/auth/user', 'PATCH', {
       ...(info.name ? {'name': info.name} : {}),
       ...(info.email ? {'email': info.email} : {}),

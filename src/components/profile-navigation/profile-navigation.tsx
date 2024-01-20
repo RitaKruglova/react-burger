@@ -3,12 +3,13 @@ import profileNavigationStyles from './profile-navigation.module.css';
 import { useAppDispatch } from '../../utils/reduxHooks'; 
 import { fetchLogout, resetCurrentUser} from '../../store/slices/formSlice';
 import { loginRoute, ordersRoute, profileRoute } from '../../constants/constants';
+import { FC } from 'react';
 
-function ProfileNavigation() {
+const ProfileNavigation: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  async function logout() {
+  async function logout(): Promise<void> {
     try {
       await dispatch(fetchLogout(localStorage.getItem('refreshToken'))).unwrap();
       localStorage.removeItem('refreshToken');

@@ -136,3 +136,5 @@ export type TOrderResponse = {
 export type TTabsSliceState = {
   currentTab: string;
 }
+
+export type TInitialStateIsEditing = Record<string, boolean>;
