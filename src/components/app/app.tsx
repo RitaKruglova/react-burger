@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import appStyles from './app.module.css';
 import Header from '../header/header';
 import { Route, Routes } from 'react-router-dom';
@@ -12,7 +12,7 @@ import Preloader from '../preloader/preloader';
 import { forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 
-function App() {
+const App: FC = () => {
   const { error } = useAppSelector(store => ({
     error: store.ingredients.error
   }));
@@ -23,7 +23,7 @@ function App() {
     if (error) {
       console.log(error);
     }
-  }, [dispatch]);
+  }, [dispatch, error]);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken')

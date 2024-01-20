@@ -7,7 +7,7 @@ import { bunsType, fillingsType, saucesType } from '../../constants/constants';
 import { setCurrentTab } from '../../store/slices/tabsSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
-import { TBun, TIngredient } from '../../utils/types';
+import { TIngredient } from '../../utils/types';
 
 const BurgerIngredients: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,22 +25,27 @@ const BurgerIngredients: FC = () => {
   const saucesRef = useRef<HTMLDivElement | null>(null);
 
   const bunsTop: number = 0;
-  const saucesTop: number | undefined = useMemo(() => bunsRef.current?.getBoundingClientRect()?.height, []);
-  const fillingsTop: number | undefined = useMemo(() => saucesTop && saucesRef.current?.getBoundingClientRect()?.height
-    ? saucesTop + saucesRef.current.getBoundingClientRect().height
-    : undefined, 
-  [saucesTop]
-);
+  const saucesTop: number = useMemo(() => 
+    bunsRef.current
+      ? bunsRef.current?.getBoundingClientRect()?.height
+      : 0
+      , [bunsRef.current]);
+  const fillingsTop: number = useMemo(() => 
+    saucesTop && saucesRef.current?.getBoundingClientRect()?.height
+      ? saucesTop + saucesRef.current.getBoundingClientRect().height
+      : 0, 
+    [saucesRef.current, saucesTop]
+  );
 
   useEffect(() => {
     const container = containerRef?.current;
+
     if (!container) return;
+    // уважаемый Ревьюер, это условие пришлось написать 2 раза т. к. внутри функции ts его не видит и я не понимаю почему
+    // ведь область видимости доступная. Прошу Вас объяснить как сделать лучше. заранее спасибо
 
     function handleScroll() {
-      if (!container) return; // почему-то первую проверку не видит тс хотя область видимости доступная
-      // если Вы, уважаемый ревьюер не объясните почему так я буду Вам очень благодарна <3
-
-      if (!saucesTop || !fillingsTop) return;
+      if (!container) return;
 
       if (container.scrollTop < saucesTop) {
         dispatch(setCurrentTab(bunsType));
@@ -58,11 +63,10 @@ const BurgerIngredients: FC = () => {
     }
   }, [dispatch, currentTab, fillingsTop, saucesTop]);
 
-  function setTab(tab: string): void {
+  function setTab(tab: string) {
+    console.log(tab)
     dispatch(setCurrentTab(tab));
-
     let ingredientsTop;
-
     if (tab === bunsType) {
       ingredientsTop = bunsTop;
     } else if (tab === saucesType) {
@@ -70,19 +74,19 @@ const BurgerIngredients: FC = () => {
     } else {
       ingredientsTop = fillingsTop;
     }
-
     const container = containerRef?.current;
 
     if (!container) return;
+
     container.scrollTo({
       top: ingredientsTop,
       behavior: 'smooth'
     });
   }
 
-  const buns: TBun[] = useMemo(() => dataIngredients.filter((ingredient): ingredient is TBun => ingredient.type === 'bun'), [dataIngredients]);
-  const sauce: TIngredient[] = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
-  const main: TIngredient[] = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'main'), [dataIngredients]);
+  const buns = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'bun'), [dataIngredients]);
+  const sauce = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
+  const main = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'main'), [dataIngredients]);
 
   function showDetails(ingredient: TIngredient) {
     navigate(`/ingredients/${ingredient._id}`, { state: { backgroundLocation: location } });
