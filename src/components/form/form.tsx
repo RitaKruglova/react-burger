@@ -1,7 +1,14 @@
+import React, { FC, ReactNode } from 'react';
 import formStyles from './form.module.css';
-import PropTypes from 'prop-types';
 
-function Form({ children, title, handleSubmit, isProfilePlace }) {
+interface IForm {
+  children: ReactNode;
+  title?: string;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  isProfilePlace: boolean;
+}
+
+const Form: FC<IForm> = ({ children, title, handleSubmit, isProfilePlace }) => {
   return (
     <div className={formStyles.container}>
       {!isProfilePlace && <h2 className={`${formStyles.title} text text_type_main-medium`}>{title}</h2>}
@@ -10,13 +17,6 @@ function Form({ children, title, handleSubmit, isProfilePlace }) {
       </form>
     </div>
   )
-}
-
-Form.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string,
-  handleSubmit: PropTypes.func.isRequired,
-  isProfilePlace: PropTypes.bool.isRequired
 }
 
 export default Form;
