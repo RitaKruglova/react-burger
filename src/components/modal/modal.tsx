@@ -2,11 +2,21 @@ import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import modalStyles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import PropTypes from 'prop-types';
 import { useModalClose } from '../../hooks/useModalClose';
+import { FC, ReactNode } from 'react';
 
-function Modal({ isOrderDetails, title, children, closeModal}) {
+interface IModalProps {
+  isOrderDetails: boolean;
+  title: string;
+  children: ReactNode;
+  closeModal: () => void;
+}
+
+const Modal: FC<IModalProps> = ({ isOrderDetails, title, children, closeModal}) => {
   useModalClose(closeModal);
+
+  const modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) return null;
 
   return ReactDOM.createPortal(
     <ModalOverlay>
@@ -18,18 +28,8 @@ function Modal({ isOrderDetails, title, children, closeModal}) {
         {children}
       </div>
     </ModalOverlay>,
-    document.getElementById('modal-root')
+    modalRoot
   )
-}
-
-Modal.propTypes = {
-  isOrderDetails: PropTypes.bool.isRequired,
-  title: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired,
-  children: PropTypes.node,
-  closeModal: PropTypes.func.isRequired
 }
 
 export default Modal;
