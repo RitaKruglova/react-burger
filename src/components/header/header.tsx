@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import HeaderNavigation from './header-navigation/header-navigation';
 import headerStyles from './header.module.css';
 
-function Header() {
+const Header: FC = () => {
   return (
     <header className={headerStyles.header}>
       <HeaderNavigation />
