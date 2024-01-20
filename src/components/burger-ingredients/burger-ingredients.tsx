@@ -1,4 +1,4 @@
-import { useMemo, useRef, useEffect } from 'react';
+import { useMemo, useRef, useEffect, FC } from 'react';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import BurgerNavigation from './burger-navigation/burger-navigation';
 import IngredientList from './ingredient-list/ingredient-list';
@@ -7,8 +7,9 @@ import { bunsType, fillingsType, saucesType } from '../../constants/constants';
 import { setCurrentTab } from '../../store/slices/tabsSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
+import { TBun, TIngredient } from '../../utils/types';
 
-function BurgerIngredients() {
+const BurgerIngredients: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,21 +19,32 @@ function BurgerIngredients() {
     currentTab: store.tabs.currentTab
   }));
 
-  const containerRef = useRef();
-  const bunsRef = useRef();
-  const fillingsRef = useRef();
-  const saucesRef = useRef();
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const bunsRef = useRef<HTMLDivElement | null>(null);
+  const fillingsRef = useRef<HTMLDivElement | null>(null);
+  const saucesRef = useRef<HTMLDivElement | null>(null);
 
-  const bunsTop = 0;
-  const saucesTop = useMemo(() => bunsRef.current?.getBoundingClientRect()?.height, [bunsRef.current]);
-  const fillingsTop = useMemo(() => saucesTop + saucesRef.current?.getBoundingClientRect()?.height, [saucesRef.current, saucesTop]);
+  const bunsTop: number = 0;
+  const saucesTop: number | undefined = useMemo(() => bunsRef.current?.getBoundingClientRect()?.height, []);
+  const fillingsTop: number | undefined = useMemo(() => saucesTop && saucesRef.current?.getBoundingClientRect()?.height
+    ? saucesTop + saucesRef.current.getBoundingClientRect().height
+    : undefined, 
+  [saucesTop]
+);
 
   useEffect(() => {
     const container = containerRef?.current;
+    if (!container) return;
+
     function handleScroll() {
+      if (!container) return; // почему-то первую проверку не видит тс хотя область видимости доступная
+      // если Вы, уважаемый ревьюер не объясните почему так я буду Вам очень благодарна <3
+
+      if (!saucesTop || !fillingsTop) return;
+
       if (container.scrollTop < saucesTop) {
         dispatch(setCurrentTab(bunsType));
-      } else if (container.scrollTop >= saucesTop && containerRef.current.scrollTop < fillingsTop) {
+      } else if (container.scrollTop >= saucesTop && container.scrollTop < fillingsTop) {
         dispatch(setCurrentTab(saucesType));
       } else {
         dispatch(setCurrentTab(fillingsType));
@@ -46,10 +58,11 @@ function BurgerIngredients() {
     }
   }, [dispatch, currentTab, fillingsTop, saucesTop]);
 
-  function setTab(tab) {
-    console.log(tab)
+  function setTab(tab: string): void {
     dispatch(setCurrentTab(tab));
+
     let ingredientsTop;
+
     if (tab === bunsType) {
       ingredientsTop = bunsTop;
     } else if (tab === saucesType) {
@@ -57,18 +70,21 @@ function BurgerIngredients() {
     } else {
       ingredientsTop = fillingsTop;
     }
+
     const container = containerRef?.current;
+
+    if (!container) return;
     container.scrollTo({
       top: ingredientsTop,
       behavior: 'smooth'
     });
   }
 
-  const buns = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'bun'), [dataIngredients]);
-  const sauce = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
-  const main = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'main'), [dataIngredients]);
+  const buns: TBun[] = useMemo(() => dataIngredients.filter((ingredient): ingredient is TBun => ingredient.type === 'bun'), [dataIngredients]);
+  const sauce: TIngredient[] = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'sauce'), [dataIngredients]);
+  const main: TIngredient[] = useMemo(() => dataIngredients.filter(ingredient => ingredient.type === 'main'), [dataIngredients]);
 
-  function showDetails(ingredient) {
+  function showDetails(ingredient: TIngredient) {
     navigate(`/ingredients/${ingredient._id}`, { state: { backgroundLocation: location } });
   }
   
