@@ -1,14 +1,14 @@
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import NutritionalValue from './nutritional-value/nutritional-value';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 
-function IngredientDetails() {
+const IngredientDetails: FC = () => {
   const dispatch = useAppDispatch();
 
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const { currentIngredient, dataIngredients } = useAppSelector(store => ({
     currentIngredient: store.ingredients.currentIngredient,
