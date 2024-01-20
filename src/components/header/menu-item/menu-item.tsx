@@ -1,14 +1,20 @@
 import menuItemStyles from './menu-item.module.css';
 import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { mainRoute } from '../../../constants/constants';
 
-function MenuItem({ isBurgerConstructor, text, isInContainer, path }) {
+interface IMenuItem {
+  isBurgerConstructor: boolean;
+  text: string;
+  isInContainer: boolean;
+  path: string;
+}
+
+const MenuItem: FC<IMenuItem> = ({ isBurgerConstructor, text, isInContainer, path }) => {
   const location = useLocation();
 
-  const isLinkActive = useMemo(() => {
+  const isLinkActive: boolean = useMemo(() => {
     if (path === mainRoute) {
       return location.pathname === path;
     }
@@ -29,12 +35,5 @@ function MenuItem({ isBurgerConstructor, text, isInContainer, path }) {
     </NavLink>
   );
 }
-
-MenuItem.propTypes = {
-  isBurgerConstructor: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired,
-  isInContainer: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired
-};
 
 export default MenuItem;
