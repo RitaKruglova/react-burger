@@ -1,5 +1,5 @@
 import burgerConstructorStyles from './burger-constructor.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import ListItem from './list-item/list-item';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyIconPath from '../../images/currency-icon.svg';
@@ -11,8 +11,9 @@ import { fetchOrder, removeOrderNumber } from '../../store/slices/orderSlice';
 import { useNavigate } from 'react-router-dom';
 import { loginRoute } from '../../constants/constants';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
+import { TBun, TIngredient } from '../../utils/types';
 
-function BurgerConstructor() {
+const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
   
@@ -25,14 +26,14 @@ function BurgerConstructor() {
     currentUser: store.form.currentUser
   }));
   
-  const [sum, setSum] = useState(0);
+  const [sum, setSum] = useState<number>(0);
 
   const [, dropRef] = useDrop({
     accept: 'ingredient',
-    drop(ingredient) {
+    drop(ingredient: TIngredient) {
       ingredient = { ...ingredient, uuid: crypto.randomUUID()};
       if (ingredient['type'] === 'bun') {
-        dispatch(addBun(ingredient));
+        dispatch(addBun(ingredient as TBun));
       } else {
         dispatch(addIngredient(ingredient))
       }
@@ -50,11 +51,15 @@ function BurgerConstructor() {
     setSum((draggedIngredients.reduce((prevVal, val) => prevVal + val['price'], 0)) + bun['price'] * 2)
   }, [draggedIngredients, bun])
 
-  function createOrder() {
+  function createOrder(): void {
     if (!currentUser.name || !currentUser.email) {
       navigate(loginRoute);
     } else {
-      dispatch(fetchOrder(draggedIngredients.map(i => i['_id']).concat(bun['_id'])));
+      const ingredientIds = draggedIngredients.map(i => i['_id']);
+      if (bun && bun['_id']) {
+        ingredientIds.push(bun['_id']);
+      }
+      dispatch(fetchOrder(ingredientIds));
       if (error) {
         console.log(error);
       }

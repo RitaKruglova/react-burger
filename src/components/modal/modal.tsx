@@ -7,7 +7,7 @@ import { FC, ReactNode } from 'react';
 
 interface IModalProps {
   isOrderDetails: boolean;
-  title: string;
+  title: string | number;
   children: ReactNode;
   closeModal: () => void;
 }
