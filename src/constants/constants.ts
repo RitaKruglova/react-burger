@@ -22,3 +22,4 @@ export const forgotPasswordRoute: string = '/forgot-password';
 export const resetPasswordRoute: string = '/reset-password';
 export const profileRoute: string = '/profile';
 export const ordersRoute: string = 'orders';
+export const feedRoute: string = '/feed';

@@ -3,13 +3,13 @@ import appStyles from './app.module.css';
 import Header from '../header/header';
 import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
-import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile } from '../../pages';
+import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile, Feed } from '../../pages';
 import ProfileForm from '../profile-form/profile-form';
 import { fetchGetUser } from '../../store/slices/formSlice';
 import ProtectedRoute from '../protected-route/protected-route';
 import IngredientPage from '../../pages/ingredient-page';
 import Preloader from '../preloader/preloader';
-import { forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
+import { feedRoute, forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 
 const App: FC = () => {
@@ -43,6 +43,10 @@ const App: FC = () => {
           >
             <Route path={ingredientsIdRoute} element={<IngredientPage />} />
           </Route>
+          <Route
+            path={feedRoute}
+            element={<Feed />}
+          />
           <Route
             path={loginRoute}
             element={<Login />}
