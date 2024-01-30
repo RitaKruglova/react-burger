@@ -22,7 +22,7 @@ const Order: FC = () => {
             <img key={i._id} className={orderStyles.image} src={i.image} alt={i.name} />
           ))}
           {dataIngredients.length > 5 &&
-            <div className={orderStyles.extra}>
+            <div className={orderStyles.extra} style={{ backgroundImage: `url(${dataIngredients[5].image})` }}>
               +{dataIngredients.length - 5}
             </div>
           }
