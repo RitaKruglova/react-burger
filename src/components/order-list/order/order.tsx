@@ -2,6 +2,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import orderStyles from './order.module.css';
 import { FC } from 'react';
 import { useAppSelector } from '../../../utils/reduxHooks';
+import IngredientRoundImage from '../../ingredient-round-image/ingredient-round-image';
 
 const Order: FC = () => {
   const { dataIngredients } = useAppSelector(store => ({
@@ -19,13 +20,7 @@ const Order: FC = () => {
       <div className={orderStyles.order}>
         <div className={`${orderStyles.ingredients} mr-6`}>
           {dataIngredients.slice(0, 5).map((i, index) => (
-            <img
-              key={i._id}
-              className={orderStyles.image}
-              src={i.image}
-              alt={i.name}
-              style={{zIndex: 5 - index}}
-            />
+            <IngredientRoundImage key={i._id} image={i.image} name={i.name} index={index} />
           ))}
           {dataIngredients.length > 5 &&
             <div className={orderStyles.extra} style={{ backgroundImage: `url(${dataIngredients[5].image})` }}>
