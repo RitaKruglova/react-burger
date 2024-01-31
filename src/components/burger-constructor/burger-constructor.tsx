@@ -67,7 +67,7 @@ const BurgerConstructor: FC = () => {
   }
 
   return (
-    <section className={`${burgerConstructorStyles.container} pl-4 pr-4`}>
+    <div className={`${burgerConstructorStyles.container} pl-4 pr-4`}>
       <ul className={burgerConstructorStyles.list} ref={dropRef}>
         <ListItem
           place="top"
@@ -108,7 +108,7 @@ const BurgerConstructor: FC = () => {
           <OrderDetails />
         </Modal>
       }
-    </section>
+    </div>
   )
 }
 

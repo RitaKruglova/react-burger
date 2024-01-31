@@ -10,7 +10,7 @@ const Order: FC = () => {
 
 
   return (
-    <li className={`${orderStyles.container} p-6 mb-4`}>
+    <li className={`${orderStyles.container} p-6 mb-4 mr-2`}>
       <div className={`${orderStyles.info} mb-6`}>
         <p className="text text_type_digits-default">#034535</p>
         <p className="text text_type_main-default text_color_inactive">Сегодня, 16:20</p>

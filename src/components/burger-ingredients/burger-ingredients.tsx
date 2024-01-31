@@ -93,7 +93,7 @@ const BurgerIngredients: FC = () => {
   }
   
   return (
-    <section className={`${burgerIngredientsStyles.container} mt-10`}>
+    <div className={`${burgerIngredientsStyles.container} mt-10`}>
       <h1 className={`${burgerIngredientsStyles.title} text text_type_main-large mb-5`}>Соберите бургер</h1>
       <BurgerNavigation  handleClick={setTab}/>
       <div className={`${burgerIngredientsStyles.ingredients} mt-10`} ref={containerRef}>
@@ -113,7 +113,7 @@ const BurgerIngredients: FC = () => {
           ))}
         </IngredientList>
       </div>
-    </section>
+    </div>
   )
 }
 

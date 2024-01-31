@@ -3,6 +3,7 @@
   border-radius: 40px;
   background: var(--interface-modal-bg, #1C1C21);
   list-style: none;
+  box-sizing: border-box;
 }
 
 .info {

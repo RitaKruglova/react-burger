@@ -1,0 +1,16 @@
+.container {
+  width: 272px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 100px;
+}
+
+.blue {
+  color: var(--interface-success, #0CC);
+}
