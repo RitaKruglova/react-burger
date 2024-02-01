@@ -15,7 +15,7 @@ const orderSlice = createSlice({
   initialState: {
     orderNumber: null,
     order: null,
-    error: null
+    error: null,
   } as TOrderSliceState,
   reducers: {
     removeOrderNumber: (state) => {

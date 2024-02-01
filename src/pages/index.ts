@@ -5,6 +5,7 @@ import ForgotPassword from "./forgot-password";
 import ResetPassword from "./reset-password";
 import Profile from './profile';
 import Feed from "./feed";
+import OrderPage from "./order-page";
 
 export {
   HomePage,
@@ -13,5 +14,6 @@ export {
   ForgotPassword,
   ResetPassword,
   Profile,
-  Feed
+  Feed,
+  OrderPage
 }

@@ -4,14 +4,17 @@ import { FC } from 'react';
 import { useAppSelector } from '../../../utils/reduxHooks';
 import IngredientRoundImage from '../../ingredient-round-image/ingredient-round-image';
 
-const Order: FC = () => {
+interface IOrderProps {
+  onClick: () => void;
+}
+
+const Order: FC<IOrderProps> = ({ onClick }) => {
   const { dataIngredients } = useAppSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients
   }));
 
-
   return (
-    <li className={`${orderStyles.container} p-6 mb-4 mr-2`}>
+    <li className={`${orderStyles.container} p-6 mb-4 mr-2`} onClick={() => onClick()}>
       <div className={`${orderStyles.info} mb-6`}>
         <p className="text text_type_digits-default">#034535</p>
         <p className="text text_type_main-default text_color_inactive">Сегодня, 16:20</p>

@@ -41,8 +41,6 @@ const BurgerIngredients: FC = () => {
     const container = containerRef?.current;
 
     if (!container) return;
-    // уважаемый Ревьюер, это условие пришлось написать 2 раза т. к. внутри функции ts его не видит и я не понимаю почему
-    // ведь область видимости доступная. Прошу Вас объяснить как сделать лучше. заранее спасибо
 
     function handleScroll() {
       if (!container) return;

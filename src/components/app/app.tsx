@@ -3,7 +3,7 @@ import appStyles from './app.module.css';
 import Header from '../header/header';
 import { Route, Routes } from 'react-router-dom';
 import { fetchIngredients } from '../../store/slices/ingredientsSlice';
-import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile, Feed } from '../../pages';
+import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile, Feed, OrderPage } from '../../pages';
 import ProfileForm from '../profile-form/profile-form';
 import { fetchGetUser } from '../../store/slices/formSlice';
 import ProtectedRoute from '../protected-route/protected-route';
@@ -47,7 +47,7 @@ const App: FC = () => {
             path={feedRoute}
             element={<Feed />}
           >
-            <Route path={feedNumberRoute} element={<></>} />
+            <Route path={feedNumberRoute} element={<OrderPage />} />
           </Route>
           <Route
             path={loginRoute}

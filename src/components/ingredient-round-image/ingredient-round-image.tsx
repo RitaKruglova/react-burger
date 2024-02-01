@@ -10,14 +10,16 @@ interface IIngredientRoundImageProps {
 
 const IngredientRoundImage: FC<IIngredientRoundImageProps> = ({ isOrderPlace, image, name, index}) => {
   const style = isOrderPlace ? { zIndex: 5 - (index || 0) } : undefined;
-  
+
   return (
-    <img
-      className={ingredientRoundImageStyles.image}
-      src={image}
-      alt={name}
-      style={style}
-    />
+    <div className={ingredientRoundImageStyles.container}>
+      <img
+        className={ingredientRoundImageStyles.image}
+        src={image}
+        alt={name}
+        style={style}
+      />
+    </div>
 )
 }
 

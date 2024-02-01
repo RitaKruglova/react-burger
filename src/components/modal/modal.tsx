@@ -7,12 +7,13 @@ import { FC, ReactNode } from 'react';
 
 interface IModalProps {
   isOrderDetails: boolean;
+  isOrderPage?: boolean;
   title: string | number;
   children: ReactNode;
   closeModal: () => void;
 }
 
-const Modal: FC<IModalProps> = ({ isOrderDetails, title, children, closeModal}) => {
+const Modal: FC<IModalProps> = ({ isOrderDetails, isOrderPage, title, children, closeModal}) => {
   useModalClose(closeModal);
 
   const modalRoot = document.getElementById('modal-root');
@@ -21,7 +22,7 @@ const Modal: FC<IModalProps> = ({ isOrderDetails, title, children, closeModal}) 
   return ReactDOM.createPortal(
     <ModalOverlay>
       <div className={modalStyles.container}>
-        <h4 className={`${isOrderDetails ? 'mt-30 text text_type_digits-large' : `mt-10 ${modalStyles.title} text text_type_main-large`}`}>{title}</h4>
+        <h4 className={`${isOrderDetails ? 'mt-30 text text_type_digits-large' : `mt-10 ${modalStyles.title} text text_type_main-large`} ${isOrderPage ? 'text text_type_digits-default' : ''}`}>{title}</h4>
         <div className={`${modalStyles.button} mt-15 mr-10`}>
           <CloseIcon type="primary" onClick={closeModal}/>
         </div>
