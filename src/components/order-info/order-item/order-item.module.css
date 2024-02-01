@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.container:last-of-type {
+  margin: 0;
+}
+
 .price {
   justify-self: end;
   display: flex;

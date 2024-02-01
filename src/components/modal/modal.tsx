@@ -22,7 +22,7 @@ const Modal: FC<IModalProps> = ({ isOrderDetails, isOrderPage, title, children, 
   return ReactDOM.createPortal(
     <ModalOverlay>
       <div className={modalStyles.container}>
-        <h4 className={`${isOrderDetails ? 'mt-30 text text_type_digits-large' : `mt-10 ${modalStyles.title} text text_type_main-large`} ${isOrderPage ? 'text text_type_digits-default' : ''}`}>{title}</h4>
+        <h4 className={`${modalStyles.title} ${isOrderDetails ? 'mt-30 text text_type_digits-large' : `mt-10 text text_type_main-large`} ${isOrderPage ? `text text_type_digits-default ml-10 ${modalStyles.left}` : ''}`}>{title}</h4>
         <div className={`${modalStyles.button} mt-15 mr-10`}>
           <CloseIcon type="primary" onClick={closeModal}/>
         </div>

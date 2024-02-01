@@ -12,7 +12,7 @@ interface IOrderItemProps {
 
 const OrderItem: FC<IOrderItemProps> = ({ image, name, quantity, price }) => {
   return (
-    <li className={orderItemStyles.container}>
+    <li className={`${orderItemStyles.container} pr-6 mb-4`}>
       <IngredientRoundImage isOrderPlace={false} image={image} name={name} />
       <h5 className={`${orderItemStyles.title} text text_type_main-default`}>{name}</h5>
       <div className={orderItemStyles.price}>

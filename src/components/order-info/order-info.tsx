@@ -10,19 +10,19 @@ const OrderInfo: FC = () => {
   }));
 
   return (
-    <div className={orderInfoStyles.container}>
-      <h3 className="text text_type_main-medium">Black Hole Singularity острый бургер</h3>
+    <div className={`${orderInfoStyles.container} mt-5`}>
+      <h3 className="text text_type_main-medium mb-2">Black Hole Singularity острый бургер</h3>
       <p className={`${orderInfoStyles.status} text text_type_main-default`}>Выполнен</p>
-      <h4 className="text text_type_main-medium">Состав:</h4>
+      <h4 className="text text_type_main-medium mb-6">Состав:</h4>
       <ul className={orderInfoStyles.list}>
         {dataIngredients.map(i => (
           <OrderItem image={i.image} name={i.name} quantity={1} price={i.price} />
         ))}
       </ul>
-      <div className={orderInfoStyles.result}>
+      <div className={`${orderInfoStyles.result} mt-8 mb-10`}>
         <p className="text text_type_main-default text_color_inactive">Вчера, 13:50</p>
         <div className={orderInfoStyles.price}>
-          <p className="text text_type_digits-default">510</p>
+          <p className="text text_type_digits-default mr-2">510</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>
