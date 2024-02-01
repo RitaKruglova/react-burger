@@ -115,3 +115,9 @@ export type TTabsSliceState = {
 }
 
 export type TInitialStateIsEditing = Record<string, boolean>;
+
+export type TWebSocketSliceState = {
+  wsConnected: boolean;
+  messages: string[];
+  error: null | boolean;
+}

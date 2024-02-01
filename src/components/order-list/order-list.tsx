@@ -1,7 +1,7 @@
 import orderListStyles from './order-list.module.css';
 import { FC } from 'react';
 import Order from './order/order';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 interface IOrderListProps {
   isProfilePlace: boolean
@@ -16,17 +16,20 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
   }
 
   return (
-    <ul className={`${orderListStyles.container} ${isProfilePlace ? orderListStyles.profile : ''}`}>
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
-      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />      
-    </ul>
+    <>
+      <ul className={`${orderListStyles.container} ${isProfilePlace ? orderListStyles.profile : ''}`}>
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+        <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />      
+      </ul>
+      <Outlet />
+    </>
   )
 }
 

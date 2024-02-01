@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../components/modal/modal';
-import { feedRoute } from '../constants/constants';
+import { feedRoute, profileOrderRoute, profileRoute } from '../constants/constants';
 import OrderInfo from '../components/order-info/order-info';
 import orderPageStyles from './order-page.module.css';
 
@@ -10,9 +10,15 @@ const OrderPage: FC = () => {
   const navigate = useNavigate();
 
   let state = location.state;
+  console.log(location.pathname)
 
   function handleClose(): void {
-    navigate(feedRoute);
+    console.log(location.pathname.startsWith(profileRoute))
+    if (location.pathname.startsWith(profileRoute)) {
+      navigate(profileOrderRoute)
+    } else {
+      navigate(feedRoute);
+    }
   }
 
   return (

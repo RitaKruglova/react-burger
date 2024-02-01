@@ -4,6 +4,7 @@ import tabsReducer from './slices/tabsSlice';
 import orderReducer from './slices/orderSlice';
 import loadingReducer from './slices/loadingSlice';
 import formReducer from './slices/formSlice';
+import webSocketReducer from './slices/webSocketSlice';
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     tabs: tabsReducer,
     order: orderReducer,
     loading: loadingReducer,
-    form: formReducer
+    form: formReducer,
+    webSocket: webSocketReducer
   },
 })
 

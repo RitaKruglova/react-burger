@@ -9,7 +9,7 @@ import { fetchGetUser } from '../../store/slices/formSlice';
 import ProtectedRoute from '../protected-route/protected-route';
 import IngredientPage from '../../pages/ingredient-page';
 import Preloader from '../preloader/preloader';
-import { feedNumberRoute, feedRoute, forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
+import { numberRoute, feedRoute, forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 import OrderList from '../order-list/order-list';
 
@@ -48,7 +48,7 @@ const App: FC = () => {
             path={feedRoute}
             element={<Feed />}
           >
-            <Route path={feedNumberRoute} element={<OrderPage />} />
+            <Route path={numberRoute} element={<OrderPage />} />
           </Route>
           <Route
             path={loginRoute}
@@ -90,7 +90,16 @@ const App: FC = () => {
                   isProfilePlace={true}
                 />
               }
-            />
+            >
+              <Route
+                path={numberRoute}
+                element={
+                  <ProtectedRoute
+                    element={OrderPage}
+                  />
+                }
+              />
+            </Route>
           </Route>
         </Routes>
       </main>
