@@ -1,0 +1,12 @@
+.container {
+  display: grid;
+  grid-template-columns: 64px 320px 1fr;
+  column-gap: 16px;
+  width: 608px;
+  align-items: center;
+}
+
+.price {
+  justify-self: end;
+  display: flex;
+}
