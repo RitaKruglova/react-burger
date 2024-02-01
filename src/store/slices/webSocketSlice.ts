@@ -5,7 +5,7 @@ export const webSocketSlice = createSlice({
   name: 'webSocket',
   initialState: {
     wsConnected: false,
-    messages: [],
+    orders: [],
     error: null,
   } as TWebSocketSliceState,
   reducers: {
@@ -19,11 +19,11 @@ export const webSocketSlice = createSlice({
     wsConnectionClosed: (state) => {
       state.wsConnected = false;
     },
-    wsGetMessage: (state, action) => {
-      state.messages.push(action.payload);
+    wsSetAllOrders: (state, action) => {
+      state.orders = action.payload;
     },
   }
 })
 
-export const { wsConnectionSuccess, wsConnectionError, wsConnectionClosed, wsGetMessage } = webSocketSlice.actions;
+export const { wsConnectionSuccess, wsConnectionError, wsConnectionClosed, wsSetAllOrders } = webSocketSlice.actions;
 export default webSocketSlice.reducer;

@@ -116,8 +116,24 @@ export type TTabsSliceState = {
 
 export type TInitialStateIsEditing = Record<string, boolean>;
 
+export type TOrder = {
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type TWebSocketResponse = {
+  success: boolean;
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+}
+
 export type TWebSocketSliceState = {
   wsConnected: boolean;
-  messages: string[];
+  orders: TOrder[];
   error: null | boolean;
 }
