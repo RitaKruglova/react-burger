@@ -12,14 +12,14 @@ interface IOrderItemProps {
 
 const OrderItem: FC<IOrderItemProps> = ({ image, name, quantity, price }) => {
   return (
-    <div className={orderItemStyles.container}>
+    <li className={orderItemStyles.container}>
       <IngredientRoundImage isOrderPlace={false} image={image} name={name} />
       <h5 className="text text_type_main-default">{name}</h5>
       <div className={orderItemStyles.price}>
         <p className="text text_type_digits-default">{`${quantity} x ${price}`}</p>
         <CurrencyIcon type="primary" />
       </div>
-    </div>
+    </li>
   )
 }
 export default OrderItem;
