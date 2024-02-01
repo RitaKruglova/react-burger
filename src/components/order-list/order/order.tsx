@@ -20,7 +20,7 @@ const Order: FC = () => {
       <div className={orderStyles.order}>
         <div className={`${orderStyles.ingredients} mr-6`}>
           {dataIngredients.slice(0, 5).map((i, index) => (
-            <IngredientRoundImage key={i._id} image={i.image} name={i.name} index={index} />
+            <IngredientRoundImage key={i._id} isOrderPlace={true} image={i.image} name={i.name} index={index} />
           ))}
           {dataIngredients.length > 5 &&
             <div className={orderStyles.extra} style={{ backgroundImage: `url(${dataIngredients[5].image})` }}>

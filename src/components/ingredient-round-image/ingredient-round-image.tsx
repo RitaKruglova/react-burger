@@ -2,18 +2,21 @@ import ingredientRoundImageStyles from './ingredient-round-image.module.css';
 import { FC } from 'react';
 
 interface IIngredientRoundImageProps {
+  isOrderPlace: boolean;
   image: string;
   name: string;
-  index: number;
+  index?: number;
 }
 
-const IngredientRoundImage: FC<IIngredientRoundImageProps> = ({ image, name, index}) => {
+const IngredientRoundImage: FC<IIngredientRoundImageProps> = ({ isOrderPlace, image, name, index}) => {
+  const style = isOrderPlace ? { zIndex: 5 - (index || 0) } : undefined;
+  
   return (
     <img
       className={ingredientRoundImageStyles.image}
       src={image}
       alt={name}
-      style={{zIndex: 5 - index}}
+      style={style}
     />
 )
 }
