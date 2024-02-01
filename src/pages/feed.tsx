@@ -9,7 +9,7 @@ const Feed: FC = () => {
     <section className={feedStyles.section}>
       <h2 className="text text_type_main-large mt-10 mb-5">Лента заказов</h2>
       <div className={feedStyles.container}>
-        <OrderList />
+        <OrderList isProfilePlace={false} />
         <OrderDashboard />
       </div>
       <Outlet />

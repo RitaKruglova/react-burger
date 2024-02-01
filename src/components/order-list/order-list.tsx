@@ -3,7 +3,11 @@ import { FC } from 'react';
 import Order from './order/order';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const OrderList: FC = () => {
+interface IOrderListProps {
+  isProfilePlace: boolean
+}
+
+const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -12,15 +16,16 @@ const OrderList: FC = () => {
   }
 
   return (
-    <ul className={orderListStyles.container}>
-      <Order onClick={() => showOrder()} />
-      <Order onClick={() => showOrder()} />
-      <Order onClick={() => showOrder()} />
-      <Order onClick={() => showOrder()} />
-      <Order onClick={() => showOrder()} />
-      <Order onClick={() => showOrder()} />
-      <Order onClick={() => showOrder()} />
-      <Order onClick={() => showOrder()} />
+    <ul className={`${orderListStyles.container} ${isProfilePlace ? orderListStyles.profile : ''}`}>
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />
+      <Order onClick={() => showOrder()} isProfilePlace={isProfilePlace} />      
     </ul>
   )
 }

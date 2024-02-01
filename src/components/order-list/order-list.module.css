@@ -16,3 +16,9 @@
 .container::-webkit-scrollbar-track {
   background-color: var(--interface-input, #2F2F37);
 }
+
+.profile {
+  margin-top: 40px;
+  margin-left: 380px;
+  height: calc(100vh - 168px);
+}

@@ -11,6 +11,7 @@ import IngredientPage from '../../pages/ingredient-page';
 import Preloader from '../preloader/preloader';
 import { feedNumberRoute, feedRoute, forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
+import OrderList from '../order-list/order-list';
 
 const App: FC = () => {
   const { error } = useAppSelector(store => ({
@@ -85,7 +86,8 @@ const App: FC = () => {
               path={ordersRoute}
               element={
                 <ProtectedRoute
-                  element={Preloader} // временно положила сюда прелоадер
+                  element={OrderList}
+                  isProfilePlace={true}
                 />
               }
             />
