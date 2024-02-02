@@ -61,3 +61,11 @@
   display: flex;
   align-self: center;
 }
+
+.blue {
+  color: #00CCCC;
+}
+
+.red {
+  color: red;
+}

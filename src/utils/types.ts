@@ -120,6 +120,7 @@ export type TOrder = {
   ingredients: string[];
   _id: string;
   status: string;
+  name: string;
   number: number;
   createdAt: string;
   updatedAt: string;
@@ -135,5 +136,5 @@ export type TWebSocketResponse = {
 export type TWebSocketSliceState = {
   wsConnected: boolean;
   orders: TOrder[];
-  error: null | boolean;
+  error: boolean;
 }

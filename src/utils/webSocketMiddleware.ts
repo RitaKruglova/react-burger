@@ -26,8 +26,8 @@ export const webSocketMiddleware = (wsUrl: string) => (store: { dispatch: Functi
         }
         socket = new WebSocket(wsUrl);
         socket.onopen = () => store.dispatch({ type: 'webSocket/wsConnectionSuccess' });
-        socket.onerror = (event) => store.dispatch({ type: 'webSocket/wsConnectionError', payload: event });
-        socket.onmessage = (event) => store.dispatch({ type: 'webSocket/wsSetAllOrders', payload: event.data.orders });
+        socket.onerror = () => store.dispatch({ type: 'webSocket/wsConnectionError' });
+        socket.onmessage = (event) => store.dispatch({ type: 'webSocket/wsSetAllOrders', payload: JSON.parse(event.data).orders});
         socket.onclose = () => store.dispatch({ type: 'webSocket/wsConnectionClosed' });
         break;
       case 'webSocket/close':
