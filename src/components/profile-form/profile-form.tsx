@@ -3,7 +3,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { profileEmailInput, profileNameInput, profilePasswordInput, initialPassword } from "../../constants/constants";
 import profileFormStyles from './profile-form.module.css';
 import { useEffect, useState, useCallback, FC } from 'react';
-import { fetchChangeUserInfo, setValue } from "../../store/slices/formSlice";
+import { fetchChangeUserInfo, fetchGetUser, setValue } from "../../store/slices/formSlice";
 import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
 import { TInitialStateIsEditing } from "../../utils/types";
 
@@ -43,6 +43,12 @@ const ProfileForm: FC = () => {
       profilePasswordInput: false
     })
   }
+
+  useEffect(() => {
+    if (!currentUser.name) {
+      dispatch(fetchGetUser(localStorage.getItem('accessToken')));
+    }
+  }, [])
 
   useEffect(() => {
     const isNameChanged = values[profileNameInput] !== currentUser.name;

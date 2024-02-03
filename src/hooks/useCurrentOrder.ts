@@ -8,7 +8,15 @@ export const useCurrentOrder = (orderNumber: number): TCurrentOrder => {
     allOrders: store.webSocket.allOrders
   }));
 
-  const currentOrder = allOrders.filter(order => order.number === orderNumber)[0];
+  let currentOrder = allOrders.find(order => order.number === orderNumber) || {
+    _id: '',
+    number: 0,
+    name: '',
+    status: 'created',
+    ingredients: [],
+    createdAt: String(new Date()),
+    updatedAt: String(new Date()),
+  }
 
   const ingredients = useMemo(() => {
     const result = [];
@@ -19,7 +27,7 @@ export const useCurrentOrder = (orderNumber: number): TCurrentOrder => {
       }
     }
     return result;
-  }, [currentOrder, dataIngredients]);
+  }, [dataIngredients]);
 
   const date = new Date(Date.parse(currentOrder.createdAt));
 

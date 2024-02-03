@@ -22,9 +22,12 @@ class Api {
     })
       .then(checkResponse)
       .catch(err => {
+        console.log('err');
         if (err.message.includes('403')) {
           return this.refreshToken(localStorage.getItem('refreshToken'))
             .then(res => {
+              localStorage.setItem('accessToken', res.accessToken);
+              console.log('refreshToken lalala');
               return this._fetch(url, method, body, {
                 ...headers,
                 'authorization': res.accessToken
@@ -39,9 +42,11 @@ class Api {
     return this._fetch('/ingredients', 'GET');
   }
 
-  createOrder(ingredientsIdArray: string[]): Promise<any> {
+  createOrder(ingredientsIdArray: string[], token: string | null): Promise<any> {
     return this._fetch('/orders', 'POST', {
       'ingredients': ingredientsIdArray
+    }, {
+      authorization: `Bearer ${token}`
     })
   }
 

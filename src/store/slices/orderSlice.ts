@@ -5,7 +5,7 @@ import { TOrderResponse, TOrderSliceState } from '../../utils/types';
 export const fetchOrder = createAsyncThunk(
   'ingredients/fetchOrderNumber',
   async (ingredientIds: string[]) => {
-    const response = await api.createOrder(ingredientIds);
+    const response = await api.createOrder(ingredientIds, localStorage.getItem('accessToken'));
     return response;
   }
 )

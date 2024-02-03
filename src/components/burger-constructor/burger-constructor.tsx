@@ -52,7 +52,7 @@ const BurgerConstructor: FC = () => {
   }, [draggedIngredients, bun])
 
   function createOrder(): void {
-    if (!currentUser.name || !currentUser.email) {
+    if (!localStorage.getItem('refreshToken')) {
       navigate(loginRoute);
     } else {
       const ingredientIds = draggedIngredients.map(i => i['_id']);
