@@ -16,10 +16,17 @@ const orderSlice = createSlice({
     orderNumber: null,
     order: null,
     error: null,
+    currentOrder: null
   } as TOrderSliceState,
   reducers: {
     removeOrderNumber: (state) => {
       state.orderNumber = null;
+    },
+    setCurrentOrder: (state, action) => {
+      state.currentOrder = action.payload;
+    },
+    removeCurrentOrder: (state) => {
+      state.currentOrder = null;
     }
   },
   extraReducers: (builder) => {
@@ -35,4 +42,4 @@ const orderSlice = createSlice({
 })
 
 export default orderSlice.reducer;
-export const { removeOrderNumber } = orderSlice.actions;
+export const { removeOrderNumber, setCurrentOrder, removeCurrentOrder } = orderSlice.actions;

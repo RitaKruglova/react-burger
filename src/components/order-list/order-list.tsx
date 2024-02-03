@@ -3,6 +3,7 @@ import { FC, useEffect } from 'react';
 import Order from './order/order';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../utils/reduxHooks';
+import { TOrder } from '../../utils/types';
 
 interface IOrderListProps {
   isProfilePlace: boolean
@@ -13,11 +14,11 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const { orders } = useAppSelector( store => ({
-    orders: store.webSocket.orders
+    orders: store.webSocket.allOrders
   }))
 
-  function showOrder(number: string = '034535'): void {
-    navigate(number, { state: { backgroundLocation: location } });
+  function showOrder(order: TOrder): void {
+    navigate(String(order.number), { state: { backgroundLocation: location } });
   }
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
         {orders.map(order => (
           <Order
             key={order._id}
-            onClick={() => showOrder()}
+            onClick={() => showOrder(order)}
             isProfilePlace={isProfilePlace}
             number={order.number}
             name={order.name}

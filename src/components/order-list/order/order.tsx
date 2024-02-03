@@ -1,8 +1,9 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import orderStyles from './order.module.css';
 import { FC, useMemo } from 'react';
-import { useAppSelector } from '../../../utils/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/reduxHooks';
 import IngredientRoundImage from '../../ingredient-round-image/ingredient-round-image';
+import { setCurrentOrder } from '../../../store/slices/orderSlice';
 
 interface IOrderProps {
   onClick: () => void;
@@ -18,6 +19,7 @@ const Order: FC<IOrderProps> = ({ onClick, isProfilePlace, number, name, ingredi
   const { dataIngredients } = useAppSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients
   }));
+  const dispatch = useAppDispatch();
 
   const ingredients = useMemo(() => {
     const result = [];
@@ -50,8 +52,20 @@ const Order: FC<IOrderProps> = ({ onClick, isProfilePlace, number, name, ingredi
 
   const price: number = ingredients.reduce((prevI, i) => prevI + i.price, 0);
 
+  function handleClick(): void {
+    dispatch(setCurrentOrder({
+      number,
+      name,
+      statusText,
+      ingredients,
+      date,
+      price
+    }));
+    onClick();
+  }
+
   return (
-    <li className={`${orderStyles.container} p-6 mb-4 mr-2 ${isProfilePlace ? orderStyles.wide : ''}`} onClick={() => onClick()}>
+    <li className={`${orderStyles.container} p-6 mb-4 mr-2 ${isProfilePlace ? orderStyles.wide : ''}`} onClick={handleClick}>
       <div className={`${orderStyles.info} mb-6`}>
         <p className="text text_type_digits-default">{`#${number}`}</p>
         <FormattedDate date={date} />

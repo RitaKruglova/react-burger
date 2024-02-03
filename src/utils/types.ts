@@ -96,10 +96,20 @@ export type TLoadingSliceState = {
   isLoading: boolean;
 }
 
+export type TCurrentOrder = {
+  number: number;
+  name: string;
+  statusText: string;
+  ingredients: TIngredient[]
+  date: Date;
+  price: number
+}
+
 export type TOrderSliceState = {
   orderNumber: null | number;
   order: null | TOrderResponse;
   error: null | string | unknown;
+  currentOrder: TCurrentOrder | null;
 }
 
 export type TOrderResponse = {
@@ -135,6 +145,6 @@ export type TWebSocketResponse = {
 
 export type TWebSocketSliceState = {
   wsConnected: boolean;
-  orders: TOrder[];
+  allOrders: TOrder[];
   error: boolean;
 }

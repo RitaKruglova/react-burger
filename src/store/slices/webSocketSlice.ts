@@ -5,7 +5,7 @@ export const webSocketSlice = createSlice({
   name: 'webSocket',
   initialState: {
     wsConnected: false,
-    orders: [],
+    allOrders: [],
     error: false,
   } as TWebSocketSliceState,
   reducers: {
@@ -22,7 +22,7 @@ export const webSocketSlice = createSlice({
       state.error = false;
     },
     wsSetAllOrders: (state, action) => {
-      state.orders = action.payload;
+      state.allOrders = action.payload;
     },
   }
 })
