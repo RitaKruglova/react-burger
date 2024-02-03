@@ -7,7 +7,7 @@ export const webSocketSlice = createSlice({
     wsConnected: false,
     allOrders: [],
     myOrders: [],
-    total: null,
+    total: {total: 0, totalToday: 0},
     error: false,
   } as TWebSocketSliceState,
   reducers: {

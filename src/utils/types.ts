@@ -147,6 +147,6 @@ export type TWebSocketSliceState = {
   wsConnected: boolean;
   allOrders: TOrder[];
   myOrders: TOrder[];
-  total: {total: number, totalToday: number} | null;
+  total: {total: number, totalToday: number};
   error: boolean;
 }
