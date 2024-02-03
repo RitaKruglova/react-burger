@@ -1,34 +1,37 @@
 import { TWebSocketResponse } from "./types";
 
 interface IWSStartAction {
-  type: 'webSocket/start';
-}
-
-interface IWSSendAction {
-  type: 'webSocket/send';
-  payload: TWebSocketResponse;
+  type: 'webSocket/startAllOrders' | 'webSocket/startMyOrders';
 }
 
 interface IWSCloseAction {
   type: 'webSocket/close';
 }
 
-type TWSAction = IWSStartAction | IWSSendAction | IWSCloseAction;
+type TWSAction = IWSStartAction | IWSCloseAction;
 
-export const webSocketMiddleware = (wsUrl: string) => (store: { dispatch: Function }) => {
+export const webSocketMiddleware = (wsUrl: string, isAllOrders: boolean = true) => (store: { dispatch: Function }) => {
   let socket: WebSocket | null = null;
 
   return (next: Function) => (action: TWSAction) => {
+    const actionTypeStart = isAllOrders ? 'webSocket/startAllOrders' : 'webSocket/startMyOrders';
+    const actionTypeSet = isAllOrders ? 'webSocket/setAllOrders' : 'webSocket/setMyOrders';
+
     switch (action.type) {
-      case 'webSocket/start':
+      case actionTypeStart:
         if (socket !== null) {
           socket.close();
         }
         socket = new WebSocket(wsUrl);
-        socket.onopen = () => store.dispatch({ type: 'webSocket/wsConnectionSuccess' });
-        socket.onerror = () => store.dispatch({ type: 'webSocket/wsConnectionError' });
-        socket.onmessage = (event) => store.dispatch({ type: 'webSocket/wsSetAllOrders', payload: JSON.parse(event.data).orders});
-        socket.onclose = () => store.dispatch({ type: 'webSocket/wsConnectionClosed' });
+        socket.onopen = () => store.dispatch({ type: 'webSocket/connectionSuccess' });
+        socket.onerror = () => store.dispatch({ type: 'webSocket/connectionError' });
+        socket.onmessage = (event) => { 
+          console.log(event); 
+          const data = JSON.parse(event.data);
+          store.dispatch({ type: actionTypeSet, payload: data.orders});
+          store.dispatch({ type: 'webSocket/setTotal', payload: {total: data.total, totalToday: data.totalToday}})
+        }
+        socket.onclose = () => store.dispatch({ type: 'webSocket/connectionClosed' });
         break;
       case 'webSocket/close':
         if (socket !== null) {

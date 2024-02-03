@@ -14,15 +14,23 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const { orders } = useAppSelector( store => ({
-    orders: store.webSocket.allOrders
+    orders: isProfilePlace ? store.webSocket.myOrders : store.webSocket.allOrders
   }))
 
   function showOrder(order: TOrder): void {
     navigate(String(order.number), { state: { backgroundLocation: location } });
   }
 
+  // когда я создаю заказ на главной странице его номер четырехзначный, а у всех заказов в ленте номера пятизначные
+  // не понятно почему в ленте заказов в профиле веб сокет возвращает пустой массив, хотя заказы я создаю и когда тестирую через постман апи, то заказы там есть, которые я создала (проверяю по запросу с номером заказа)
+  // Уважаемый Ревьюер, подскажите пожалуйста что я не так поняла, заранее спасибо <3
+
   useEffect(() => {
-    dispatch({ type: 'webSocket/start'});
+    if (isProfilePlace) {
+      dispatch({type: 'webSocket/startMyOrders'})
+    } else {
+      dispatch({ type: 'webSocket/startAllOrders'});
+    }
 
     return () => {
       dispatch({ type: 'webSocket/close'})
@@ -33,6 +41,9 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
 
   return (
     <>
+    {orders.length === 0 ?
+      <></>
+    :
       <ul className={`${orderListStyles.container} ${isProfilePlace ? orderListStyles.profile : ''}`}>
         {orders.map(order => (
           <Order
@@ -44,6 +55,7 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
           />
         ))}      
       </ul>
+    }
       <Outlet />
     </>
   )

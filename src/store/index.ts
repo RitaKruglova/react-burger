@@ -16,7 +16,9 @@ const store = configureStore({
     form: formReducer,
     webSocket: webSocketReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(webSocketMiddleware('wss://norma.nomoreparties.space/orders/all'))
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(webSocketMiddleware('wss://norma.nomoreparties.space/orders/all'))
+    .concat(webSocketMiddleware(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken')}`, false))
 })
 
 export default store;
