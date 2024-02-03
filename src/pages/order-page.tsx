@@ -12,9 +12,6 @@ const OrderPage: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { number } = useParams<{ number: string }>();
-  const { currentOrder } = useAppSelector(store => ({
-    currentOrder: store.order.currentOrder
-  }))
 
   let state = location.state;
 
@@ -32,7 +29,7 @@ const OrderPage: FC = () => {
       <Modal
         isOrderDetails={false}
         isOrderPage={true}
-        title={`#${currentOrder?.number}`}
+        title={`#${number}`}
         closeModal={handleClose}
       >
         <OrderInfo orderNumber={number} />

@@ -41,9 +41,6 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
             isProfilePlace={isProfilePlace}
             number={order.number}
             name={order.name}
-            ingredientIds={order.ingredients}
-            createdAt={order.createdAt}
-            status={order.status}
           />
         ))}      
       </ul>
