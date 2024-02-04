@@ -1,14 +1,21 @@
 import { useAppSelector } from "../utils/reduxHooks";
 import { useMemo } from 'react';
 import { TCurrentOrder } from "../utils/types";
+import { profileRoute } from "../constants/constants";
+import { useLocation } from "react-router-dom";
 
 export const useCurrentOrder = (orderNumber: number): TCurrentOrder => {
-  const { dataIngredients, allOrders } = useAppSelector(store => ({
+  const { dataIngredients, allOrders, myOrders } = useAppSelector(store => ({
     dataIngredients: store.ingredients.dataIngredients,
-    allOrders: store.webSocket.allOrders
+    allOrders: store.webSocket.allOrders,
+    myOrders: store.webSocket.myOrders
   }));
 
-  let currentOrder = allOrders.find(order => order.number === orderNumber) || {
+  const location = useLocation();
+
+  const orders = location.pathname.startsWith(profileRoute) ? myOrders : allOrders;
+
+  let currentOrder = orders.find(order => order.number === orderNumber) || {
     _id: '',
     number: 0,
     name: '',

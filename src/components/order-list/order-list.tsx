@@ -13,8 +13,9 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const { orders } = useAppSelector( store => ({
-    orders: isProfilePlace ? store.webSocket.myOrders : store.webSocket.allOrders
+  const { myOrders, allOrders } = useAppSelector( store => ({
+    myOrders: store.webSocket.myOrders,
+    allOrders: store.webSocket.allOrders
   }))
 
   function showOrder(order: TOrder): void {
@@ -33,24 +34,41 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
     }
   }, [dispatch]);
 
-  console.log(orders)
+  console.log(myOrders)
 
   return (
     <>
-    {orders.length === 0 ?
-      <></>
-    :
-      <ul className={`${orderListStyles.container} ${isProfilePlace ? orderListStyles.profile : ''}`}>
-        {orders.map(order => (
-          <Order
-            key={order._id}
-            onClick={() => showOrder(order)}
-            isProfilePlace={isProfilePlace}
-            number={order.number}
-            name={order.name}
-          />
-        ))}      
-      </ul>
+    {isProfilePlace && myOrders.length > 0
+      ?
+        <ul className={`${orderListStyles.container} ${isProfilePlace ? orderListStyles.profile : ''}`}>
+          {myOrders.map(order => (
+            <Order
+              key={order._id}
+              onClick={() => showOrder(order)}
+              isProfilePlace={isProfilePlace}
+              number={order.number}
+              name={order.name}
+            />
+          ))}      
+        </ul>
+      :
+        <></>
+    }
+    {!isProfilePlace && allOrders.length > 0
+      ?
+        <ul className={`${orderListStyles.container} ${isProfilePlace ? orderListStyles.profile : ''}`}>
+          {allOrders.map(order => (
+            <Order
+              key={order._id}
+              onClick={() => showOrder(order)}
+              isProfilePlace={isProfilePlace}
+              number={order.number}
+              name={order.name}
+            />
+          ))}      
+        </ul>
+      :
+        <></>
     }
       <Outlet />
     </>

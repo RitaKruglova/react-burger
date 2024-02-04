@@ -6,7 +6,7 @@ import { useCurrentOrder } from '../../../hooks/useCurrentOrder';
 
 interface IOrderProps {
   onClick: () => void;
-  isProfilePlace?: boolean;
+  isProfilePlace: boolean;
   number: number;
   name: string;
 }
