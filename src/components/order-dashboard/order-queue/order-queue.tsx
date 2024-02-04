@@ -11,6 +11,8 @@ const OrderQueue: FC<IOrderQueueProps> = ({ isDoneOrders }) => {
     allOrders: store.webSocket.allOrders
   }))
 
+  // не поняла Вашего комментария, объясните подробно что здесь не так
+
   return (
     <div className={`${orderQueueStyles.container} ${isDoneOrders ? 'mr-9' : ''}`}>
       <h3 className={`${orderQueueStyles.title} text text_type_main-medium mb-6`}>{isDoneOrders ? 'Готовы:' : 'В работе:'}</h3>

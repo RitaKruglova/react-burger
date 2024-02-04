@@ -1,9 +1,10 @@
 import orderListStyles from './order-list.module.css';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import Order from './order/order';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../utils/reduxHooks';
 import { TOrder } from '../../utils/types';
+import { wsClose, wsStartAllOrders, wsStartMyOrders } from '../../constants/constants';
 
 interface IOrderListProps {
   isProfilePlace: boolean
@@ -26,10 +27,10 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
   const connectToWebSocket = useCallback(() => {
     if (isProfilePlace) {
       if (localStorage.getItem('accessToken')) {
-        dispatch({type: 'webSocket/startMyOrders'})
+        dispatch({type: wsStartMyOrders})
       }
     } else {
-      dispatch({ type: 'webSocket/startAllOrders'});
+      dispatch({ type: wsStartAllOrders});
     }
   }, [dispatch, isProfilePlace]);
 
@@ -40,7 +41,7 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
 
     return () => {
       window.removeEventListener('accessTokenChanged', connectToWebSocket);
-      dispatch({ type: 'webSocket/close'})
+      dispatch({ type: wsClose})
     }
   }, [dispatch, connectToWebSocket]);
 
