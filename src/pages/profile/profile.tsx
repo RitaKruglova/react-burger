@@ -1,5 +1,5 @@
 import profileStyles from './profile.module.css';
-import ProfileNavigation from "../components/profile-navigation/profile-navigation";
+import ProfileNavigation from "../../components/profile-navigation/profile-navigation";
 import { Outlet } from "react-router-dom";
 import { FC } from 'react';
 

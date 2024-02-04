@@ -1,10 +1,10 @@
-import { useAppDispatch } from "../utils/reduxHooks";
-import Modal from "../components/modal/modal";
-import { setCurrentIngredient } from "../store/slices/ingredientsSlice";
-import IngredientDetails from "../components/ingredient-details/ingredient-details";
+import { useAppDispatch } from "../../utils/reduxHooks";
+import Modal from "../../components/modal/modal";
+import { setCurrentIngredient } from "../../store/slices/ingredientsSlice";
+import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import { useLocation, useNavigate } from "react-router-dom";
 import ingredientPageStyles from './ingredient-page.module.css';
-import { mainRoute } from "../constants/constants";
+import { mainRoute } from "../../constants/constants";
 import { FC } from "react";
 
 const IngredientPage: FC = () => {

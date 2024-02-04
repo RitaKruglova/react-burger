@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import feedStyles from './feed.module.css';
-import OrderList from '../components/order-list/order-list';
-import OrderDashboard from '../components/order-dashboard/order-dashboard';
+import OrderList from '../../components/order-list/order-list';
+import OrderDashboard from '../../components/order-dashboard/order-dashboard';
 import { Outlet } from 'react-router-dom';
 
 const Feed: FC = () => {

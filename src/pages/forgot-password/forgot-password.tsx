@@ -1,12 +1,12 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import Form from "../components/form/form";
-import Hint from "../components/hint/hint";
-import { setValue, fetchResetPassword } from "../store/slices/formSlice";
+import Form from "../../components/form/form";
+import Hint from "../../components/hint/hint";
+import { setValue, fetchResetPassword } from "../../store/slices/formSlice";
 import { useNavigate } from "react-router-dom";
-import { forgotPasswordEmailInput, loginRoute, resetPasswordRoute } from "../constants/constants";
+import { forgotPasswordEmailInput, loginRoute, resetPasswordRoute } from "../../constants/constants";
 import { FC, useEffect, useState } from 'react';
-import { useProtectForms } from "../hooks/useProtectForms";
-import { useAppSelector, useAppDispatch } from "../utils/reduxHooks";
+import { useProtectForms } from "../../hooks/useProtectForms";
+import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
 
 const ForgotPassword: FC = () => {
   const dispatch = useAppDispatch();

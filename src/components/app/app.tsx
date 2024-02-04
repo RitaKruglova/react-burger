@@ -7,8 +7,7 @@ import { HomePage, Login, Register, ForgotPassword, ResetPassword, Profile, Feed
 import ProfileForm from '../profile-form/profile-form';
 import { fetchGetUser } from '../../store/slices/formSlice';
 import ProtectedRoute from '../protected-route/protected-route';
-import IngredientPage from '../../pages/ingredient-page';
-import Preloader from '../preloader/preloader';
+import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 import { numberRoute, feedRoute, forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 import OrderList from '../order-list/order-list';

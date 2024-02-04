@@ -1,12 +1,12 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import Form from "../components/form/form";
-import Hint from "../components/hint/hint";
-import { changePasswordVisibility, fetchRegister, resetValues, setValue } from "../store/slices/formSlice";
+import Form from "../../components/form/form";
+import Hint from "../../components/hint/hint";
+import { changePasswordVisibility, fetchRegister, resetValues, setValue } from "../../store/slices/formSlice";
 import { FC, useEffect, useState } from 'react';
-import { registerNameInput, registerEmailInput, registerPasswordInput, mainRoute, loginRoute } from "../constants/constants";
+import { registerNameInput, registerEmailInput, registerPasswordInput, mainRoute, loginRoute } from "../../constants/constants";
 import { useNavigate } from "react-router-dom";
-import { useProtectForms } from "../hooks/useProtectForms";
-import { useAppSelector, useAppDispatch } from "../utils/reduxHooks";
+import { useProtectForms } from "../../hooks/useProtectForms";
+import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
 
 const Register: FC = () => {
   const dispatch = useAppDispatch();

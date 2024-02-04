@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Modal from '../components/modal/modal';
-import { feedRoute, profileOrderRoute, profileRoute } from '../constants/constants';
-import OrderInfo from '../components/order-info/order-info';
+import Modal from '../../components/modal/modal';
+import { feedRoute, profileOrderRoute, profileRoute } from '../../constants/constants';
+import OrderInfo from '../../components/order-info/order-info';
 import orderPageStyles from './order-page.module.css';
-import { useAppDispatch, useAppSelector } from '../utils/reduxHooks';
-import { setCurrentOrder } from '../store/slices/orderSlice';
+import { useAppDispatch, useAppSelector } from '../../utils/reduxHooks';
+import { setCurrentOrder } from '../../store/slices/orderSlice';
 
 const OrderPage: FC = () => {
   const location = useLocation();
