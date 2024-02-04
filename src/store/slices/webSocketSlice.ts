@@ -24,10 +24,14 @@ export const webSocketSlice = createSlice({
       state.error = false;
     },
     setAllOrders: (state, action) => {
-      state.allOrders = action.payload;
+      if (action.payload) {
+        state.allOrders = action.payload;
+      }
     },
     setMyOrders: (state, action) => {
-      state.myOrders = action.payload;
+      if (action.payload) {
+        state.myOrders = action.payload;
+      }
     },
     setTotal: (state, action) => {
       state.total = action.payload;

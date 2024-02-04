@@ -1,5 +1,6 @@
 import { API_URL } from '../constants/constants';
 import { checkResponse } from './check-response';
+import { emitAccessTokenChangedEvent } from './events';
 import { IApi, IUserInfo, TMethod } from './types';
 
 class Api {
@@ -26,6 +27,7 @@ class Api {
           return this.refreshToken(localStorage.getItem('refreshToken'))
             .then(res => {
               localStorage.setItem('accessToken', res.accessToken);
+              emitAccessTokenChangedEvent();
               return this._fetch(url, method, body, {
                 ...headers,
                 'authorization': res.accessToken

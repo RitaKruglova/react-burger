@@ -1,10 +1,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../utils/Api";
 import { IUserInfo, TFormSliseState, TLoginArgs, TLoginAndRegisterResponse, TNameAndValue, TRegisterArgs, TSetPasswordArgs, TRefreshTokenResponse, TGetUserResponse } from "../../utils/types";
+import { emitAccessTokenChangedEvent } from "../../utils/events";
 
 function saveTokens(action: PayloadAction<TRefreshTokenResponse>) {
   localStorage.setItem('refreshToken', action.payload.refreshToken);
   localStorage.setItem('accessToken', action.payload.accessToken.split(' ')[1]);
+  emitAccessTokenChangedEvent();
 }
 
 export const fetchResetPassword = createAsyncThunk(

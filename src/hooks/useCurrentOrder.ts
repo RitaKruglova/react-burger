@@ -34,7 +34,7 @@ export const useCurrentOrder = (orderNumber: number): TCurrentOrder => {
       }
     }
     return result;
-  }, [dataIngredients]);
+  }, [dataIngredients, myOrders, allOrders, currentOrder.ingredients]);
 
   const date = new Date(Date.parse(currentOrder.createdAt));
 

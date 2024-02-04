@@ -36,7 +36,7 @@ const OrderPage: FC = () => {
       </Modal>
     :
       <div className={orderPageStyles.container}>
-        <h4 className="text text_type_digits-default">#034535</h4>
+        <h4 className="text text_type_digits-default">{`#${number}`}</h4>
         <OrderInfo orderNumber={number}/>
       </div>
   )

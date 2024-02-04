@@ -22,6 +22,7 @@ export const webSocketMiddleware = (wsUrl: string, isAllOrders: boolean = true) 
         if (socket !== null) {
           socket.close();
         }
+        wsUrl += `?token=${localStorage.getItem('accessToken')}`;
         socket = new WebSocket(wsUrl);
         socket.onopen = () => store.dispatch({ type: 'webSocket/connectionSuccess' });
         socket.onerror = () => store.dispatch({ type: 'webSocket/connectionError' });
