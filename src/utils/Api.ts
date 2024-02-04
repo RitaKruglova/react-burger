@@ -22,12 +22,10 @@ class Api {
     })
       .then(checkResponse)
       .catch(err => {
-        console.log('err');
         if (err.message.includes('403')) {
           return this.refreshToken(localStorage.getItem('refreshToken'))
             .then(res => {
               localStorage.setItem('accessToken', res.accessToken);
-              console.log('refreshToken lalala');
               return this._fetch(url, method, body, {
                 ...headers,
                 'authorization': res.accessToken

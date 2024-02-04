@@ -54,7 +54,6 @@ const ResetPassword: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(values[forgotPasswordEmailInput])
     if (!values[forgotPasswordEmailInput]) {
       navigate(forgotPasswordRoute);
     }

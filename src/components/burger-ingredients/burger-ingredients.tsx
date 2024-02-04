@@ -62,7 +62,6 @@ const BurgerIngredients: FC = () => {
   }, [dispatch, currentTab, fillingsTop, saucesTop]);
 
   function setTab(tab: string) {
-    console.log(tab)
     dispatch(setCurrentTab(tab));
     let ingredientsTop;
     if (tab === bunsType) {
