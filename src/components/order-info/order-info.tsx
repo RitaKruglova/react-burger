@@ -10,7 +10,6 @@ interface IOrderInfo {
 
 const OrderInfo: FC<IOrderInfo> = ({ orderNumber }) => {
   const order = useCurrentOrder(Number(orderNumber));
-  console.log(order);
 
   return (
     <div className={`${orderInfoStyles.container} mt-5`}>
