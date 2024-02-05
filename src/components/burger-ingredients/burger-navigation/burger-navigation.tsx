@@ -3,13 +3,14 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppSelector } from '../../../utils/reduxHooks';
 import { bunsType, saucesType, fillingsType } from '../../../constants/constants';
 import { FC } from 'react';
+import { getCurrentTab } from '../../../utils/selectors';
 
 interface IBurgerNavigationProps {
   handleClick: (tab: string) => void;
 }
 
 const BurgerNavigation: FC<IBurgerNavigationProps> = ({ handleClick }) => {
-  const currentTab = useAppSelector(store => store.tabs.currentTab);
+  const currentTab = useAppSelector(getCurrentTab);
 
   return (
     <nav className={burgerNavigationStyles.menu}>

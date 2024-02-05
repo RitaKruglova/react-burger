@@ -3,13 +3,12 @@ import { useMemo } from 'react';
 import { TCurrentOrder } from "../utils/types";
 import { profileRoute } from "../constants/constants";
 import { useLocation } from "react-router-dom";
+import { getAllOrders, getDataIngredients, getMyOrders } from "../utils/selectors";
 
 export const useCurrentOrder = (orderNumber: number): TCurrentOrder => {
-  const { dataIngredients, allOrders, myOrders } = useAppSelector(store => ({
-    dataIngredients: store.ingredients.dataIngredients,
-    allOrders: store.webSocket.allOrders,
-    myOrders: store.webSocket.myOrders
-  }));
+  const dataIngredients = useAppSelector(getDataIngredients);
+  const allOrders = useAppSelector(getAllOrders);
+  const myOrders = useAppSelector(getMyOrders);
 
   const location = useLocation();
 

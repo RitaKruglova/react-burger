@@ -12,19 +12,17 @@ import { useNavigate } from 'react-router-dom';
 import { loginRoute } from '../../constants/constants';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 import { TBun, TIngredient } from '../../utils/types';
+import { getBun, getDraggedIngredients, getOrderError, getOrderNumber } from '../../utils/selectors';
 
 const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
-  
-  const { draggedIngredients, bun, orderNumber, error, currentUser } = useAppSelector(store => ({
-    dataIngredients: store.ingredients.dataIngredients,
-    draggedIngredients: store.ingredients.draggedIngredients,
-    bun: store.ingredients.bun,
-    orderNumber: store.order.orderNumber,
-    error: store.order.error,
-    currentUser: store.form.currentUser
-  }));
+  const navigate = useNavigate();
+
+  const draggedIngredients = useAppSelector(getDraggedIngredients);
+  const bun = useAppSelector(getBun);
+  const orderNumber = useAppSelector(getOrderNumber);
+  const error = useAppSelector(getOrderError);
+
   
   const [sum, setSum] = useState<number>(0);
 

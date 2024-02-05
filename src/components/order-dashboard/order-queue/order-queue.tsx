@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../../utils/reduxHooks';
+import { getAllOrders } from '../../../utils/selectors';
 import orderQueueStyles from './order-queue.module.css';
 import { FC } from 'react';
 
@@ -7,11 +8,7 @@ interface IOrderQueueProps {
 }
 
 const OrderQueue: FC<IOrderQueueProps> = ({ isDoneOrders }) => {
-  const { allOrders } = useAppSelector(store => ({
-    allOrders: store.webSocket.allOrders
-  }))
-
-  // не поняла Вашего комментария, объясните подробно что здесь не так
+  const allOrders = useAppSelector(getAllOrders);
 
   return (
     <div className={`${orderQueueStyles.container} ${isDoneOrders ? 'mr-9' : ''}`}>

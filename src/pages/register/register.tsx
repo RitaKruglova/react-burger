@@ -7,6 +7,7 @@ import { registerNameInput, registerEmailInput, registerPasswordInput, mainRoute
 import { useNavigate } from "react-router-dom";
 import { useProtectForms } from "../../hooks/useProtectForms";
 import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
+import { getIsPasswordVisible, getValues } from "../../utils/selectors";
 
 const Register: FC = () => {
   const dispatch = useAppDispatch();
@@ -14,10 +15,8 @@ const Register: FC = () => {
 
   useProtectForms();
 
-  const { isPasswordVisible, values } = useAppSelector(store => ({
-    isPasswordVisible: store.form.isPasswordVisible,
-    values: store.form.values
-  }));
+  const isPasswordVisible = useAppSelector(getIsPasswordVisible);
+  const values = useAppSelector(getValues);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 

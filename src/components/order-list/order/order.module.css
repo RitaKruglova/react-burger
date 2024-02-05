@@ -3,6 +3,7 @@
   border-radius: 40px;
   background: var(--interface-modal-bg, #1C1C21);
   list-style: none;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -11,7 +12,11 @@
 }
 
 .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
@@ -25,6 +30,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -44,21 +50,32 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   z-index: 1;
 }
 
 .order {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
 .ingredients {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 .price {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-item-align: center;
   align-self: center;
 }
 

@@ -8,16 +8,15 @@ import { setCurrentTab } from '../../store/slices/tabsSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 import { TIngredient } from '../../utils/types';
+import { getCurrentTab, getDataIngredients } from '../../utils/selectors';
 
 const BurgerIngredients: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { dataIngredients, currentTab } = useAppSelector(store => ({
-    dataIngredients: store.ingredients.dataIngredients,
-    currentTab: store.tabs.currentTab
-  }));
+  const dataIngredients = useAppSelector(getDataIngredients);
+  const currentTab = useAppSelector(getCurrentTab);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const bunsRef = useRef<HTMLDivElement | null>(null);

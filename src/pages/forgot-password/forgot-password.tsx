@@ -7,6 +7,7 @@ import { forgotPasswordEmailInput, loginRoute, resetPasswordRoute } from "../../
 import { FC, useEffect, useState } from 'react';
 import { useProtectForms } from "../../hooks/useProtectForms";
 import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
+import { getValues } from "../../utils/selectors";
 
 const ForgotPassword: FC = () => {
   const dispatch = useAppDispatch();
@@ -16,9 +17,7 @@ const ForgotPassword: FC = () => {
 
   useProtectForms();
 
-  const { values } = useAppSelector(store => ({
-    values: store.form.values
-  }));
+  const values = useAppSelector(getValues);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     dispatch(setValue({

@@ -4,16 +4,15 @@ import { FC, useEffect } from 'react';
 import { setCurrentIngredient } from '../../store/slices/ingredientsSlice';
 import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
+import { getCurrentIngredient, getDataIngredients } from '../../utils/selectors';
 
 const IngredientDetails: FC = () => {
   const dispatch = useAppDispatch();
 
   const { id } = useParams<{ id: string }>();
 
-  const { currentIngredient, dataIngredients } = useAppSelector(store => ({
-    currentIngredient: store.ingredients.currentIngredient,
-    dataIngredients: store.ingredients.dataIngredients
-  }));
+  const dataIngredients = useAppSelector(getDataIngredients);
+  const currentIngredient = useAppSelector(getCurrentIngredient);
 
   useEffect(() => {
     dispatch(setCurrentIngredient(dataIngredients.filter(i => i._id === id)[0]))

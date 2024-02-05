@@ -6,6 +6,7 @@ import { useEffect, useState, useCallback, FC } from 'react';
 import { fetchChangeUserInfo, fetchGetUser, setValue } from "../../store/slices/formSlice";
 import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
 import { TInitialStateIsEditing } from "../../utils/types";
+import { getCurrentUser, getValues } from "../../utils/selectors";
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -18,10 +19,8 @@ const ProfileForm: FC = () => {
   const [password, setPassword] = useState<string>(initialPassword);
   const [needButtons, setNeedButtons] = useState<boolean>(false);
 
-  const { currentUser, values} = useAppSelector(store => ({
-    currentUser: store.form.currentUser,
-    values: store.form.values,
-  }));
+  const currentUser = useAppSelector(getCurrentUser);
+  const values = useAppSelector(getValues);
 
   function handleIconClick(inputName: string): void {
     setIsEditing(prev => ({ ...prev, [inputName]: !prev[inputName] }));

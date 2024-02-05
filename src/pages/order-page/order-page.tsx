@@ -4,7 +4,7 @@ import Modal from '../../components/modal/modal';
 import { feedRoute, profileOrderRoute, profileRoute } from '../../constants/constants';
 import OrderInfo from '../../components/order-info/order-info';
 import orderPageStyles from './order-page.module.css';
-import { useAppDispatch, useAppSelector } from '../../utils/reduxHooks';
+import { useAppDispatch } from '../../utils/reduxHooks';
 import { setCurrentOrder } from '../../store/slices/orderSlice';
 
 const OrderPage: FC = () => {

@@ -1,8 +1,14 @@
 .container {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 64px 16px 320px 16px 1fr;
   grid-template-columns: 64px 320px 1fr;
+  -webkit-column-gap: 16px;
+  -moz-column-gap: 16px;
   column-gap: 16px;
   width: 608px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -12,5 +18,7 @@
 
 .price {
   justify-self: end;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }

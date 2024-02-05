@@ -5,6 +5,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../utils/reduxHooks';
 import { TOrder } from '../../utils/types';
 import { wsClose, wsStartAllOrders, wsStartMyOrders } from '../../constants/constants';
+import { getAllOrders, getMyOrders } from '../../utils/selectors';
 
 interface IOrderListProps {
   isProfilePlace: boolean
@@ -15,10 +16,8 @@ const OrderList: FC<IOrderListProps> = ({ isProfilePlace }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-  const { myOrders, allOrders } = useAppSelector(store => ({
-    myOrders: store.webSocket.myOrders,
-    allOrders: store.webSocket.allOrders
-  }));
+  const myOrders = useAppSelector(getMyOrders);
+  const allOrders = useAppSelector(getAllOrders);
 
   function showOrder(order: TOrder): void {
     navigate(String(order.number), { state: { backgroundLocation: location } });

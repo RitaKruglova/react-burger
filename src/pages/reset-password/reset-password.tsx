@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useProtectForms } from "../../hooks/useProtectForms";
 import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
 import React, { FC } from 'react';
+import { getIsPasswordVisible, getValues } from "../../utils/selectors";
 
 const ResetPassword: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,10 +18,8 @@ const ResetPassword: FC = () => {
 
   useProtectForms();
 
-  const { isPasswordVisible, values } = useAppSelector(store => ({
-    isPasswordVisible: store.form.isPasswordVisible,
-    values: store.form.values
-  }));
+  const isPasswordVisible = useAppSelector(getIsPasswordVisible);
+  const values = useAppSelector(getValues);
 
   function changePasswordVisible(): void {
     dispatch(changePasswordVisibility());

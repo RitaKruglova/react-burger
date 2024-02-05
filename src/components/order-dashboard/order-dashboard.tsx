@@ -3,11 +3,10 @@ import { FC } from 'react';
 import OrderQueue from './order-queue/order-queue';
 import OrderStats from './order-stats/order-stats';
 import { useAppSelector } from '../../utils/reduxHooks';
+import { getTotal } from '../../utils/selectors';
 
 const OrderDashboard: FC = () => {
-  const { total } = useAppSelector(store => ({
-    total: store.webSocket.total
-  }));
+  const total = useAppSelector(getTotal);
 
   return (
     <div className={`${orderDashboardStyles.container} ml-15`}>

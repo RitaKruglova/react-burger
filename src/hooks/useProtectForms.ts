@@ -2,11 +2,10 @@ import { useEffect } from 'react';
 import { useAppSelector } from '../utils/reduxHooks';
 import { useNavigate } from 'react-router-dom';
 import { mainRoute } from '../constants/constants';
+import { getCurrentUser } from '../utils/selectors';
 
 export function useProtectForms(): void {
-  const { currentUser } = useAppSelector(store => ({
-    currentUser: store.form.currentUser
-  }));
+  const currentUser = useAppSelector(getCurrentUser);
 
   const navigate = useNavigate();
 

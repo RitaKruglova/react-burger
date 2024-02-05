@@ -79,9 +79,11 @@ export type TGetUserResponse = TSuccess & {
   user: TUser;
 }
 
+export type TError = null | string | unknown;
+
 export type TIngredientSliceState = {
   dataIngredients: TIngredient[];
-  error: null | string | unknown;
+  error: TError;
   draggedIngredients: TIngredient[];
   bun: TBun;
   currentIngredient: null | TIngredient;
@@ -105,8 +107,10 @@ export type TCurrentOrder = {
   price: number
 }
 
+export type TOrderNumber = null | number;
+
 export type TOrderSliceState = {
-  orderNumber: null | number;
+  orderNumber: TOrderNumber;
   order: null | TOrderResponse;
   error: null | string | unknown;
   currentOrder: TCurrentOrder | null;
@@ -143,10 +147,15 @@ export type TWebSocketResponse = {
   totalToday: number;
 }
 
+export type TTotal = {
+  total: number,
+  totalToday: number
+}
+
 export type TWebSocketSliceState = {
   wsConnected: boolean;
   allOrders: TOrder[];
   myOrders: TOrder[];
-  total: {total: number, totalToday: number};
+  total: TTotal;
   error: boolean;
 }

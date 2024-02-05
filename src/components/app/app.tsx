@@ -11,11 +11,10 @@ import IngredientPage from '../../pages/ingredient-page/ingredient-page';
 import { numberRoute, feedRoute, forgotPasswordRoute, ingredientsIdRoute, loginRoute, mainRoute, ordersRoute, profileRoute, registerRoute, resetPasswordRoute } from '../../constants/constants';
 import { useAppSelector, useAppDispatch } from '../../utils/reduxHooks';
 import OrderList from '../order-list/order-list';
+import { getIngredientsError } from '../../utils/selectors';
 
 const App: FC = () => {
-  const { error } = useAppSelector(store => ({
-    error: store.ingredients.error
-  }));
+  const error = useAppSelector(getIngredientsError);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

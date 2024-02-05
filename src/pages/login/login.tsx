@@ -7,6 +7,7 @@ import { FC, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useProtectForms } from "../../hooks/useProtectForms";
 import { useAppSelector, useAppDispatch } from "../../utils/reduxHooks";
+import { getIsPasswordVisible, getValues } from "../../utils/selectors";
 
 const Login: FC = () => {
   const dispatch = useAppDispatch();
@@ -15,10 +16,8 @@ const Login: FC = () => {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
-  const { isPasswordVisible, values } = useAppSelector(store => ({
-    isPasswordVisible: store.form.isPasswordVisible,
-    values: store.form.values
-  }));
+  const isPasswordVisible = useAppSelector(getIsPasswordVisible);
+  const values = useAppSelector(getValues);
 
   useProtectForms();
 
