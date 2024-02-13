@@ -6,6 +6,8 @@
   height: 756px;
   width: 600px;
   overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-dark-grey-secondary-text, #8585AD) var(--interface-input, #2F2F37);
 }
 
 .title {
