@@ -45,6 +45,12 @@ describe('orderSlice', () => {
     jest.restoreAllMocks();
   });
 
+  it('should return default state when passed an empty state', () => {
+    const result = orderReducer(undefined, { type: ''});
+
+    expect(result).toEqual(initialState);
+  });
+
   it('should remove order number', () => {
     const action = { type: removeOrderNumber.type }
 
