@@ -28,9 +28,9 @@ jest.mock('../../utils/Api', () => ({
   }
 }));
 
-const localStorageMock = {
-  removeItem: jest.fn()
-}
+// const localStorageMock = {
+//   removeItem: jest.fn()
+// }
 
 describe('formSlice', () => {
   afterEach(() => {
