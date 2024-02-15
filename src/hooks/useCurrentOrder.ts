@@ -1,7 +1,7 @@
 import { useAppSelector } from "../utils/reduxHooks";
 import { useMemo } from 'react';
 import { TCurrentOrder } from "../utils/types";
-import { profileRoute } from "../constants/constants";
+import { bunsType, profileRoute } from "../constants/constants";
 import { useLocation } from "react-router-dom";
 import { getAllOrders, getDataIngredients, getMyOrders } from "../utils/selectors";
 

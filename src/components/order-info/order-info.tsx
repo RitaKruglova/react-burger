@@ -11,14 +11,18 @@ interface IOrderInfo {
 const OrderInfo: FC<IOrderInfo> = ({ orderNumber }) => {
   const order = useCurrentOrder(Number(orderNumber));
 
+  const filteredIngredients = new Set(order.ingredients);
+
+  console.log(filteredIngredients)
+
   return (
     <div className={`${orderInfoStyles.container} mt-5`}>
       <h3 className="text text_type_main-medium mb-2">{order.name}</h3>
       <p className={`${orderInfoStyles.status} text text_type_main-default`}>{order.statusText}</p>
       <h4 className="text text_type_main-medium mb-6">Состав:</h4>
       <ul className={orderInfoStyles.list}>
-        {order.ingredients.map((i, index) => (
-          <OrderItem key={`${i._id}-${index}`} image={i.image} name={i.name} quantity={1} price={i.price} />
+        {Array.from(filteredIngredients).map((i, index) => (
+          <OrderItem key={`${i._id}-${index}`} image={i.image} name={i.name} quantity={i.count || 0} price={i.price} />
         ))}
       </ul>
       <div className={`${orderInfoStyles.result} mt-8 mb-10`}>
