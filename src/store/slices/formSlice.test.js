@@ -28,10 +28,6 @@ jest.mock('../../utils/Api', () => ({
   }
 }));
 
-// const localStorageMock = {
-//   removeItem: jest.fn()
-// }
-
 describe('formSlice', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -180,21 +176,6 @@ describe('formSlice', () => {
       })
     }));
   });
-
-  // it('should remove tokens from localStorage on rejection', async () => {
-  //   api.getUser.mockRejectedValue(new Error('some error'));
-  //   const dispatch = jest.fn();
-  //   const getState = jest.fn();
-  //   const token = 'test';
-  //   Object.defineProperty(window, 'localStorage', {
-  //     value: localStorageMock
-  //   })
-
-  //   await fetchGetUser(token)(dispatch, getState, undefined);
-
-  //   expect(localStorage.removeItem).toHaveBeenCalledWith('accessToken');
-  //   expect(localStorage.removeItem).toHaveBeenCalledWith('refreshToken');
-  // });
 
   it('should successfully change user info', async () => {
     const mockResponse = { success: true };

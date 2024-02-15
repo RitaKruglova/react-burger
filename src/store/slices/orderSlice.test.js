@@ -45,6 +45,14 @@ describe('orderSlice', () => {
     jest.restoreAllMocks();
   });
 
+  it('should set error if fetchOrder rejected', () => {
+    const action = { type: fetchOrder.rejected.type, payload: { success: false }}
+
+    const result = orderReducer({ error: null }, action);
+
+    expect(result.error).toEqual({ success: false });
+  });
+
   it('should return default state when passed an empty state', () => {
     const result = orderReducer(undefined, { type: ''});
 

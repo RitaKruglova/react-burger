@@ -120,7 +120,7 @@ const formSlice = createSlice({
       })
       .addCase(fetchGetUser.rejected, () => {
         localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('refreshToken'); // у меня не получилось замокать localStorage, я потратила на это целый день. покажите пожалуйста как это тестировать
       })
       .addCase(fetchChangeUserInfo.fulfilled, (state, action: PayloadAction<TGetUserResponse>) => {
         state.currentUser = action.payload.user;

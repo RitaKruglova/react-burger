@@ -68,6 +68,14 @@ describe('ingredientsSlice', () => {
     }));
   });
 
+  it('should set error if fetchIngredients rejected', () => {
+    const action = { type: fetchIngredients.rejected.type, payload: { success: false }}
+
+    const result = ingredientsReducer({ error: null }, action);
+
+    expect(result.error).toEqual({ success: false });
+  });
+
   it('should return default state when passed an empty state', () => {
     const result = ingredientsReducer(undefined, { type: ''});
 

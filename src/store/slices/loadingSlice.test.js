@@ -12,7 +12,7 @@ describe('loadingSlice', () => {
 
   it('should handle fetchIngredients pending', () => {
     const action = { type: fetchIngredients.pending.type };
-    
+
     const result = loadingReducer(initialState, action);
 
     expect(result.isLoading).toBe(true);
@@ -21,7 +21,7 @@ describe('loadingSlice', () => {
   it('should handle fetchIngredients fulfilled', () => {
     const action = { type: fetchIngredients.fulfilled.type, payload: [] };
     
-    const result = loadingReducer({ ...initialState, isLoading: true }, action);
+    const result = loadingReducer({ isLoading: true }, action);
 
     expect(result.isLoading).toBe(false);
   });
@@ -29,7 +29,7 @@ describe('loadingSlice', () => {
   it('should handle fetchIngredients rejected', () => {
     const action = { type: fetchIngredients.rejected.type, error: {} };
     
-    const result = loadingReducer({ ...initialState, isLoading: true }, action);
+    const result = loadingReducer({ isLoading: true }, action);
 
     expect(result.isLoading).toBe(false);
   });
@@ -45,7 +45,7 @@ describe('loadingSlice', () => {
   it('should handle fetchOrder fulfilled', () => {
     const action = { type: fetchOrder.fulfilled.type, payload: {} };
     
-    const result = loadingReducer({ ...initialState, isLoading: true }, action);
+    const result = loadingReducer({ isLoading: true }, action);
 
     expect(result.isLoading).toBe(false);
   });
@@ -53,7 +53,7 @@ describe('loadingSlice', () => {
   it('should handle fetchOrder rejected', () => {
     const action = { type: fetchOrder.rejected.type, error: {} };
 
-    const result = loadingReducer({ ...initialState, isLoading: true }, action);
+    const result = loadingReducer({ isLoading: true }, action);
 
     expect(result.isLoading).toBe(false);
   });
