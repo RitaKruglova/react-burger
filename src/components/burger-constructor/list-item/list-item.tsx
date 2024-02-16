@@ -33,7 +33,7 @@ const ListItem: FC<IListItemProps> = ({ place, ingredient, index }) => {
   const [, dropRef] = useDrop({
     accept: 'list-item',
     hover(ingredient: TIngredient) {
-      index && dispatch(dropIngredient({ingredient, index}));
+      index !== undefined && dispatch(dropIngredient({ingredient, index}));
     }
   });
 
