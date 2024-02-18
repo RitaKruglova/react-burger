@@ -22,7 +22,7 @@ const OrderInfo: FC<IOrderInfo> = ({ orderNumber }) => {
       <h4 className="text text_type_main-medium mb-6">Состав:</h4>
       <ul className={orderInfoStyles.list}>
         {Array.from(filteredIngredients).map((i, index) => (
-          <OrderItem key={`${i._id}-${index}`} image={i.image} name={i.name} quantity={i.count || 0} price={i.price} />
+          <OrderItem key={`${i._id}-${index}`} image={i.image} name={i.name} quantity={i.count || 1} price={i.price} />
         ))}
       </ul>
       <div className={`${orderInfoStyles.result} mt-8 mb-10`}>
