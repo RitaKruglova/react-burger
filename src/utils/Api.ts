@@ -26,7 +26,7 @@ class Api {
         if (err.message.includes('403')) {
           return this.refreshToken(localStorage.getItem('refreshToken'))
             .then(res => {
-              localStorage.setItem('accessToken', res.accessToken);
+              localStorage.setItem('accessToken', res.accessToken.split(' ')[1]);
               emitAccessTokenChangedEvent();
               return this._fetch(url, method, body, {
                 ...headers,

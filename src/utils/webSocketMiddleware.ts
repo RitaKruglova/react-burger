@@ -39,6 +39,7 @@ export const webSocketMiddleware = (wsUrl: string, isAllOrders: boolean = true):
         socket.onmessage = (event) => { 
           const data = JSON.parse(event.data);
           store.dispatch({ type: actionTypeSet, payload: data.orders});
+          console.log(data.orders);
           store.dispatch({ type: wsSetTotal, payload: {total: data.total, totalToday: data.totalToday}})
         }
         socket.onclose = () => store.dispatch({ type: wsConnectionClosed });
