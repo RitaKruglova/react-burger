@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, Middleware } from '@reduxjs/toolkit';
 import ingredientsReducer from './slices/ingredientsSlice';
 import tabsReducer from './slices/tabsSlice';
 import orderReducer from './slices/orderSlice';

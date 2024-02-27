@@ -3,7 +3,7 @@ import { api } from '../../utils/Api';
 import invisibleBun from '../../images/invisible-bun.png';
 import { TBun, TDropIngredientAction, TIngredient, TIngredientSliceState } from '../../utils/types';
 
-const initialBun = {
+export const initialBun = {
   _id: '',
   name: 'Перетащите сюда булку и другие ингредиенты',
   type: 'bun',
@@ -57,15 +57,17 @@ function getIngredient(state: TIngredientSliceState, action: PayloadAction<TIngr
   return state.dataIngredients.filter(i => i._id === action.payload._id)[0];
 }
 
+export const initialState = {
+  dataIngredients: [],
+  error: null,
+  draggedIngredients: [],
+  bun: initialBun,
+  currentIngredient: null
+} as TIngredientSliceState;
+
 const ingredientsSlice = createSlice({
   name: 'ingredients',
-  initialState: {
-    dataIngredients: [],
-    error: null,
-    draggedIngredients: [],
-    bun: initialBun,
-    currentIngredient: null
-  } as TIngredientSliceState,
+  initialState,
   reducers: {
     addIngredient: (state, action: PayloadAction<TIngredient>) => {
       state.draggedIngredients.push(action.payload);

@@ -34,3 +34,6 @@ export const wsConnectionSuccess: string = 'webSocket/connectionSuccess';
 export const wsConnectionError: string = 'webSocket/connectionError';
 export const wsSetTotal: string = 'webSocket/setTotal';
 export const wsConnectionClosed: string = 'webSocket/connectionClosed';
+export const testUrl: string = 'http://localhost:3000';
+export const ingredientTestSelector: string = '[class^=ingredient_ingredient__]';
+export const counterTestSelector: string = '.counter__num';

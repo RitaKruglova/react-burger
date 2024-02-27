@@ -55,6 +55,7 @@ const BurgerConstructor: FC = () => {
     } else {
       const ingredientIds = draggedIngredients.map(i => i['_id']);
       if (bun && bun['_id']) {
+        ingredientIds.unshift(bun['_id']);
         ingredientIds.push(bun['_id']);
       }
       dispatch(fetchOrder(ingredientIds));

@@ -73,16 +73,18 @@ export const fetchChangeUserInfo = createAsyncThunk(
   }
 )
 
+export const initialState = {
+  isPasswordVisible: false,
+  values: {},
+  currentUser: {
+    email: '',
+    name: ''
+  }
+} as TFormSliseState;
+
 const formSlice = createSlice({
   name: 'form',
-  initialState: {
-    isPasswordVisible: false,
-    values: {},
-    currentUser: {
-      email: '',
-      name: ''
-    }
-  } as TFormSliseState,
+  initialState,
   reducers: {
     changePasswordVisibility: (state) => {
       state.isPasswordVisible = !state.isPasswordVisible;
@@ -118,7 +120,7 @@ const formSlice = createSlice({
       })
       .addCase(fetchGetUser.rejected, () => {
         localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('refreshToken'); // у меня не получилось замокать localStorage, я потратила на это целый день. покажите пожалуйста как это тестировать
       })
       .addCase(fetchChangeUserInfo.fulfilled, (state, action: PayloadAction<TGetUserResponse>) => {
         state.currentUser = action.payload.user;
@@ -127,4 +129,4 @@ const formSlice = createSlice({
 });
 
 export default formSlice.reducer;
-export const { changePasswordVisibility, setValue, resetValues,resetCurrentUser } = formSlice.actions;
+export const { changePasswordVisibility, setValue, resetValues, resetCurrentUser } = formSlice.actions;

@@ -3,21 +3,23 @@ import { api } from '../../utils/Api';
 import { TOrderResponse, TOrderSliceState } from '../../utils/types';
 
 export const fetchOrder = createAsyncThunk(
-  'ingredients/fetchOrderNumber',
+  'order/fetchOrder',
   async (ingredientIds: string[]) => {
     const response = await api.createOrder(ingredientIds, localStorage.getItem('accessToken'));
     return response;
   }
-)
+);
+
+export const initialState = {
+  orderNumber: null,
+  order: null,
+  error: null,
+  currentOrder: null
+} as TOrderSliceState;
 
 const orderSlice = createSlice({
   name: 'order',
-  initialState: {
-    orderNumber: null,
-    order: null,
-    error: null,
-    currentOrder: null
-  } as TOrderSliceState,
+  initialState: initialState,
   reducers: {
     removeOrderNumber: (state) => {
       state.orderNumber = null;

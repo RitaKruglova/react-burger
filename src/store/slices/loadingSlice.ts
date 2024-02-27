@@ -3,11 +3,13 @@ import { fetchIngredients } from "./ingredientsSlice";
 import { fetchOrder } from "./orderSlice";
 import { TLoadingSliceState } from "../../utils/types";
 
+export const initialState = {
+  isLoading: false
+} as TLoadingSliceState
+
 const loadingSlice = createSlice({
   name: 'loading',
-  initialState: {
-    isLoading: false
-  } as TLoadingSliceState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
